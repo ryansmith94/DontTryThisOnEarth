@@ -15,7 +15,7 @@ Website to suggest mankind’s “firsts” on Mars. Created for the coursework 
 	2. Change to the directory that contains the code for this repository
 	3. Type `npm install`
 
-### Directory Strcture
+### Directory Structure
 - Markup written in [Jade](http://jade-lang.com/) or HTML should be put in the `src/markup` directory.
 - Scripts written in [CoffeeScript](http://coffeescript.org/) or JavaScript should be put in the `src/scripts` directory.
 - Styles written in [SCSS](http://sass-lang.com/) or CSS should be put in the `src/styles` directory.
