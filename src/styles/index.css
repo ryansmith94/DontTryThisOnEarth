@@ -1,5 +1,8 @@
 body {
   background-color: whitesmoke; }
+  body .wrapper {
+    margin-top: 5em; }
+
 .navbar-default {
   background-color: #a03619;
   border-color: #a03619; }
