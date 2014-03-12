@@ -39,6 +39,7 @@ body {
 	.navbar-brand {
 		color: $secondaryColour;
 		.logo {
+			background-image: url("../images/logo.png");
 			background-size: 100%;
 			width: 1.2em;
 			height: 1.2em;
