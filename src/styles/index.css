@@ -1,2 +1,30 @@
 body {
   background-color: whitesmoke; }
+.navbar-default {
+  background-color: #a03619;
+  border-color: #a03619; }
+  .navbar-default .navbar-toggle {
+    border-color: #a03619; }
+    .navbar-default .navbar-toggle .icon-bar {
+      background-color: whitesmoke; }
+  .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #a03619;
+    border-color: #a03619; }
+    .navbar-default .navbar-toggle:hover .icon-bar, .navbar-default .navbar-toggle:focus .icon-bar {
+      background-color: #b7b7b7; }
+  .navbar-default .navbar-brand {
+    color: whitesmoke; }
+    .navbar-default .navbar-brand .logo {
+      background-size: 100%;
+      width: 1.2em;
+      height: 1.2em;
+      display: inline-block; }
+    .navbar-default .navbar-brand .name {
+      display: inline-block;
+      vertical-align: top; }
+  .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #b7b7b7; }
+  .navbar-default .navbar-nav li a {
+    color: whitesmoke; }
+  .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
+    color: #b7b7b7; }
