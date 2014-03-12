@@ -2,21 +2,28 @@ head
 	link(href='../styles/bootstrap.min.css', rel='stylesheet')
 	link(href='../styles/index.css', rel='stylesheet')
 body
+	// Header.
 	.navbar.navbar-default.navbar-fixed-top(role='navigation')
 		.container
 			.navbar-header
+				// Menu icon.
 				button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar')
 					span.sr-only Toggle navigation
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
+
+				// Brand containing logo and name.
 				a.navbar-brand(href="#")
 					.logo
 					.name Don't Try This on Earth
 			.collapse.navbar-collapse#navbar
+				// Navigation links.
 				ul.nav.navbar-nav.navbar-right
 					li
 						a(href="#") Sign In
+
+	// Content (suggestions and comments).
 	.container.wrapper
 		section#suggestions Suggestions will go here.
 		section#comments Comments will go here.
