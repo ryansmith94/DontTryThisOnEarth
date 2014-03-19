@@ -19,6 +19,7 @@ module.exports = function (grunt) {
                             'colours.scss': true,
                             'header.scss': true,
                             'suggestion.scss': true,
+                            'comment.scss': true
                         };
                         return !ignore[filepath.split('/').pop()];
                     }
