@@ -1,0 +1,56 @@
+$votesWidth: 5em;
+
+.suggestion {
+	position: relative;
+	.votes {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $votesWidth;
+		text-align: center;
+		.up {
+
+		}
+		.score {
+
+		}
+		.down {
+
+		}
+	}
+	.content {
+		margin-left: $votesWidth;
+		position: relative;
+		.text {
+			color: $primaryColour;
+		}
+		.info {
+			.reply {
+				display: inline-block;
+				margin-right: 1em;
+				.icon {
+
+				}
+			}
+			.share {
+				display: inline-block;
+				margin-right: 1em;
+				.icon {
+
+				}
+			}
+			.author {
+				display: inline-block;
+				margin-right: 1em;
+
+			}
+			.delete {
+				display: inline-block;
+				margin-right: 1em;
+				.icon {
+
+				}
+			}
+		}
+	}
+}

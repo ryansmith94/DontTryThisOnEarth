@@ -18,6 +18,7 @@ module.exports = function (grunt) {
                         var ignore = {
                             'colours.scss': true,
                             'header.scss': true,
+                            'suggestion.scss': true,
                         };
                         return !ignore[filepath.split('/').pop()];
                     }

@@ -32,3 +32,29 @@ body {
     color: whitesmoke; }
   .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
     color: #b7b7b7; }
+
+.suggestion {
+  position: relative; }
+  .suggestion .votes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5em;
+    text-align: center; }
+  .suggestion .content {
+    margin-left: 5em;
+    position: relative; }
+    .suggestion .content .text {
+      color: #a03619; }
+    .suggestion .content .info .reply {
+      display: inline-block;
+      margin-right: 1em; }
+    .suggestion .content .info .share {
+      display: inline-block;
+      margin-right: 1em; }
+    .suggestion .content .info .author {
+      display: inline-block;
+      margin-right: 1em; }
+    .suggestion .content .info .delete {
+      display: inline-block;
+      margin-right: 1em; }
