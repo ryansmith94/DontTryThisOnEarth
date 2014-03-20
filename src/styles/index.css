@@ -54,7 +54,10 @@ form {
     min-height: 90%; }
 
   #suggestions {
-    border-right: #b7b7b7 1px solid; } }
+    border-right: #b7b7b7 1px solid; }
+
+  .back {
+    display: none; } }
 .navbar-default {
   background-color: #a03619;
   border-color: #a03619; }

@@ -78,6 +78,10 @@ form {
 	#suggestions {
 		border-right: $quaternaryColour 1px solid;
 	}
+
+	.back {
+		display: none;
+	}
 }
 
 @import 'header';
