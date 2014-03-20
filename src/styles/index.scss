@@ -28,6 +28,10 @@ body {
 	}
 }
 
+#comments {
+	position: absolute;
+	left: 100%;
+}
 @import 'header';
 @import 'suggestion';
 
