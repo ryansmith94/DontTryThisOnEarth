@@ -13,6 +13,20 @@ class User
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
+Stores and manipulates comment data.
+###
+class Comment
+	###
+	Constructs a new comment.
+	@param text comment itself in text.
+	@param author user that created the comment.
+	@param date and time that the comment was made.
+	###
+	constructor: (@text, @author, @time) ->
+
+
+###
+@author Ryan Smith <12034191@brookes.ac.uk>
 Stores and manipulates suggestion data.
 ###
 class Suggestion
@@ -30,7 +44,7 @@ class Suggestion
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates suggestions (by the current user) via the user interface.
+Displays and manipulates a suggestion (by the current user) via the user interface.
 ###
 class SuggestionElement
 	###
@@ -80,7 +94,7 @@ class SuggestionElement
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates suggestions (by other users) via the user interface.
+Displays and manipulates a suggestion (by another users) via the user interface.
 ###
 class ExternalSuggestionElement extends SuggestionElement
 	###
@@ -93,4 +107,25 @@ class ExternalSuggestionElement extends SuggestionElement
 		"""
 
 
+###
+@author Ryan Smith <12034191@brookes.ac.uk>
+Displays and manipulates a comment via the user interface.
+###
+class CommentElement
+	###
+	Constructs a new comment element.
+	@param comment the comment to be displayed and manipulated.
+	###
+	constructor: (@comment) ->
 
+	###
+	Produces HTML for displaying the comment.
+	@return comment as HTML.
+	###
+	toHtml: () ->
+		"""
+		<div class="comment">
+		  <h2 class="text">This is a comment.</h2>
+		  <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
+		</div>
+		"""

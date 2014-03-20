@@ -5,7 +5,7 @@ Stores and manipulates user data.
 
 
 (function() {
-  var ExternalSuggestionElement, Suggestion, SuggestionElement, User, _ref,
+  var Comment, CommentElement, ExternalSuggestionElement, Suggestion, SuggestionElement, User, _ref,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -22,6 +22,30 @@ Stores and manipulates user data.
     }
 
     return User;
+
+  })();
+
+  /*
+  @author Ryan Smith <12034191@brookes.ac.uk>
+  Stores and manipulates comment data.
+  */
+
+
+  Comment = (function() {
+    /*
+    	Constructs a new comment.
+    	@param text comment itself in text.
+    	@param author user that created the comment.
+    	@param date and time that the comment was made.
+    */
+
+    function Comment(text, author, time) {
+      this.text = text;
+      this.author = author;
+      this.time = time;
+    }
+
+    return Comment;
 
   })();
 
@@ -57,7 +81,7 @@ Stores and manipulates user data.
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates suggestions (by the current user) via the user interface.
+  Displays and manipulates a suggestion (by the current user) via the user interface.
   */
 
 
@@ -97,7 +121,7 @@ Stores and manipulates user data.
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates suggestions (by other users) via the user interface.
+  Displays and manipulates a suggestion (by another users) via the user interface.
   */
 
 
@@ -122,5 +146,35 @@ Stores and manipulates user data.
     return ExternalSuggestionElement;
 
   })(SuggestionElement);
+
+  /*
+  @author Ryan Smith <12034191@brookes.ac.uk>
+  Displays and manipulates a comment via the user interface.
+  */
+
+
+  CommentElement = (function() {
+    /*
+    	Constructs a new comment element.
+    	@param comment the comment to be displayed and manipulated.
+    */
+
+    function CommentElement(comment) {
+      this.comment = comment;
+    }
+
+    /*
+    	Produces HTML for displaying the comment.
+    	@return comment as HTML.
+    */
+
+
+    CommentElement.prototype.toHtml = function() {
+      return "<div class=\"comment\">\n  <h2 class=\"text\">This is a comment.</h2>\n  <div class=\"author\">Posted by <a>Alan</a> 3hrs ago</div>\n</div>";
+    };
+
+    return CommentElement;
+
+  })();
 
 }).call(this);
