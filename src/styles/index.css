@@ -19,6 +19,25 @@ body {
   body .wrapper {
     margin-top: 5em; }
 
+.suggestions #comments {
+  position: absolute;
+  left: 100%; }
+
+.comments #suggestions {
+  position: absolute;
+  right: 100%; }
+
+@media (min-width: 768px) {
+  #suggestions, #comments {
+    position: static !important;
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    min-height: 90%; }
+
+  #suggestions {
+    margin-right: 2%;
+    border-right: #191919 1px solid; } }
 .navbar-default {
   background-color: #a03619;
   border-color: #a03619; }
@@ -61,7 +80,8 @@ body {
     margin-left: 5em;
     position: relative; }
     .suggestion .content .text {
-      color: #a03619; }
+      color: #a03619;
+      min-height: 1.5em; }
     .suggestion .content .info .reply {
       display: inline-block;
       margin-right: 1em; }
@@ -74,3 +94,8 @@ body {
     .suggestion .content .info .delete {
       display: inline-block;
       margin-right: 1em; }
+
+.comment {
+  margin-top: 0.5em; }
+  .comment .text {
+    min-height: 1.5em; }

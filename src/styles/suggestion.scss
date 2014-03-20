@@ -23,6 +23,7 @@ $votesWidth: 5em;
 		position: relative;
 		.text {
 			color: $primaryColour;
+			min-height: 1.5em;
 		}
 		.info {
 			.reply {

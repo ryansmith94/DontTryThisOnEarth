@@ -28,6 +28,36 @@ body {
 	}
 }
 
+.suggestions {
+	#comments {
+		position: absolute;
+		left: 100%;
+	}
+}
+
+.comments {
+	#suggestions {
+		position: absolute;
+		right: 100%;
+	}
+}
+
+@media (min-width: 768px) {
+	#suggestions, #comments {
+		position: static !important;
+		width: 48%;
+		display: inline-block;
+		vertical-align: top;
+		min-height: 90%;
+	}
+
+	#suggestions {
+		margin-right: 2%;
+		border-right: $tertiaryColour 1px solid;
+	}
+}
+
 @import 'header';
 @import 'suggestion';
+@import 'comment';
 
