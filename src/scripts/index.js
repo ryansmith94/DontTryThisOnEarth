@@ -21,6 +21,14 @@ Stores and manipulates user data.
       this.email = email;
     }
 
+    User.prototype.getUserName = function() {
+      return this.name;
+    };
+
+    User.prototype.getEmail = function() {
+      return this.email;
+    };
+
     return User;
 
   })();
@@ -74,6 +82,54 @@ Stores and manipulates user data.
       this.author = author;
       this.time = time;
     }
+
+    /*
+    	Replaces the text and time of a suggestion
+    	@param text, suggestion is text and will replace existing one
+    	@param time, replace time with new time
+    */
+
+
+    Suggestion.prototype.editSuggestion = function(text, time) {
+      this.text = text;
+      this.time = time;
+    };
+
+    /*
+    	Increase the score by one due to up-vote.
+    */
+
+
+    increaseScore()(function() {
+      return this.score += 1;
+    });
+
+    /*
+    	Decreases the score by one due to down-vote.
+    */
+
+
+    decreaseScore()(function() {
+      return score -= 1;
+    });
+
+    /*
+    	Increase reply counter by one for a new reply.
+    */
+
+
+    increaseReplies()(function() {
+      return replies += 1;
+    });
+
+    /*
+    	Decrease reply counter by one for a deleted reply.
+    */
+
+
+    decreaseReplies()(function() {
+      return replies -= 1;
+    });
 
     return Suggestion;
 
