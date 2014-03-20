@@ -25,6 +25,15 @@
   <!-- Content (suggestions and comments).-->
   <div class="container wrapper suggestions">
     <section id="suggestions">
+      <form id="PostSuggestion">
+        <input type="paragraph" placeholder="Please write your suggestion here..."/>
+        <div class="clickable cancel">
+          <div class="icon"></div>Cancel
+        </div>
+        <div class="clickable submit">
+          <div class="icon"></div>Post suggestion
+        </div>
+      </form>
       <div class="suggestion">
         <div class="votes">
           <div class="up"></div>
@@ -34,14 +43,14 @@
         <div class="content">
           <h1 class="text">"First person to moonwalk on Mars"</h1>
           <div class="info">
-            <div class="reply">
+            <div class="clickable reply">
               <div class="icon"></div>0 Replies
             </div>
-            <div class="share">
+            <div class="clickable share">
               <div class="icon"></div>2 Shares
             </div>
-            <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
-            <div class="delete">
+            <div class="author">Posted by <a class="clickable">Alan</a> 3hrs ago</div>
+            <div class="clickable delete">
               <div class="icon"></div>Delete
             </div>
           </div>
@@ -49,9 +58,18 @@
       </div>
     </section>
     <section id="comments">
+      <form id="PostComment">
+        <input type="paragraph" placeholder="Please write your comment here..."/>
+        <div class="clickable cancel">
+          <div class="icon"></div>Cancel
+        </div>
+        <div class="clickable submit">
+          <div class="icon"></div>Post comment
+        </div>
+      </form>
       <div class="comment">
         <h2 class="text">This is a comment.</h2>
-        <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
+        <div class="author">Posted by <a class="clickable">Alan</a> 3hrs ago</div>
       </div>
     </section>
   </div>

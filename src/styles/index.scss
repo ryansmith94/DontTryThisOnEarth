@@ -29,6 +29,10 @@ body {
 	}
 }
 
+.clickable {
+	cursor: pointer;
+}
+
 .suggestions {
 	#comments {
 		position: absolute;
@@ -40,6 +44,20 @@ body {
 	#suggestions {
 		position: absolute;
 		right: 100%;
+	}
+}
+
+form {
+	margin: 0.5rem;
+	input {
+		width: 100%;
+		min-height: 3rem;
+	}
+	.submit, .cancel {
+		display: inline-block;
+	}
+	.cancel {
+		margin-right: 1rem;
 	}
 }
 

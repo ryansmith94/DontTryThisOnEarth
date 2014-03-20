@@ -20,6 +20,9 @@ body {
     body .wrapper #comments, body .wrapper #suggestions {
       font-size: 1rem; }
 
+.clickable {
+  cursor: pointer; }
+
 .suggestions #comments {
   position: absolute;
   left: 100%; }
@@ -27,6 +30,16 @@ body {
 .comments #suggestions {
   position: absolute;
   right: 100%; }
+
+form {
+  margin: 0.5rem; }
+  form input {
+    width: 100%;
+    min-height: 3rem; }
+  form .submit, form .cancel {
+    display: inline-block; }
+  form .cancel {
+    margin-right: 1rem; }
 
 @media (min-width: 768px) {
   #suggestions, #comments {
@@ -83,17 +96,8 @@ body {
     position: relative; }
     .suggestion .content .text {
       color: #a03619;
-      min-height: 2.2rem; }
-    .suggestion .content .info .reply {
-      display: inline-block;
-      margin-right: 1rem; }
-    .suggestion .content .info .share {
-      display: inline-block;
-      margin-right: 1rem; }
-    .suggestion .content .info .author {
-      display: inline-block;
-      margin-right: 1rem; }
-    .suggestion .content .info .delete {
+      min-height: 1.8rem; }
+    .suggestion .content .info .reply, .suggestion .content .info .share, .suggestion .content .info .delete, .suggestion .content .info .author {
       display: inline-block;
       margin-right: 1rem; }
 
