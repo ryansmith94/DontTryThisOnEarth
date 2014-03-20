@@ -20,7 +20,17 @@ body
 			.collapse.navbar-collapse#navbar
 				// Navigation links.
 				ul.nav.navbar-nav.navbar-right
-					li: a(href="#") Sign In
+					li.dropdown
+						a.dropdown-toggle(data-toggle='dropdown')
+							| Sign In
+							b.caret
+						ul.dropdown-menu
+							li
+								form.navbar-form.navbar-left(role='search')
+									.form-group
+										input.form-control(type='text', placeholder='Email')
+										input.form-control(type='password', placeholder='Password')
+									button.btn.btn-default(type='submit') Submit
 
 	// Content (suggestions and comments).
 	.container.wrapper.suggestions
