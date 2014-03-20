@@ -81,7 +81,7 @@ Stores and manipulates user data.
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates suggestions (by the current user) via the user interface.
+  Displays and manipulates a suggestion (by the current user) via the user interface.
   */
 
 
@@ -121,7 +121,7 @@ Stores and manipulates user data.
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates suggestions (by other users) via the user interface.
+  Displays and manipulates a suggestion (by another users) via the user interface.
   */
 
 

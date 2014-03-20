@@ -44,7 +44,7 @@ class Suggestion
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates suggestions (by the current user) via the user interface.
+Displays and manipulates a suggestion (by the current user) via the user interface.
 ###
 class SuggestionElement
 	###
@@ -94,7 +94,7 @@ class SuggestionElement
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates suggestions (by other users) via the user interface.
+Displays and manipulates a suggestion (by another users) via the user interface.
 ###
 class ExternalSuggestionElement extends SuggestionElement
 	###
