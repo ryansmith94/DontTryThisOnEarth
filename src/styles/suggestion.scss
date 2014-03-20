@@ -2,6 +2,8 @@ $votesWidth: 5em;
 
 .suggestion {
 	position: relative;
+	padding: 0.5rem;
+	border-bottom: $quaternaryColour 1px solid;
 	.votes {
 		position: absolute;
 		top: 0;
@@ -23,31 +25,31 @@ $votesWidth: 5em;
 		position: relative;
 		.text {
 			color: $primaryColour;
-			min-height: 1.5em;
+			min-height: 2.2rem;
 		}
 		.info {
 			.reply {
 				display: inline-block;
-				margin-right: 1em;
+				margin-right: 1rem;
 				.icon {
 
 				}
 			}
 			.share {
 				display: inline-block;
-				margin-right: 1em;
+				margin-right: 1rem;
 				.icon {
 
 				}
 			}
 			.author {
 				display: inline-block;
-				margin-right: 1em;
+				margin-right: 1rem;
 
 			}
 			.delete {
 				display: inline-block;
-				margin-right: 1em;
+				margin-right: 1rem;
 				.icon {
 
 				}

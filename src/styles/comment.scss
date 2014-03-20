@@ -1,5 +1,7 @@
 .comment {
-	margin-top: 0.5em;
+	margin-top: 0.4em;
+	padding: 0.5rem;
+	border-bottom: $quaternaryColour 1px solid;
 	.text {
 		min-height: 1.5em;
 	}
