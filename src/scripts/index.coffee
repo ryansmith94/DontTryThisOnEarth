@@ -9,7 +9,10 @@ class User
 	@param email user's email address.
 	###
 	constructor: (@name, @email) ->
-
+	
+	getUserName: () -> @name
+	
+	getEmail: () -> @email
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
@@ -41,7 +44,34 @@ class Suggestion
 	###
 	constructor: (@text, @score, @replies, @shares, @author, @time) ->
 
+	###
+	Replaces the text and time of a suggestion
+	@param text, suggestion is text and will replace existing one
+	@param time, replace time with new time
+	###
+	editSuggestion: (@text, @time) -> 
+	
+	###
+	Increase the score by one due to up-vote.
+	###
+	increaseScore() -> @score+=1
+	
+	###
+	Decreases the score by one due to down-vote.
+	###
+	decreaseScore() -> score-=1
 
+	###
+	Increase reply counter by one for a new reply.
+	###
+	increaseReplies() -> replies+=1
+	
+	###
+	Decrease reply counter by one for a deleted reply.
+	###
+	decreaseReplies() -> replies-=1
+	
+	
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
 Displays and manipulates a suggestion (by the current user) via the user interface.
