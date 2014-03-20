@@ -100,36 +100,36 @@ Stores and manipulates user data.
     */
 
 
-    increaseScore()(function() {
+    Suggestion.prototype.increaseScore = function() {
       return this.score += 1;
-    });
+    };
 
     /*
     	Decreases the score by one due to down-vote.
     */
 
 
-    decreaseScore()(function() {
+    Suggestion.prototype.decreaseScore = function() {
       return score -= 1;
-    });
+    };
 
     /*
     	Increase reply counter by one for a new reply.
     */
 
 
-    increaseReplies()(function() {
+    Suggestion.prototype.increaseReplies = function() {
       return replies += 1;
-    });
+    };
 
     /*
     	Decrease reply counter by one for a deleted reply.
     */
 
 
-    decreaseReplies()(function() {
+    Suggestion.prototype.decreaseReplies = function() {
       return replies -= 1;
-    });
+    };
 
     return Suggestion;
 

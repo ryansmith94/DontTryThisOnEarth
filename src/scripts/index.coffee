@@ -54,22 +54,22 @@ class Suggestion
 	###
 	Increase the score by one due to up-vote.
 	###
-	increaseScore() -> @score+=1
+	increaseScore: () -> @score += 1
 	
 	###
 	Decreases the score by one due to down-vote.
 	###
-	decreaseScore() -> score-=1
+	decreaseScore: () -> score -= 1
 
 	###
 	Increase reply counter by one for a new reply.
 	###
-	increaseReplies() -> replies+=1
+	increaseReplies: () -> replies += 1
 	
 	###
 	Decrease reply counter by one for a deleted reply.
 	###
-	decreaseReplies() -> replies-=1
+	decreaseReplies: () -> replies -= 1
 	
 	
 ###
