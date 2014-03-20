@@ -4,22 +4,50 @@
   <link href="../styles/index.css" rel="stylesheet"/>
 </head>
 <body>
+  <!-- Header.-->
   <div role="navigation" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" data-toggle="collapse" data-target="#navbar" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">
+        <!-- Menu icon.-->
+        <button type="button" data-toggle="collapse" data-target="#navbar" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+        <!-- Brand containing logo and name.--><a href="#" class="navbar-brand">
           <div class="logo"></div>
           <div class="name">Don't Try This on Earth</div></a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
+        <!-- Navigation links.-->
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#">Sign In</a></li>
         </ul>
       </div>
     </div>
   </div>
+  <!-- Content (suggestions and comments).-->
   <div class="container wrapper">
-    <section id="suggestions">Suggestions will go here.</section>
+    <section id="suggestions">
+      <div class="suggestion">
+        <div class="votes">
+          <div class="up"></div>
+          <h2 class="score">10</h2>
+          <div class="down"></div>
+        </div>
+        <div class="content">
+          <h1 class="text">"First person to moonwalk on Mars"</h1>
+          <div class="info">
+            <div class="reply">
+              <div class="icon"></div>0 Replies
+            </div>
+            <div class="share">
+              <div class="icon"></div>2 Shares
+            </div>
+            <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
+            <div class="delete">
+              <div class="icon"></div>Delete
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <section id="comments">Comments will go here.</section>
   </div>
   <script src="../scripts/jquery-1.11.0.min.js"></script>

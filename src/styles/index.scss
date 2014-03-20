@@ -1,9 +1,25 @@
-$primaryColour: #A03619;
-$secondaryColour: #F5F5F5;
-$tertiaryColour: #191919;
-$quaternaryColour: #B7B7B7;
-$positiveColour: #00D100;
-$negativeColour: #D42424;
+@import 'colours';
+
+h1, h2, h3, h4, p, body {
+	margin: 0px;
+	color: $tertiaryColour;
+}
+
+h1 {
+	font-size: 1.5em;
+	line-height: 1.3em;
+}
+
+h2 {
+	font-size: 1.2em;
+	line-height: 1.0em;
+}
+
+h3, h4, p {
+	font-size: 1em;
+	line-height: 0.8em;
+}
+
 
 body {
 	background-color: $secondaryColour;
@@ -12,57 +28,6 @@ body {
 	}
 }
 
-// Header.
-.navbar-default {
-	background-color: $primaryColour;
-	border-color: $primaryColour;
-
-	// Menu icon when it is not in use.
-	.navbar-toggle {
-		border-color: $primaryColour;
-
-		// Three lines for the menu icon.
-		.icon-bar {
-			background-color: $secondaryColour;
-		}
-	}
-
-	// Menu icon when it is hovered over or focused on.
-	.navbar-toggle:hover, .navbar-toggle:focus {
-		background-color: $primaryColour;
-		border-color: $primaryColour;
-
-		// Three lines for the menu icon.
-		.icon-bar {
-			background-color: $quaternaryColour;
-		}
-	}
-
-	// Brand including logo and name.
-	.navbar-brand {
-		color: $secondaryColour;
-		.logo {
-			background-image: url("../images/logo.png");
-			background-size: 100%;
-			width: 1.2em;
-			height: 1.2em;
-			display: inline-block;
-		}
-		.name {
-			display: inline-block;
-			vertical-align: top;
-		}
-	}
-	.navbar-brand:hover, .navbar-brand:focus {
-		color: $quaternaryColour;
-	}
-
-	// Nav links.
-	.navbar-nav li a {
-		color: $secondaryColour;
-	}
-	.navbar-nav li a:hover, .navbar-nav li a:focus {
-		color: $quaternaryColour;
-	}
-}
+@import 'header';
+@import 'suggestion';
 

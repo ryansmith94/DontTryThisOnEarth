@@ -15,7 +15,12 @@ module.exports = function (grunt) {
                     dest: buildDir,
                     ext: '.css',
                     filter: function (filepath) {
-                        var ignore = {};
+                        var ignore = {
+                            'colours.scss': true,
+                            'header.scss': true,
+                            'suggestion.scss': true,
+                            'comment.scss': true
+                        };
                         return !ignore[filepath.split('/').pop()];
                     }
                 }]
