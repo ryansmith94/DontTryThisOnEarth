@@ -61,6 +61,11 @@ form {
 	}
 }
 
+.back {
+	text-align: center;
+	margin: 1rem;
+}
+
 @media (min-width: 768px) {
 	#suggestions, #comments {
 		position: static !important;
