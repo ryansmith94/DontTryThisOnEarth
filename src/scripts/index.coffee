@@ -13,6 +13,20 @@ class User
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
+Stores and manipulates comment data.
+###
+class Comment
+	###
+	Constructs a new comment.
+	@param text comment itself in text.
+	@param author user that created the comment.
+	@param date and time that the comment was made.
+	###
+	constructor: (@text, @author, @time) ->
+
+
+###
+@author Ryan Smith <12034191@brookes.ac.uk>
 Stores and manipulates suggestion data.
 ###
 class Suggestion

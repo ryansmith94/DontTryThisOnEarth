@@ -27,6 +27,30 @@ Stores and manipulates user data.
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>
+  Stores and manipulates comment data.
+  */
+
+
+  Comment = (function() {
+    /*
+    	Constructs a new comment.
+    	@param text comment itself in text.
+    	@param author user that created the comment.
+    	@param date and time that the comment was made.
+    */
+
+    function Comment(text, author, time) {
+      this.text = text;
+      this.author = author;
+      this.time = time;
+    }
+
+    return Comment;
+
+  })();
+
+  /*
+  @author Ryan Smith <12034191@brookes.ac.uk>
   Stores and manipulates suggestion data.
   */
 
