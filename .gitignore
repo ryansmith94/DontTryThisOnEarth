@@ -3,3 +3,9 @@ node_modules
 
 #SASS
 .sass-cache
+
+#Grunt not using filter
+colours.css
+header.css
+suggestion.css
+comment.css

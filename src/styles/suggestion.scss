@@ -10,49 +10,18 @@ $votesWidth: 5em;
 		left: 0;
 		width: $votesWidth;
 		text-align: center;
-		.up {
-
-		}
-		.score {
-
-		}
-		.down {
-
-		}
 	}
 	.content {
 		margin-left: $votesWidth;
 		position: relative;
 		.text {
 			color: $primaryColour;
-			min-height: 2.2rem;
+			min-height: 1.8rem;
 		}
 		.info {
-			.reply {
+			.reply, .share, .delete, .author {
 				display: inline-block;
 				margin-right: 1rem;
-				.icon {
-
-				}
-			}
-			.share {
-				display: inline-block;
-				margin-right: 1rem;
-				.icon {
-
-				}
-			}
-			.author {
-				display: inline-block;
-				margin-right: 1rem;
-
-			}
-			.delete {
-				display: inline-block;
-				margin-right: 1rem;
-				.icon {
-
-				}
 			}
 		}
 	}

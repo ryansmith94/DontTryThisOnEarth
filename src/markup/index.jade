@@ -25,6 +25,14 @@ body
 	// Content (suggestions and comments).
 	.container.wrapper.suggestions
 		section#suggestions
+			form#PostSuggestion
+				input(type='paragraph', placeholder='Please write your suggestion here...')
+				.clickable.cancel
+					.icon
+					| Cancel
+				.clickable.submit
+					.icon
+					| Post suggestion
 			.suggestion
 				.votes
 					.up
@@ -33,25 +41,33 @@ body
 				.content
 					h1.text "First person to moonwalk on Mars"
 					.info
-						.reply
+						.clickable.reply
 							.icon
 							| 0 Replies
-						.share
+						.clickable.share
 							.icon
 							| 2 Shares
 						.author 
 							| Posted by 
-							a Alan
+							a.clickable Alan
 							|  3hrs ago
-						.delete
+						.clickable.delete
 							.icon
 							| Delete
 		section#comments
+			form#PostComment
+				input(type='paragraph', placeholder='Please write your comment here...')
+				.clickable.cancel
+					.icon
+					| Cancel
+				.clickable.submit
+					.icon
+					| Post comment
 			.comment
 				h2.text This is a comment.
 				.author 
 					| Posted by 
-					a Alan
+					a.clickable Alan
 					|  3hrs ago
 	script(src='../scripts/jquery-1.11.0.min.js')
 	script(src='../scripts/bootstrap.min.js')
