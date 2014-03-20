@@ -1,0 +1,52 @@
+.navbar-default {
+	background-color: $primaryColour;
+	border-color: $primaryColour;
+
+	// Menu icon when it is not in use.
+	.navbar-toggle {
+		border-color: $primaryColour;
+
+		// Three lines for the menu icon.
+		.icon-bar {
+			background-color: $secondaryColour;
+		}
+	}
+
+	// Menu icon when it is hovered over or focused on.
+	.navbar-toggle:hover, .navbar-toggle:focus {
+		background-color: $primaryColour;
+		border-color: $primaryColour;
+
+		// Three lines for the menu icon.
+		.icon-bar {
+			background-color: $quaternaryColour;
+		}
+	}
+
+	// Brand including logo and name.
+	.navbar-brand {
+		color: $secondaryColour;
+		.logo {
+			background-image: url("../images/logo.png");
+			background-size: 100%;
+			width: 1.2em;
+			height: 1.2em;
+			display: inline-block;
+		}
+		.name {
+			display: inline-block;
+			vertical-align: top;
+		}
+	}
+	.navbar-brand:hover, .navbar-brand:focus {
+		color: $quaternaryColour;
+	}
+
+	// Nav links.
+	.navbar-nav li a {
+		color: $secondaryColour;
+	}
+	.navbar-nav li a:hover, .navbar-nav li a:focus {
+		color: $quaternaryColour;
+	}
+}
