@@ -13,6 +13,7 @@ h2 {
   line-height: 1.0rem; }
 
 body {
+  overflow-x: hidden;
   background-color: whitesmoke; }
   body .wrapper {
     margin-top: 5.1rem;

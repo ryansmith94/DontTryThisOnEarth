@@ -19,6 +19,7 @@ h2 {
 
 
 body {
+	overflow-x: hidden;
 	background-color: $secondaryColour;
 	.wrapper {
 		margin-top: 5.1rem; // Takes the fixed header into account.
