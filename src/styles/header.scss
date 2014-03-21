@@ -53,6 +53,17 @@
 		background-color: transparent;
 		color: $quaternaryColour;
 	}
+	.navbar-nav .account {
+		display: none;
+	}
+	.navbar-nav.signedIn {
+		.account {
+			display: block;
+		}
+		li:not(.account) {
+			display: none;
+		}
+	}
 
 	// Forms.
 	.dropdown-menu {

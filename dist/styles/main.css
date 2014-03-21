@@ -100,6 +100,12 @@ form {
   .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     background-color: transparent;
     color: #b7b7b7; }
+  .navbar-default .navbar-nav .account {
+    display: none; }
+  .navbar-default .navbar-nav.signedIn .account {
+    display: block; }
+  .navbar-default .navbar-nav.signedIn li:not(.account) {
+    display: none; }
   .navbar-default .dropdown-menu {
     color: whitesmoke; }
     .navbar-default .dropdown-menu .form-control {
