@@ -38,8 +38,8 @@ body
 
 	// Content (suggestions and comments).
 	.container.wrapper.suggestions
-		section#suggestions
-			form#PostSuggestion
+		section#suggestions.allUsers
+			form#postSuggestion
 				input(type='paragraph', placeholder='Please write your suggestion here...')
 				.clickable.cancel
 					.icon
@@ -47,6 +47,10 @@ body
 				.clickable.submit
 					.icon
 					| Post suggestion
+
+			.user
+				= 'All suggestions for '
+				a user222567
 
 			mixin suggestion(currentUser, selected)
 				.suggestion(class=selected ? ['selected'] : [])
