@@ -47,30 +47,42 @@ body
 				.clickable.submit
 					.icon
 					| Post suggestion
-			.suggestion.selected
-				.votes
-					.up
-					h2.score 10
-					.down
-				.content
-					h1.text "First person to moonwalk on Mars"
-					.info
-						.clickable.reply
-							.icon
-							| 0 Replies
-						.clickable.share
-							.icon
-							| 2 Shares
-							.shareDropDown
-								a Facebook
-								a Twitter
-						.author 
-							| Posted by 
-							a Alan
-							|  3hrs ago
-						.clickable.delete
-							.icon
-							| Delete
+
+			mixin suggestion(currentUser, selected)
+				.suggestion(class=selected ? ['selected'] : [])
+					.votes
+						.up
+						h2.score 10
+						.down
+					.content
+						h1.text "First person to moonwalk on Mars"
+						.info
+							.clickable.reply
+								.icon
+								| 0 Replies
+							.clickable.share
+								.icon
+								| 2 Shares
+								.shareDropDown
+									a Facebook
+									a Twitter
+							if currentUser
+								.clickable.delete
+									.icon
+									| Delete
+							else
+								.author 
+									| Posted by 
+									a Alan
+									|  3hrs ago
+
+			+suggestion(false, true)
+			+suggestion(false, false)
+			+suggestion(true, false)
+			+suggestion(false, false)
+			+suggestion(false, false)
+			+suggestion(true, false)
+							
 		section#comments
 			form#PostComment
 				input(type='paragraph', placeholder='Please write your comment here...')
@@ -80,12 +92,20 @@ body
 				.clickable.submit
 					.icon
 					| Post comment
-			.comment
-				h2.text This is a comment.
-				.author 
-					| Posted by 
-					a Alan
-					|  3hrs ago
+
+			mixin comment
+				.comment
+					h2.text This is a comment.
+					.author 
+						| Posted by 
+						a Alan
+						|  3hrs ago
+
+			+comment()
+			+comment()
+			+comment()
+			+comment()
+
 			h2.clickable.back
 				| Return to suggestions
 				.icon
