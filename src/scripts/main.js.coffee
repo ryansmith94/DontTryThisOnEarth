@@ -129,3 +129,10 @@ $('.suggestion').click((event) ->
 	$('.suggestion.selected').removeClass('selected')
 	$(this).toggleClass('selected')
 )
+
+# Toggle .signedIn on .navbar-nav to change menu
+# Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
+# Toggle .allUsers on #suggestions to switch between suggestions from a single user and all users
+# @Tim you do not need to add any classes and you shouldn't really need to add any IDs to Jade
+# @Tim use data-attributes (http://ejohn.org/blog/html-5-data-attributes/) where possible
+# @Tim data-attributes can be used to reference array indexes such as suggestions[arrayIndex] - we'll do this later
