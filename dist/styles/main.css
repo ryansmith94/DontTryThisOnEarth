@@ -19,6 +19,13 @@ body {
     font-size: 0; }
     body .wrapper #comments, body .wrapper #suggestions {
       font-size: 1rem; }
+    body .wrapper .user {
+      min-height: 3rem;
+      text-align: center; }
+    body .wrapper #suggestions.allUsers .user {
+      display: none; }
+    body .wrapper #suggestions:not(.allUsers) #postSuggestion {
+      display: none; }
     body .wrapper form {
       margin: 0.5rem;
       margin-bottom: 1rem; }

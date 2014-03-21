@@ -26,6 +26,20 @@ body {
 		#comments, #suggestions {
 			font-size: 1rem;
 		}
+		.user {
+			min-height: 3rem;
+			text-align: center;
+		}
+		#suggestions.allUsers {
+			.user {
+				display: none;
+			}
+		}
+		#suggestions:not(.allUsers) {
+			#postSuggestion {
+				display: none;
+			}
+		}
 		form {
 			margin: 0.5rem;
 			margin-bottom: 1rem;
