@@ -122,3 +122,10 @@ class Suggestion
 			</div>
 			"""
 	)()
+
+# Selects suggestions.
+$('.suggestion').click((event) ->
+	event.stopPropagation() # Stops the event bubbling up to parent handlers.
+	$('.suggestion.selected').removeClass('selected')
+	$(this).toggleClass('selected')
+)
