@@ -1,7 +1,7 @@
  module.exports = function (grunt) {
     'use strict';
     var cwd = 'src';
-    var buildDir = 'src';
+    var buildDir = 'dist';
 
     // Project configuration.
     grunt.initConfig({
@@ -11,18 +11,9 @@
                 files: [{
                     expand: true,
                     cwd: cwd,
-                    src: ['**/*.scss'],
+                    src: ['**/*.css.scss'],
                     dest: buildDir,
                     ext: '.css',
-                    filter: function (filepath) {
-                        var ignore = {
-                            'colours.scss': true,
-                            'header.scss': true,
-                            'suggestion.scss': true,
-                            'comment.scss': true
-                        };
-                        return !ignore[filepath.split('/').pop()];
-                    }
                 }]
             }
         },
@@ -34,7 +25,7 @@
                 files: [{
                     expand: true,
                     cwd: cwd,
-                    src: ['**/*.jade'],
+                    src: ['**/*.html.jade'],
                     dest: buildDir,
                     ext: '.html'
                 }]
@@ -44,7 +35,7 @@
             build: {
                 expand: true,
                 cwd: cwd,
-                src: ['**/*.coffee'],
+                src: ['**/*.js.coffee'],
                 dest: buildDir,
                 ext: '.js'
             }
