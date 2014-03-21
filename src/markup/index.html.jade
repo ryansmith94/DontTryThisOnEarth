@@ -1,5 +1,4 @@
 head
-	link(href='../styles/bootstrap.min.css', rel='stylesheet')
 	link(href='../styles/index.css', rel='stylesheet')
 body
 	// Header.
@@ -20,7 +19,19 @@ body
 			.collapse.navbar-collapse#navbar
 				// Navigation links.
 				ul.nav.navbar-nav.navbar-right
-					li: a(href="#") Sign In
+					li.dropdown
+						a.dropdown-toggle(data-toggle='dropdown')
+							| Sign In
+							b.caret
+						ul.dropdown-menu
+							li
+								form.navbar-form.navbar-left(role='search')
+									.form-group
+										| Email
+										input.form-control(type='text', placeholder='Email')
+										| Password
+										input.form-control(type='password', placeholder='Password')
+									button.btn.btn-default(type='submit') Submit
 
 	// Content (suggestions and comments).
 	.container.wrapper.suggestions
@@ -49,7 +60,7 @@ body
 							| 2 Shares
 						.author 
 							| Posted by 
-							a.clickable Alan
+							a Alan
 							|  3hrs ago
 						.clickable.delete
 							.icon
@@ -67,7 +78,7 @@ body
 				h2.text This is a comment.
 				.author 
 					| Posted by 
-					a.clickable Alan
+					a Alan
 					|  3hrs ago
 			h2.clickable.back
 				| Return to suggestions
