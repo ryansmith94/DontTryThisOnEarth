@@ -136,11 +136,15 @@ form {
       margin-right: 1rem; }
     .suggestion .content .info .shareDropDown {
       display: none;
-      background-color: #191919;
-      opacity: 0.9;
+      background-color: white;
       padding: 1rem;
       position: absolute;
-      top: 100%; }
+      top: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      background-clip: padding-box; }
       .suggestion .content .info .shareDropDown a {
         padding: 0.1rem 1rem;
         margin: 0.9rem 0rem; }
