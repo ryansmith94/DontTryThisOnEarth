@@ -134,6 +134,20 @@ form {
     .suggestion .content .info .reply, .suggestion .content .info .share, .suggestion .content .info .delete, .suggestion .content .info .author {
       display: inline-block;
       margin-right: 1rem; }
+    .suggestion .content .info .shareDropDown {
+      display: none;
+      background-color: #191919;
+      opacity: 0.9;
+      padding: 1rem;
+      position: absolute;
+      top: 100%; }
+      .suggestion .content .info .shareDropDown a {
+        padding: 0.1rem 1rem;
+        margin: 0.9rem 0rem; }
+      .suggestion .content .info .shareDropDown a:not(:first-child) {
+        border-left: #191919 1px solid; }
+    .suggestion .content .info .share:hover .shareDropDown, .suggestion .content .info .share.selected .shareDropDown {
+      display: block; }
 
 .comment {
   margin-top: 0.4em;
