@@ -65,14 +65,14 @@ a {
 	@extend .clickable
 }
 
-.suggestions {
+.wrapper.suggestions {
 	#comments {
 		position: absolute;
 		left: 100%;
 	}
 }
 
-.comments {
+.wrapper:not(.suggestions) {
 	#suggestions {
 		position: absolute;
 		right: 100%;

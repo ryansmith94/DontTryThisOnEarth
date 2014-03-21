@@ -40,11 +40,11 @@ body {
 .clickable, a, .suggestion .content .text {
   cursor: pointer; }
 
-.suggestions #comments {
+.wrapper.suggestions #comments {
   position: absolute;
   left: 100%; }
 
-.comments #suggestions {
+.wrapper:not(.suggestions) #suggestions {
   position: absolute;
   right: 100%; }
 
