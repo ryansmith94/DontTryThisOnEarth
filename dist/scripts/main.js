@@ -5,9 +5,7 @@ Stores and manipulates user data.
 
 
 (function() {
-  var Comment, CommentElement, ExternalSuggestionElement, Suggestion, SuggestionElement, User, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  var Comment, Suggestion, User;
 
   User = (function() {
     /*
@@ -52,6 +50,15 @@ Stores and manipulates user data.
       this.author = author;
       this.time = time;
     }
+
+    /*
+    	Converts the Comment to HTML.
+    */
+
+
+    Comment.prototype.toHTML = function() {
+      return "<div class=\"comment\">\n  <h2 class=\"text\">This is a comment.</h2>\n  <div class=\"author\">Posted by <a>Alan</a> 3hrs ago</div>\n</div>";
+    };
 
     return Comment;
 
@@ -131,105 +138,28 @@ Stores and manipulates user data.
       return replies -= 1;
     };
 
+    /*
+    	Converts the Suggestion to HTML.
+    	@param currentUser {Boolean} is the user the current user.
+    */
+
+
+    Suggestion.prototype.toHTML = (function() {
+      var author, bin;
+      author = function() {
+        return "<div class=\"author\">Posted by <a>" + this.author + "</a> " + this.time + "</div>";
+      };
+      bin = function() {
+        return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
+      };
+      return function(currentUser) {
+        var authorHTML;
+        authorHTML = currentUser ? bin : author;
+        return "<div class=\"suggestion\">\n  <div class=\"votes\">\n    <div class=\"up\"></div>\n    <h2 class=\"score\">" + this.score + "</h2>\n    <div class=\"down\"></div>\n  </div>\n  <div class=\"content\">\n    <h1 class=\"text\">\"" + this.text + "\"</h1>\n    <div class=\"info\">\n      <div class=\"reply\">\n        <div class=\"icon\"></div>" + this.replies + " Replies\n      </div>\n      <div class=\"share\">\n        <div class=\"icon\"></div>" + this.shares + " Shares\n      </div>\n      " + (authorHTML()) + "\n    </div>\n  </div>\n</div>";
+      };
+    })();
+
     return Suggestion;
-
-  })();
-
-  /*
-  @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates a suggestion (by the current user) via the user interface.
-  */
-
-
-  SuggestionElement = (function() {
-    /*
-    	Constructs a new suggestion element.
-    	@param suggestion the suggestion to be displayed and manipulated.
-    */
-
-    function SuggestionElement(suggestion) {
-      this.suggestion = suggestion;
-    }
-
-    /*
-    	Produces HTML for displaying the suggestion.
-    	@return suggestion as HTML.
-    */
-
-
-    SuggestionElement.prototype.toHtml = function() {
-      return "<div class=\"suggestion\">\n  <div class=\"votes\">\n    <div class=\"up\"></div>\n    <h2 class=\"score\">" + this.suggestion.score + "</h2>\n    <div class=\"down\"></div>\n  </div>\n  <div class=\"content\">\n    <h1 class=\"text\">\"" + this.suggestion.text + "\"</h1>\n    <div class=\"info\">\n      <div class=\"reply\">\n        <div class=\"icon\"></div>" + this.suggestion.replies + " Replies\n      </div>\n      <div class=\"share\">\n        <div class=\"icon\"></div>" + this.suggestion.shares + " Shares\n      </div>\n      " + (this.authorHTML()) + "\n    </div>\n  </div>\n</div>";
-    };
-
-    /*
-    	Produces HTML for a delete button to remove the suggestion.
-    	@return delete button in HTML.
-    */
-
-
-    SuggestionElement.prototype.authorHTML = function() {
-      return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
-    };
-
-    return SuggestionElement;
-
-  })();
-
-  /*
-  @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates a suggestion (by another users) via the user interface.
-  */
-
-
-  ExternalSuggestionElement = (function(_super) {
-    __extends(ExternalSuggestionElement, _super);
-
-    function ExternalSuggestionElement() {
-      _ref = ExternalSuggestionElement.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    /*
-    	Produces HTML for displaying the author and when the suggestion was made.
-    	@return author and time posted as HTML.
-    */
-
-
-    ExternalSuggestionElement.prototype.authorHTML = function() {
-      return "<div class=\"author\">Posted by <a>" + this.suggestion.author + "</a> " + this.suggestion.time + "</div>";
-    };
-
-    return ExternalSuggestionElement;
-
-  })(SuggestionElement);
-
-  /*
-  @author Ryan Smith <12034191@brookes.ac.uk>
-  Displays and manipulates a comment via the user interface.
-  */
-
-
-  CommentElement = (function() {
-    /*
-    	Constructs a new comment element.
-    	@param comment the comment to be displayed and manipulated.
-    */
-
-    function CommentElement(comment) {
-      this.comment = comment;
-    }
-
-    /*
-    	Produces HTML for displaying the comment.
-    	@return comment as HTML.
-    */
-
-
-    CommentElement.prototype.toHtml = function() {
-      return "<div class=\"comment\">\n  <h2 class=\"text\">This is a comment.</h2>\n  <div class=\"author\">Posted by <a>Alan</a> 3hrs ago</div>\n</div>";
-    };
-
-    return CommentElement;
 
   })();
 

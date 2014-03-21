@@ -14,6 +14,7 @@ class User
 	
 	getEmail: () -> @email
 
+
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
 Stores and manipulates comment data.
@@ -26,6 +27,17 @@ class Comment
 	@param date and time that the comment was made.
 	###
 	constructor: (@text, @author, @time) ->
+
+	###
+	Converts the Comment to HTML.
+	###
+	toHTML: () ->
+		"""
+		<div class="comment">
+		  <h2 class="text">This is a comment.</h2>
+		  <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
+		</div>
+		"""
 
 
 ###
@@ -70,92 +82,45 @@ class Suggestion
 	Decrease reply counter by one for a deleted reply.
 	###
 	decreaseReplies: () -> replies -= 1
-	
-	
-###
-@author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates a suggestion (by the current user) via the user interface.
-###
-class SuggestionElement
-	###
-	Constructs a new suggestion element.
-	@param suggestion the suggestion to be displayed and manipulated.
-	###
-	constructor: (@suggestion) ->
 
 	###
-	Produces HTML for displaying the suggestion.
-	@return suggestion as HTML.
+	Converts the Suggestion to HTML.
+	@param currentUser {Boolean} is the user the current user.
 	###
-	toHtml: () ->
-		"""
-		<div class="suggestion">
-		  <div class="votes">
-		    <div class="up"></div>
-		    <h2 class="score">#{@suggestion.score}</h2>
-		    <div class="down"></div>
-		  </div>
-		  <div class="content">
-		    <h1 class="text">"#{@suggestion.text}"</h1>
-		    <div class="info">
-		      <div class="reply">
-		        <div class="icon"></div>#{@suggestion.replies} Replies
-		      </div>
-		      <div class="share">
-		        <div class="icon"></div>#{@suggestion.shares} Shares
-		      </div>
-		      #{@authorHTML()}
-		    </div>
-		  </div>
-		</div>
-		"""
+	toHTML: (() ->
+		author = () ->
+			"""
+			<div class="author">Posted by <a>#{@author}</a> #{@time}</div>
+			"""
 
-	###
-	Produces HTML for a delete button to remove the suggestion.
-	@return delete button in HTML.
-	###
-	authorHTML: () ->
-		"""
-        <div class="delete">
-          <div class="icon"></div>Delete
-        </div>
-        """
+		bin = () ->
+			"""
+	        <div class="delete">
+	          <div class="icon"></div>Delete
+	        </div>
+	        """
 
-
-###
-@author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates a suggestion (by another users) via the user interface.
-###
-class ExternalSuggestionElement extends SuggestionElement
-	###
-	Produces HTML for displaying the author and when the suggestion was made.
-	@return author and time posted as HTML.
-	###
-	authorHTML: () ->
-		"""
-		<div class="author">Posted by <a>#{@suggestion.author}</a> #{@suggestion.time}</div>
-		"""
-
-
-###
-@author Ryan Smith <12034191@brookes.ac.uk>
-Displays and manipulates a comment via the user interface.
-###
-class CommentElement
-	###
-	Constructs a new comment element.
-	@param comment the comment to be displayed and manipulated.
-	###
-	constructor: (@comment) ->
-
-	###
-	Produces HTML for displaying the comment.
-	@return comment as HTML.
-	###
-	toHtml: () ->
-		"""
-		<div class="comment">
-		  <h2 class="text">This is a comment.</h2>
-		  <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
-		</div>
-		"""
+		(currentUser) ->
+			authorHTML = if currentUser then bin else author
+			"""
+			<div class="suggestion">
+			  <div class="votes">
+			    <div class="up"></div>
+			    <h2 class="score">#{@score}</h2>
+			    <div class="down"></div>
+			  </div>
+			  <div class="content">
+			    <h1 class="text">"#{@text}"</h1>
+			    <div class="info">
+			      <div class="reply">
+			        <div class="icon"></div>#{@replies} Replies
+			      </div>
+			      <div class="share">
+			        <div class="icon"></div>#{@shares} Shares
+			      </div>
+			      #{authorHTML()}
+			    </div>
+			  </div>
+			</div>
+			"""
+	)()
