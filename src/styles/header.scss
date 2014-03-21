@@ -49,4 +49,22 @@
 	.navbar-nav li a:hover, .navbar-nav li a:focus {
 		color: $quaternaryColour;
 	}
+	.navbar-nav>.open>a, .navbar-nav>.open>a:hover, .navbar-nav>.open>a:focus {
+		background-color: transparent;
+		color: $quaternaryColour;
+	}
+
+	// Forms.
+	.dropdown-menu {
+		color: $secondaryColour;
+		.form-control {
+			margin-bottom: 0.2rem;
+		}
+		@media (min-width: 768px) {
+			color: $tertiaryColour;
+			.form-control {
+				background-color: transparent;
+			}
+		}
+	}
 }
