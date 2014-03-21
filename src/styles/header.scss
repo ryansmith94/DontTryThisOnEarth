@@ -60,6 +60,15 @@
 		.form-control {
 			margin-bottom: 0.2rem;
 		}
+
+		// Removes some bootstrap styling.
+		.navbar-form {
+			margin: 0;
+			border: none;
+			-webkit-box-shadow: none;
+			box-shadow: none;
+		}
+		
 		@media (min-width: 768px) {
 			color: $tertiaryColour;
 			.form-control {
