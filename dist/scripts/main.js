@@ -57,7 +57,7 @@ Stores and manipulates user data.
 
 
     Comment.prototype.toHTML = function() {
-      return "<div class=\"comment\">\n  <h2 class=\"text\">This is a comment.</h2>\n  <div class=\"author\">Posted by <a>Alan</a> 3hrs ago</div>\n</div>";
+      return "<div class=\"comment\">\n	<h2 class=\"text\">This is a comment.</h2>\n	<div class=\"author\">Posted by <a>Alan</a> 3hrs ago</div>\n</div>";
     };
 
     return Comment;
@@ -155,7 +155,7 @@ Stores and manipulates user data.
       return function(currentUser) {
         var authorHTML;
         authorHTML = currentUser ? bin : author;
-        return "<div class=\"suggestion\">\n  <div class=\"votes\">\n    <div class=\"up\"></div>\n    <h2 class=\"score\">" + this.score + "</h2>\n    <div class=\"down\"></div>\n  </div>\n  <div class=\"content\">\n    <h1 class=\"text\">\"" + this.text + "\"</h1>\n    <div class=\"info\">\n      <div class=\"reply\">\n        <div class=\"icon\"></div>" + this.replies + " Replies\n      </div>\n      <div class=\"share\">\n        <div class=\"icon\"></div>" + this.shares + " Shares\n      </div>\n      " + (authorHTML()) + "\n    </div>\n  </div>\n</div>";
+        return "<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.replies + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML()) + "\n		</div>\n	</div>\n</div>";
       };
     })();
 

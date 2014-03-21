@@ -34,8 +34,8 @@ class Comment
 	toHTML: () ->
 		"""
 		<div class="comment">
-		  <h2 class="text">This is a comment.</h2>
-		  <div class="author">Posted by <a>Alan</a> 3hrs ago</div>
+			<h2 class="text">This is a comment.</h2>
+			<div class="author">Posted by <a>Alan</a> 3hrs ago</div>
 		</div>
 		"""
 
@@ -95,32 +95,32 @@ class Suggestion
 
 		bin = () ->
 			"""
-	        <div class="delete">
-	          <div class="icon"></div>Delete
-	        </div>
-	        """
+			<div class="delete">
+			  <div class="icon"></div>Delete
+			</div>
+			"""
 
 		(currentUser) ->
 			authorHTML = if currentUser then bin else author
 			"""
 			<div class="suggestion">
-			  <div class="votes">
-			    <div class="up"></div>
-			    <h2 class="score">#{@score}</h2>
-			    <div class="down"></div>
-			  </div>
-			  <div class="content">
-			    <h1 class="text">"#{@text}"</h1>
-			    <div class="info">
-			      <div class="reply">
-			        <div class="icon"></div>#{@replies} Replies
-			      </div>
-			      <div class="share">
-			        <div class="icon"></div>#{@shares} Shares
-			      </div>
-			      #{authorHTML()}
-			    </div>
-			  </div>
+				<div class="votes">
+					<div class="up"></div>
+					<h2 class="score">#{@score}</h2>
+					<div class="down"></div>
+				</div>
+				<div class="content">
+					<h1 class="text">"#{@text}"</h1>
+					<div class="info">
+						<div class="reply">
+							<div class="icon"></div>#{@replies} Replies
+						</div>
+						<div class="share">
+							<div class="icon"></div>#{@shares} Shares
+						</div>
+						#{authorHTML()}
+					</div>
+				</div>
 			</div>
 			"""
 	)()
