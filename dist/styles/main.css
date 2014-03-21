@@ -20,7 +20,7 @@ body {
     body .wrapper #comments, body .wrapper #suggestions {
       font-size: 1rem; }
 
-.clickable, a {
+.clickable, a, .suggestion .content .text {
   cursor: pointer; }
 
 .suggestions #comments {
@@ -133,10 +133,11 @@ form {
     text-align: center; }
   .suggestion .content {
     margin-left: 5em;
-    position: relative; }
+    position: relative;
+    margin-right: 0.5rem; }
     .suggestion .content .text {
       color: #a03619;
-      min-height: 1.8rem; }
+      margin: 1rem 0; }
     .suggestion .content .info .reply, .suggestion .content .info .share, .suggestion .content .info .delete, .suggestion .content .info .author {
       display: inline-block;
       margin-right: 1rem; }
@@ -158,6 +159,15 @@ form {
         border-left: #191919 1px solid; }
     .suggestion .content .info .share:hover .shareDropDown, .suggestion .content .info .share.selected .shareDropDown {
       display: block; }
+
+.suggestion.selected {
+  background-color: #a03619; }
+  .suggestion.selected .content .text {
+    color: whitesmoke; }
+  .suggestion.selected .author a {
+    color: #b7b7b7; }
+  .suggestion.selected .author a:hover {
+    color: whitesmoke; }
 
 .comment {
   margin-top: 0.4em;

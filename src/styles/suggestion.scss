@@ -14,9 +14,11 @@ $votesWidth: 5em;
 	.content {
 		margin-left: $votesWidth;
 		position: relative;
+		margin-right: 0.5rem;
 		.text {
+			@extend .clickable;
 			color: $primaryColour;
-			min-height: 1.8rem;
+			margin: 1rem 0;
 		}
 		.info {
 			.reply, .share, .delete, .author {
@@ -46,5 +48,18 @@ $votesWidth: 5em;
 				display: block;
 			}
 		}
+	}
+}
+
+.suggestion.selected {
+	background-color: $primaryColour;
+	.content .text {
+		color: $secondaryColour;
+	}
+	.author a {
+		color: $quaternaryColour;
+	}
+	.author a:hover {
+		color: $secondaryColour;
 	}
 }
