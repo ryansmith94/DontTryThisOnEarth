@@ -23,6 +23,24 @@ $votesWidth: 5em;
 				display: inline-block;
 				margin-right: 1rem;
 			}
+			.shareDropDown {
+				display: none;
+				background-color: $tertiaryColour;
+				opacity: 0.9;
+				padding: 1rem;
+				position: absolute;
+				top: 100%;
+				a {
+					padding: 0.1rem 1rem;
+					margin: 0.9rem 0rem;
+				}
+				a:not(:first-child) {
+					border-left: $tertiaryColour 1px solid;
+				}
+			}
+			.share:hover .shareDropDown, .share.selected .shareDropDown {
+				display: block;
+			}
 		}
 	}
 }
