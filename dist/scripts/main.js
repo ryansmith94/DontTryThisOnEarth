@@ -10,8 +10,8 @@ Stores and manipulates user data.
   User = (function() {
     /*
     	Constructs a new user.
-    	@param name user's name on the website.
-    	@param email user's email address.
+    	@param name {String} user's name on the website.
+    	@param email {String} user's email address.
     */
 
     function User(name, email) {
@@ -40,19 +40,20 @@ Stores and manipulates user data.
   Comment = (function() {
     /*
     	Constructs a new comment.
-    	@param text comment itself in text.
-    	@param author user that created the comment.
-    	@param date and time that the comment was made.
+    	@param text {String} comment itself in text.
+    	@param author {User} user that created the comment.
+    	@param date {Date} when the comment was made.
     */
 
-    function Comment(text, author, time) {
+    function Comment(text, author, date) {
       this.text = text;
       this.author = author;
-      this.time = time;
+      this.date = date;
     }
 
     /*
-    	Converts the Comment to HTML.
+    	Converts the comment to HTML.
+    	@return {String} string of HTML representing the comment.
     */
 
 
@@ -73,37 +74,40 @@ Stores and manipulates user data.
   Suggestion = (function() {
     /*
     	Constructs a new suggestion.
-    	@param text suggestion itself in text.
-    	@param score number votes up subtracted by the number of votes down.
-    	@param replies number of comments on the suggestion.
-    	@param shares number of times the suggestion was shared.
-    	@param author user that created the suggestion.
-    	@param date and time that the suggestion was made.
+    	@param text {String} suggestion itself in text.
+    	@param score {Number} number votes up subtracted by the number of votes down.
+    	@param comments {Array<Comment>} array of comments made about the suggestion.
+    	@param shares {Number} number of times the suggestion was shared.
+    	@param author {User} who made the suggestion.
+    	@param date {Date} when the suggestion was made.
     */
 
-    function Suggestion(text, score, replies, shares, author, time) {
-      this.text = text;
-      this.score = score;
-      this.replies = replies;
-      this.shares = shares;
-      this.author = author;
-      this.time = time;
+    function Suggestion(text, score, comments, shares, author, date) {
+      this.text = text != null ? text : '';
+      this.score = score != null ? score : 0;
+      this.comments = comments != null ? comments : [];
+      this.shares = shares != null ? shares : 0;
+      this.author = author != null ? author : null;
+      this.date = date != null ? date : null;
     }
 
     /*
     	Replaces the text and time of a suggestion
-    	@param text, suggestion is text and will replace existing one
-    	@param time, replace time with new time
+    	@param text {String suggestion itself in text.
+    	@param date {Date} when the suggestion was modified.
+    	@return {Suggestion} the current suggestion.
     */
 
 
-    Suggestion.prototype.editSuggestion = function(text, time) {
+    Suggestion.prototype.editSuggestion = function(text, date) {
       this.text = text;
-      this.time = time;
+      this.date = date;
+      return this;
     };
 
     /*
     	Increase the score by one due to up-vote.
+    	@return {Number} the new score (score + 1).
     */
 
 
@@ -113,6 +117,7 @@ Stores and manipulates user data.
 
     /*
     	Decreases the score by one due to down-vote.
+    	@return {Number} the new score (score - 1).
     */
 
 
@@ -139,8 +144,9 @@ Stores and manipulates user data.
     };
 
     /*
-    	Converts the Suggestion to HTML.
+    	Converts the suggestion to HTML.
     	@param currentUser {Boolean} is the user the current user.
+    	@return {String} string of HTML representing the suggestion.
     */
 
 

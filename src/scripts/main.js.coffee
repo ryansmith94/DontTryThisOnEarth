@@ -5,8 +5,8 @@ Stores and manipulates user data.
 class User
 	###
 	Constructs a new user.
-	@param name user's name on the website.
-	@param email user's email address.
+	@param name {String} user's name on the website.
+	@param email {String} user's email address.
 	###
 	constructor: (@name, @email) ->
 	
@@ -22,14 +22,15 @@ Stores and manipulates comment data.
 class Comment
 	###
 	Constructs a new comment.
-	@param text comment itself in text.
-	@param author user that created the comment.
-	@param date and time that the comment was made.
+	@param text {String} comment itself in text.
+	@param author {User} user that created the comment.
+	@param date {Date} when the comment was made.
 	###
-	constructor: (@text, @author, @time) ->
+	constructor: (@text, @author, @date) ->
 
 	###
-	Converts the Comment to HTML.
+	Converts the comment to HTML.
+	@return {String} string of HTML representing the comment.
 	###
 	toHTML: () ->
 		"""
@@ -47,29 +48,32 @@ Stores and manipulates suggestion data.
 class Suggestion
 	###
 	Constructs a new suggestion.
-	@param text suggestion itself in text.
-	@param score number votes up subtracted by the number of votes down.
-	@param replies number of comments on the suggestion.
-	@param shares number of times the suggestion was shared.
-	@param author user that created the suggestion.
-	@param date and time that the suggestion was made.
+	@param text {String} suggestion itself in text.
+	@param score {Number} number votes up subtracted by the number of votes down.
+	@param comments {Array<Comment>} array of comments made about the suggestion.
+	@param shares {Number} number of times the suggestion was shared.
+	@param author {User} who made the suggestion.
+	@param date {Date} when the suggestion was made.
 	###
-	constructor: (@text, @score, @replies, @shares, @author, @time) ->
+	constructor: (@text = '', @score = 0, @comments = [], @shares = 0, @author = null, @date = null) ->
 
 	###
 	Replaces the text and time of a suggestion
-	@param text, suggestion is text and will replace existing one
-	@param time, replace time with new time
+	@param text {String suggestion itself in text.
+	@param date {Date} when the suggestion was modified.
+	@return {Suggestion} the current suggestion.
 	###
-	editSuggestion: (@text, @time) -> 
+	editSuggestion: (@text, @date) -> @
 	
 	###
 	Increase the score by one due to up-vote.
+	@return {Number} the new score (score + 1).
 	###
 	increaseScore: () -> @score += 1
 	
 	###
 	Decreases the score by one due to down-vote.
+	@return {Number} the new score (score - 1).
 	###
 	decreaseScore: () -> score -= 1
 
@@ -84,8 +88,9 @@ class Suggestion
 	decreaseReplies: () -> replies -= 1
 
 	###
-	Converts the Suggestion to HTML.
+	Converts the suggestion to HTML.
 	@param currentUser {Boolean} is the user the current user.
+	@return {String} string of HTML representing the suggestion.
 	###
 	toHTML: (() ->
 		author = () ->
