@@ -9,10 +9,6 @@ class User
 	@param email {String} user's email address.
 	###
 	constructor: (@name, @email) ->
-	
-	getUserName: () -> @name
-	
-	getEmail: () -> @email
 
 
 ###
@@ -35,8 +31,8 @@ class Comment
 	toHTML: () ->
 		"""
 		<div class="comment">
-			<h2 class="text">This is a comment.</h2>
-			<div class="author">Posted by <a>Alan</a> 3hrs ago</div>
+			<h2 class="text">#{@text}</h2>
+			<div class="author">Posted by <a>#{user.name}</a> #{@date}</div>
 		</div>
 		"""
 
@@ -69,23 +65,20 @@ class Suggestion
 	Increase the score by one due to up-vote.
 	@return {Number} the new score (score + 1).
 	###
-	increaseScore: () -> @score += 1
+	voteUp: () -> @score += 1
 	
 	###
 	Decreases the score by one due to down-vote.
 	@return {Number} the new score (score - 1).
 	###
-	decreaseScore: () -> score -= 1
+	voteDown: () -> @score -= 1
 
 	###
 	Increase reply counter by one for a new reply.
+	@param comment {Comment} the comment to be added.
+	@return {Array<Comment>} the array of comments about the suggestion.
 	###
-	increaseReplies: () -> replies += 1
-	
-	###
-	Decrease reply counter by one for a deleted reply.
-	###
-	decreaseReplies: () -> replies -= 1
+	addComment: (comment) -> @comments.push(comment)
 
 	###
 	Converts the suggestion to HTML.

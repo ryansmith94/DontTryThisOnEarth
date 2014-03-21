@@ -19,14 +19,6 @@ Stores and manipulates user data.
       this.email = email;
     }
 
-    User.prototype.getUserName = function() {
-      return this.name;
-    };
-
-    User.prototype.getEmail = function() {
-      return this.email;
-    };
-
     return User;
 
   })();
@@ -58,7 +50,7 @@ Stores and manipulates user data.
 
 
     Comment.prototype.toHTML = function() {
-      return "<div class=\"comment\">\n	<h2 class=\"text\">This is a comment.</h2>\n	<div class=\"author\">Posted by <a>Alan</a> 3hrs ago</div>\n</div>";
+      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + user.name + "</a> " + this.date + "</div>\n</div>";
     };
 
     return Comment;
@@ -111,7 +103,7 @@ Stores and manipulates user data.
     */
 
 
-    Suggestion.prototype.increaseScore = function() {
+    Suggestion.prototype.voteUp = function() {
       return this.score += 1;
     };
 
@@ -121,26 +113,19 @@ Stores and manipulates user data.
     */
 
 
-    Suggestion.prototype.decreaseScore = function() {
-      return score -= 1;
+    Suggestion.prototype.voteDown = function() {
+      return this.score -= 1;
     };
 
     /*
     	Increase reply counter by one for a new reply.
+    	@param comment {Comment} the comment to be added.
+    	@return {Array<Comment>} the array of comments about the suggestion.
     */
 
 
-    Suggestion.prototype.increaseReplies = function() {
-      return replies += 1;
-    };
-
-    /*
-    	Decrease reply counter by one for a deleted reply.
-    */
-
-
-    Suggestion.prototype.decreaseReplies = function() {
-      return replies -= 1;
+    Suggestion.prototype.addComment = function(comment) {
+      return this.comments.push(comment);
     };
 
     /*
