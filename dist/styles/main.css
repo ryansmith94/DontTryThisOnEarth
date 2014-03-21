@@ -142,6 +142,7 @@ body {
       display: inline-block;
       margin-right: 1rem; }
     .suggestion .content .info .shareDropDown {
+      z-index: 1;
       display: none;
       background-color: white;
       padding: 1rem;
