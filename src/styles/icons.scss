@@ -1,0 +1,49 @@
+.icon {
+	width: 14px;
+	height: 14px;
+	background-size: 100%;
+	display: inline-block;
+	margin-right: 3px;
+}
+
+.cancel .icon, .delete .icon {
+	background-image: url('../images/delete.png');
+}
+.cancel:hover .icon, .delete:hover .icon {
+	background-image: url('../images/delete_active.png');
+}
+
+.share .icon {
+	background-image: url('../images/share.png');
+}
+.share:hover .icon {
+	background-image: url('../images/share_active.png');
+}
+
+.reply .icon, .submit .icon {
+	background-image: url('../images/reply.png');
+}
+.reply:hover .icon, .submit:hover .icon {
+	background-image: url('../images/reply_active.png');
+}
+
+.votes div {
+	width: 18px;
+	height: 18px;
+	background-size: 100%;
+	margin: 0.5rem auto;
+}
+
+.votes .up {
+	background-image: url('../images/like.png');
+}
+.votes .up:hover, .votes .up.selected {
+	background-image: url('../images/like_active.png');
+}
+
+.votes .down {
+	background-image: url('../images/dislike.png');
+}
+.votes .down:hover, .votes .down.selected {
+	background-image: url('../images/dislike_active.png');
+}

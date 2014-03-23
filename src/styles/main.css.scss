@@ -17,7 +17,6 @@ h2 {
 	line-height: 1.0rem;
 }
 
-
 body {
 	overflow-x: hidden;
 	background-color: $secondaryColour;
@@ -123,4 +122,5 @@ a {
 @import 'header';
 @import 'suggestion';
 @import 'comment';
+@import 'icons';
 
