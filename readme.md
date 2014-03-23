@@ -5,11 +5,7 @@ Website to suggest mankind’s “firsts” on Mars. Created for the coursework 
 ### Getting Started
 1. [Install Github](https://help.github.com/articles/set-up-git)
 2. [Install Node](http://nodejs.org/)
-3. Clone the repository
-	1. Open Github (you installed it in task 1)
-	2. Sign in
-	3. You should be able to clone the "DontTryThisOnEarth" repository
-	4. Look at tutorials on how to use it if you haven't before
+3. Clone the repository on [Mac](github-mac://openRepo/https://github.com/ryansmith94/DontTryThisOnEarth) or [Windows](github-windows://openRepo/https://github.com/ryansmith94/DontTryThisOnEarth)
 4. Install Node packages
 	1. Open up the terminal/console
 	2. Change to the directory that contains the code for this repository
