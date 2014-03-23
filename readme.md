@@ -24,7 +24,7 @@ Website to suggest mankind’s “firsts” on Mars. Created for the coursework 
 1. Open up the terminal/console
 2. Change to the directory that contains the code for this repository
 3. Type `grunt`
-4. Open up the file you want to test from the `src` directory in your browser. For example you could type `open src/markup/index.html` to view the home page from the terminal
+4. Open `dist/index.html` in Google Chrome.
 
 Note: you may want to use `grunt watch` so that you don't have to keep doing this process (this watches files waiting for you to save them and then does the build process) and you may also want to use a live page reloader so that you can view the page whilst you work.
 
