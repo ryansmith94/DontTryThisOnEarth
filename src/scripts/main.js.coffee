@@ -127,7 +127,7 @@ class Suggestion
 $('.suggestion').click((event) ->
 	event.stopPropagation() # Stops the event bubbling up to parent handlers.
 	$('.suggestion.selected').removeClass('selected')
-	$(this).toggleClass('selected')
+	$(this).addClass('selected')
 )
 
 # Toggle .signedIn on .navbar-nav to change menu
