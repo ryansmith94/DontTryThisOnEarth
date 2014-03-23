@@ -28,6 +28,7 @@
 }
 
 .votes div {
+	@extend .clickable;
 	width: 20px;
 	height: 20px;
 	background-size: 100%;

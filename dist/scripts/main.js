@@ -157,7 +157,7 @@ Stores and manipulates user data.
   $('.suggestion').click(function(event) {
     event.stopPropagation();
     $('.suggestion.selected').removeClass('selected');
-    return $(this).toggleClass('selected');
+    return $(this).addClass('selected');
   });
 
 }).call(this);
