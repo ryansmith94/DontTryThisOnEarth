@@ -9,3 +9,7 @@ colours.css
 header.css
 suggestion.css
 comment.css
+icons.css
+
+#grunt-gh-pages
+.grunt

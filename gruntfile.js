@@ -24,6 +24,7 @@
             build: {
                 files: [{
                     expand: true,
+                    flatten: true,
                     cwd: cwd,
                     src: ['**/*.html.jade'],
                     dest: buildDir,
@@ -62,6 +63,12 @@
                     spawn: false
                 }
             }
+        },
+        'gh-pages': {
+            options: {
+                base: buildDir
+            },
+            src: '**/*'
         }
     });
 
@@ -70,7 +77,9 @@
     grunt.loadNpmTasks('grunt-contrib-coffee');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jade');
+    grunt.loadNpmTasks('grunt-gh-pages');
 
     // Tasks.
     grunt.registerTask('default', ['sass', 'jade', 'coffee']);
+    grunt.registerTask('dist', ['default', 'gh-pages']);
 };
