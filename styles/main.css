@@ -1,0 +1,229 @@
+h1, h2, h3, h4, p, html {
+  margin: 0px;
+  color: #191919;
+  font-size: 14px;
+  line-height: 14px; }
+
+h1 {
+  font-size: 1.5rem;
+  line-height: 1.5rem; }
+
+h2 {
+  font-size: 1.2rem;
+  line-height: 1.0rem; }
+
+body {
+  overflow-x: hidden;
+  background-color: whitesmoke; }
+  body .wrapper {
+    margin-top: 5.1rem;
+    font-size: 0; }
+    body .wrapper #comments, body .wrapper #suggestions {
+      font-size: 1rem; }
+    body .wrapper .user {
+      min-height: 3rem;
+      text-align: center; }
+    body .wrapper #suggestions.allUsers .user {
+      display: none; }
+    body .wrapper #suggestions:not(.allUsers) #postSuggestion {
+      display: none; }
+    body .wrapper form {
+      margin: 0.5rem;
+      margin-bottom: 1rem; }
+      body .wrapper form input {
+        width: 100%;
+        min-height: 3rem; }
+      body .wrapper form .submit, body .wrapper form .cancel {
+        display: inline-block; }
+      body .wrapper form .cancel {
+        margin-right: 1rem; }
+
+.clickable, a, .suggestion .content .text {
+  cursor: pointer; }
+
+.wrapper.suggestions #comments {
+  position: absolute;
+  left: 100%; }
+
+.wrapper:not(.suggestions) #suggestions {
+  position: absolute;
+  right: 100%; }
+
+.back {
+  text-align: center;
+  margin: 1rem; }
+
+@media (min-width: 768px) {
+  .container {
+    width: 98%;
+    padding: 0 5px; }
+
+  #suggestions, #comments {
+    position: static !important;
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    min-height: 90%; }
+
+  #suggestions {
+    border-right: #b7b7b7 1px solid; }
+
+  .back {
+    display: none; } }
+@media (min-width: 1300px) {
+  .container {
+    width: 80%; } }
+@media (min-width: 1500px) {
+  .container {
+    width: 70%; } }
+.navbar-default {
+  background-color: #a03619;
+  border-color: #a03619; }
+  .navbar-default .navbar-toggle {
+    border-color: #a03619; }
+    .navbar-default .navbar-toggle .icon-bar {
+      background-color: whitesmoke; }
+  .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #a03619;
+    border-color: #a03619; }
+    .navbar-default .navbar-toggle:hover .icon-bar, .navbar-default .navbar-toggle:focus .icon-bar {
+      background-color: #b7b7b7; }
+  .navbar-default .navbar-brand {
+    color: whitesmoke; }
+    .navbar-default .navbar-brand .logo {
+      background-image: url("../images/logo.png");
+      background-size: 100%;
+      width: 1.2em;
+      height: 1.2em;
+      display: inline-block; }
+    .navbar-default .navbar-brand .name {
+      display: inline-block;
+      vertical-align: top; }
+  .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #b7b7b7; }
+  .navbar-default .navbar-nav li a {
+    color: whitesmoke; }
+  .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
+    color: #b7b7b7; }
+  .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    background-color: transparent;
+    color: #b7b7b7; }
+  .navbar-default .navbar-nav .account {
+    display: none; }
+  .navbar-default .navbar-nav.signedIn .account {
+    display: block; }
+  .navbar-default .navbar-nav.signedIn li:not(.account) {
+    display: none; }
+  .navbar-default .dropdown-menu {
+    color: whitesmoke; }
+    .navbar-default .dropdown-menu .form-control {
+      margin-bottom: 0.2rem; }
+    .navbar-default .dropdown-menu .navbar-form {
+      margin: 0;
+      border: none;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+    @media (min-width: 768px) {
+      .navbar-default .dropdown-menu {
+        color: #191919; }
+        .navbar-default .dropdown-menu .form-control {
+          background-color: transparent; } }
+
+.suggestion {
+  position: relative;
+  padding: 0.5rem;
+  border-bottom: #b7b7b7 1px solid; }
+  .suggestion .votes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5em;
+    text-align: center; }
+  .suggestion .content {
+    margin-left: 5em;
+    position: relative;
+    margin-right: 0.5rem; }
+    .suggestion .content .text {
+      color: #a03619;
+      margin: 1rem 0; }
+    .suggestion .content .info .reply, .suggestion .content .info .share, .suggestion .content .info .delete, .suggestion .content .info .author {
+      display: inline-block;
+      margin-right: 1rem; }
+    .suggestion .content .info .shareDropDown {
+      z-index: 1;
+      display: none;
+      background-color: white;
+      padding: 1rem;
+      position: absolute;
+      top: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      background-clip: padding-box; }
+      .suggestion .content .info .shareDropDown a {
+        padding: 0.1rem 1rem;
+        margin: 0.9rem 0rem; }
+      .suggestion .content .info .shareDropDown a:not(:first-child) {
+        border-left: #191919 1px solid; }
+    .suggestion .content .info .share:hover .shareDropDown, .suggestion .content .info .share.selected .shareDropDown {
+      display: block; }
+
+.suggestion.selected {
+  background-color: #a03619; }
+  .suggestion.selected .content .text {
+    color: whitesmoke; }
+  .suggestion.selected .author a {
+    color: #b7b7b7; }
+  .suggestion.selected .author a:hover {
+    color: whitesmoke; }
+
+.comment {
+  margin-top: 0.4em;
+  padding: 0.5rem;
+  border-bottom: #b7b7b7 1px solid; }
+  .comment .text {
+    min-height: 1.5em; }
+
+.icon {
+  width: 14px;
+  height: 14px;
+  background-size: 100%;
+  display: inline-block;
+  margin-right: 3px; }
+
+.cancel .icon, .delete .icon {
+  background-image: url("../images/delete.png"); }
+
+.cancel:hover .icon, .delete:hover .icon {
+  background-image: url("../images/delete_active.png"); }
+
+.share .icon {
+  background-image: url("../images/share.png"); }
+
+.share:hover .icon {
+  background-image: url("../images/share_active.png"); }
+
+.reply .icon, .submit .icon {
+  background-image: url("../images/reply.png"); }
+
+.reply:hover .icon, .submit:hover .icon {
+  background-image: url("../images/reply_active.png"); }
+
+.votes div {
+  width: 20px;
+  height: 20px;
+  background-size: 100%;
+  margin: 0.5rem auto; }
+
+.votes .up {
+  background-image: url("../images/like.png"); }
+
+.votes .up:hover, .votes .up.selected {
+  background-image: url("../images/like_active.png"); }
+
+.votes .down {
+  background-image: url("../images/dislike.png"); }
+
+.votes .down:hover, .votes .down.selected {
+  background-image: url("../images/dislike_active.png"); }
