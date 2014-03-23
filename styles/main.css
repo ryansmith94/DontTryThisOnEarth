@@ -38,7 +38,7 @@ body {
       body .wrapper form .cancel {
         margin-right: 1rem; }
 
-.clickable, a, .suggestion .content .text {
+.clickable, a, .suggestion .content .text, .votes div {
   cursor: pointer; }
 
 .wrapper.suggestions #comments {
