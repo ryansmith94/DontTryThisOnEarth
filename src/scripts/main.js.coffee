@@ -1,6 +1,5 @@
-currentUser = null
-users = []
-suggestions = []
+currentSuggestion = null
+
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
@@ -103,9 +102,9 @@ class Suggestion
 	###
 	Increase reply counter by one for a new reply.
 	@param comment {Comment} the comment to be added.
-	@return {Array<Comment>} the array of comments about the suggestion.
+	@return {Array<Comment>} empty array.
 	###
-	addComment: (comment) -> @comments.push(comment)
+	addComment: (comment) -> @comments.splice(0, 0, comment)
 
 	###
 	Converts the suggestion to HTML.
@@ -115,7 +114,7 @@ class Suggestion
 	toHTML: (() ->
 		user = (author, date) ->
 			"""
-			<div class="author">Posted by <a>#{author.name}</a> #{timeSince(date)}</div>
+			<div class="author">Posted by <a href="?user=#{author.name}">#{author.name}</a> #{timeSince(date)}</div>
 			"""
 
 		bin = () ->
@@ -154,6 +153,7 @@ class Suggestion
 			""")
 
 			comments = @comments
+			suggestion = this
 
 			# Select handler.
 			element.click((event) ->
@@ -168,6 +168,7 @@ class Suggestion
 				)
 
 				$('.wrapper').removeClass('suggestions')
+				currentSuggestion = suggestion
 			)
 
 			# Reply handler.
@@ -189,12 +190,12 @@ class Suggestion
 				# Increase score by 1 using function "voteUp" defined in Suggestion class.
 			)
 
-			# Share Handler
+			# Share Handler.
 			element.find('.share').click((event) ->
 				event.stopPropagation()
 			)
 
-			# Delete Handler
+			# Delete Handler.
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
 				# Code goes here.
@@ -204,14 +205,16 @@ class Suggestion
 	)()
 
 # Start code.
+currentUser = new User("User#{(new Date()).valueOf()}", null)
+users = [currentUser]
+suggestions = []
+
 $('#comments .back').click((event) ->
 	event.stopPropagation()
 	$('.wrapper').addClass('suggestions')
 )
 
 main = (data) ->
-	suggestions = data.suggestions
-	users = data.users
 	suggestionsElement = $('#suggestionsContainer')
 	commentsElement = $('#commentsContainer')
 	dateSort = (a, b) ->
@@ -222,11 +225,11 @@ main = (data) ->
 		else
 			0
 
-	users = users.map((user) ->
+	users = data.users.map((user) ->
 		new User(user.name, user.email)
-	)
+	).concat(users)
 
-	suggestions = suggestions.map((suggestion) ->
+	suggestions = data.suggestions.map((suggestion) ->
 		suggestion.author = users[suggestion.author]
 		suggestion.date = new Date(suggestion.date)
 		suggestion.comments = suggestion.comments.map((comment) ->
@@ -277,9 +280,10 @@ $('#signUp').submit((event) ->
 	)[0]
 
 	if not (user?)
-		user = new User(username, email)
 		users.push(user)
-		signIn(user)
+		currentUser.email = email
+		currentUser.name = username
+		signIn(currentUser)
 	else if (user.email is email)
 		alert('A user with that email address already exists. Please try a different email.')
 	else
@@ -292,6 +296,20 @@ $('.signOut').click((event) ->
 	$('.navbar-nav').removeClass('signedIn')
 )
 
+# Post suggestion handler.
+$('#postSuggestion').submit((event) ->
+	text = $(this).find('#text').val()
+	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
+	$('#suggestionsContainer').prepend(suggestion.toHTML())
+)
+
+# Post comment handler.
+$('#postComment').submit((event) ->
+	text = $(this).find('#text').val()
+	comment = new Comment(text, currentUser, new Date())
+	currentSuggestion.addComment(comment)
+	$('#commentsContainer').prepend(comment.toHTML())
+)
 
 ###
 # @Ryan Is this meant to change when a user clicks on a Suggestion?

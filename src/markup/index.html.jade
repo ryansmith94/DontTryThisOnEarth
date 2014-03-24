@@ -60,7 +60,7 @@ body
 		section#suggestions.allUsers
 			// Form for posting a new suggestion.
 			form#postSuggestion
-				input(type='paragraph', placeholder='Please write your suggestion here...')
+				input#text(type='paragraph', placeholder='Please write your suggestion here...')
 				.clickable.cancel
 					.icon
 					| Cancel
@@ -77,8 +77,8 @@ body
 		// Section containing comments.					
 		section#comments
 			// Form for posting a new comment.
-			form#PostComment
-				input(type='paragraph', placeholder='Please write your comment here...')
+			form#postComment
+				input#text(type='paragraph', placeholder='Please write your comment here...')
 				.clickable.cancel
 					.icon
 					| Cancel

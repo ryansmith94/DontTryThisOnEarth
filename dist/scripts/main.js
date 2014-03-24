@@ -1,11 +1,7 @@
 (function() {
-  var Comment, Suggestion, User, currentUser, main, signIn, suggestions, timeSince, users;
+  var Comment, Suggestion, User, currentSuggestion, currentUser, main, signIn, suggestions, timeSince, users;
 
-  currentUser = null;
-
-  users = [];
-
-  suggestions = [];
+  currentSuggestion = null;
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
@@ -152,12 +148,12 @@
     /*
     	Increase reply counter by one for a new reply.
     	@param comment {Comment} the comment to be added.
-    	@return {Array<Comment>} the array of comments about the suggestion.
+    	@return {Array<Comment>} empty array.
     */
 
 
     Suggestion.prototype.addComment = function(comment) {
-      return this.comments.push(comment);
+      return this.comments.splice(0, 0, comment);
     };
 
     /*
@@ -170,16 +166,17 @@
     Suggestion.prototype.toHTML = (function() {
       var bin, user;
       user = function(author, date) {
-        return "<div class=\"author\">Posted by <a>" + author.name + "</a> " + (timeSince(date)) + "</div>";
+        return "<div class=\"author\">Posted by <a href=\"?user=" + author.name + "\">" + author.name + "</a> " + (timeSince(date)) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
       return function(currentUser, id) {
-        var authorHTML, comments, element;
+        var authorHTML, comments, element, suggestion;
         authorHTML = currentUser ? bin : user;
         element = $("<div class=\"suggestion\" data-suggestion=\"" + id + "\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         comments = this.comments;
+        suggestion = this;
         element.click(function(event) {
           var commentsElement;
           event.stopPropagation();
@@ -190,7 +187,8 @@
           comments.forEach(function(comment) {
             return commentsElement.append(comment.toHTML());
           });
-          return $('.wrapper').removeClass('suggestions');
+          $('.wrapper').removeClass('suggestions');
+          return currentSuggestion = suggestion;
         });
         element.find('.reply').click(function() {
           return element.click();
@@ -217,6 +215,12 @@
 
   })();
 
+  currentUser = new User("User" + ((new Date()).valueOf()), null);
+
+  users = [currentUser];
+
+  suggestions = [];
+
   $('#comments .back').click(function(event) {
     event.stopPropagation();
     return $('.wrapper').addClass('suggestions');
@@ -224,8 +228,6 @@
 
   main = function(data) {
     var commentsElement, dateSort, suggestionsElement;
-    suggestions = data.suggestions;
-    users = data.users;
     suggestionsElement = $('#suggestionsContainer');
     commentsElement = $('#commentsContainer');
     dateSort = function(a, b) {
@@ -237,10 +239,10 @@
         return 0;
       }
     };
-    users = users.map(function(user) {
+    users = data.users.map(function(user) {
       return new User(user.name, user.email);
-    });
-    suggestions = suggestions.map(function(suggestion) {
+    }).concat(users);
+    suggestions = data.suggestions.map(function(suggestion) {
       suggestion.author = users[suggestion.author];
       suggestion.date = new Date(suggestion.date);
       suggestion.comments = suggestion.comments.map(function(comment) {
@@ -293,9 +295,9 @@
       return (user.email === email) || (user.name === username);
     })[0];
     if (!(user != null)) {
-      user = new User(username, email);
-      users.push(user);
-      return signIn(user);
+      currentUser.email = email;
+      currentUser.name = username;
+      return signIn(currentUser);
     } else if (user.email === email) {
       return alert('A user with that email address already exists. Please try a different email.');
     } else {
@@ -306,6 +308,22 @@
   $('.signOut').click(function(event) {
     currentUser = null;
     return $('.navbar-nav').removeClass('signedIn');
+  });
+
+  $('#postSuggestion').submit(function(event) {
+    var suggestion, text;
+    text = $(this).find('#text').val();
+    suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
+    suggestions.splice(0, 0, suggestion);
+    return $('#suggestionsContainer').prepend(suggestion.toHTML());
+  });
+
+  $('#postComment').submit(function(event) {
+    var comment, text;
+    text = $(this).find('#text').val();
+    comment = new Comment(text, currentUser, new Date());
+    currentSuggestion.addComment(comment);
+    return $('#commentsContainer').prepend(comment.toHTML());
   });
 
   /*
