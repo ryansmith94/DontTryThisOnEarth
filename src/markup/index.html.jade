@@ -22,6 +22,7 @@ body
 				ul.nav.navbar-nav.navbar-right
 					li.account: a(href='#') View Suggestions
 					li.account: a(href='#') Sign Out
+					// Sign in drop down.
 					li.dropdown
 						a.dropdown-toggle(data-toggle='dropdown')
 							| Sign In
@@ -38,7 +39,9 @@ body
 
 	// Content (suggestions and comments).
 	.container.wrapper.suggestions
+		// Section containing suggestions.
 		section#suggestions.allUsers
+			// Form for posting a new suggestion.
 			form#postSuggestion
 				input(type='paragraph', placeholder='Please write your suggestion here...')
 				.clickable.cancel
@@ -80,14 +83,17 @@ body
 									a Alan
 									|  3hrs ago
 
+			// Suggestions go here.
 			+suggestion(false, true)
 			+suggestion(false, false)
 			+suggestion(true, false)
 			+suggestion(false, false)
 			+suggestion(false, false)
 			+suggestion(true, false)
-							
+		
+		// Section containing comments.					
 		section#comments
+			// Form for posting a new comment.
 			form#PostComment
 				input(type='paragraph', placeholder='Please write your comment here...')
 				.clickable.cancel
@@ -105,6 +111,7 @@ body
 						a Alan
 						|  3hrs ago
 
+			// Comments go here.
 			+comment()
 			+comment()
 			+comment()
