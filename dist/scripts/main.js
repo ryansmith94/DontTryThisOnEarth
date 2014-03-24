@@ -1,12 +1,18 @@
-/*
-@author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
-Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
-@param date {Date} the date that something was done.
-*/
-
-
 (function() {
-  var Comment, Suggestion, User, main, timeSince;
+  var Comment, Suggestion, User, currentUser, main, signIn, suggestions, timeSince, users;
+
+  currentUser = null;
+
+  users = [];
+
+  suggestions = [];
+
+  /*
+  @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
+  Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
+  @param date {Date} the date that something was done.
+  */
+
 
   timeSince = function(date) {
     var interval, seconds;
@@ -217,7 +223,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
   });
 
   main = function(data) {
-    var commentsElement, dateSort, suggestions, suggestionsElement, users;
+    var commentsElement, dateSort, suggestionsElement;
     suggestions = data.suggestions;
     users = data.users;
     suggestionsElement = $('#suggestionsContainer');
@@ -261,21 +267,48 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     }
   })();
 
+  signIn = function(user) {
+    currentUser = user;
+    return $('.navbar-nav').addClass('signedIn');
+  };
+
+  $('#signIn').submit(function(event) {
+    var email, user;
+    email = $(this).find('#email').val();
+    user = users.filter(function(user) {
+      return user.email === email;
+    })[0];
+    if (user != null) {
+      return signIn(user);
+    } else {
+      return alert('That username does not exist. Please try a different username.');
+    }
+  });
+
+  $('#signUp').submit(function(event) {
+    var email, user, username;
+    email = $(this).find('#email').val();
+    username = $(this).find('#username').val();
+    user = users.filter(function(user) {
+      return (user.email === email) || (user.name === username);
+    })[0];
+    if (!(user != null)) {
+      user = new User(username, email);
+      users.push(user);
+      return signIn(user);
+    } else if (user.email === email) {
+      return alert('A user with that email address already exists. Please try a different email.');
+    } else {
+      return alert('A user with that username already exists. Please try a different username.');
+    }
+  });
+
+  $('.signOut').click(function(event) {
+    currentUser = null;
+    return $('.navbar-nav').removeClass('signedIn');
+  });
+
   /*
-  # @Ryan Do I even need this?
-  # Submit form
-  $('.navbar-nav').click((event) ->
-  	$('.btn').click((event)->
-  		$(this).submit()
-  	)
-  )
-  
-  # @Ryan Ignores the sign in form?
-  # Toggle .signedIn on .navbar-nav to change menu
-  $('.navbar-nav').click((event) ->
-  	$(this).toggleClass('signedIn')
-  )
-  
   # @Ryan Is this meant to change when a user clicks on a Suggestion?
   # @Ryan It currently toggles when u click on grey areas (the wrapper).
   # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile

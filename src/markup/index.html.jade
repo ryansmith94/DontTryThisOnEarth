@@ -21,8 +21,8 @@ body
 			.collapse.navbar-collapse#navbar
 				// Navigation links.
 				ul.nav.navbar-nav.navbar-right
-					li.account: a(href='#') View Suggestions
-					li.account: a(href='#') Sign Out
+					li.account: a.viewSuggestions(href='#') View Suggestions
+					li.account: a.signOut(href='#') Sign Out
 					// Sign in drop down.
 					li.dropdown
 						a.dropdown-toggle(data-toggle='dropdown')
@@ -30,12 +30,12 @@ body
 							b.caret
 						ul.dropdown-menu
 							li
-								form#SignIn.navbar-form.navbar-left(role='search')
+								form#signIn.navbar-form.navbar-left(role='search')
 									.form-group
 										| Email
-										input.form-control(type='text', placeholder='Email')
+										input#email.form-control(type='email', placeholder='Email')
 										| Password
-										input.form-control(type='password', placeholder='Password')
+										input#password.form-control(type='password', placeholder='Password')
 									button.btn.btn-default(type='submit') Submit
 					// Submit
 					li.dropdown
@@ -44,14 +44,14 @@ body
 							b.caret
 						ul.dropdown-menu
 							li
-								form#SignUp.navbar-form.navbar-left(role='search')
+								form#signUp.navbar-form.navbar-left(role='search')
 									.form-group
 										| Email
-										input.form-control(type='text', placeholder='Email')
+										input#email.form-control(type='email', placeholder='Email')
 										| Username
-										input.form-control(type='text', placeholder='Username')
+										input#username.form-control(type='text', placeholder='Username')
 										| Password
-										input.form-control(type='password', placeholder='Password')
+										input#password.form-control(type='password', placeholder='Password')
 									button.btn.btn-default(type='submit') Submit
 
 	// Content (suggestions and comments).

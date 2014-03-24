@@ -1,3 +1,7 @@
+currentUser = null
+users = []
+suggestions = []
+
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
 Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
@@ -248,23 +252,48 @@ main = (data) ->
 		$.getJSON('init.json').done(main)
 )()
 
+signIn = (user) ->
+	currentUser = user
+	$('.navbar-nav').addClass('signedIn')
+
+# Sign in handler.
+$('#signIn').submit((event) ->
+	email = $(this).find('#email').val()
+
+	user = users.filter((user) ->
+		user.email is email
+	)[0]
+
+	if user? then signIn(user) else alert('That username does not exist. Please try a different username.')
+)
+
+# Sign up handler.
+$('#signUp').submit((event) ->
+	email = $(this).find('#email').val()
+	username = $(this).find('#username').val()
+
+	user = users.filter((user) ->
+		(user.email is email) or (user.name is username)
+	)[0]
+
+	if not (user?)
+		user = new User(username, email)
+		users.push(user)
+		signIn(user)
+	else if (user.email is email)
+		alert('A user with that email address already exists. Please try a different email.')
+	else
+		alert('A user with that username already exists. Please try a different username.')
+)
+
+# Sign out handler.
+$('.signOut').click((event) ->
+	currentUser = null
+	$('.navbar-nav').removeClass('signedIn')
+)
 
 
 ###
-# @Ryan Do I even need this?
-# Submit form
-$('.navbar-nav').click((event) ->
-	$('.btn').click((event)->
-		$(this).submit()
-	)
-)
-
-# @Ryan Ignores the sign in form?
-# Toggle .signedIn on .navbar-nav to change menu
-$('.navbar-nav').click((event) ->
-	$(this).toggleClass('signedIn')
-)
-
 # @Ryan Is this meant to change when a user clicks on a Suggestion?
 # @Ryan It currently toggles when u click on grey areas (the wrapper).
 # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
