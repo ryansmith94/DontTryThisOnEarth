@@ -201,7 +201,6 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       return suggestionsElement.append(suggestion.toHTML());
     });
     $('.suggestion').first().addClass('selected');
-    console.log(suggestions[0]);
     return suggestions[0].comments.forEach(function(comment) {
       return commentsElement.append(comment.toHTML());
     });
@@ -233,18 +232,35 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     return $(this).toggleClass('selected');
   });
 
-  $('.navbar-nav').click(function(event) {
-    return $('.btn').click(function(event) {
-      return $(this).submit();
-    });
-  });
+  /*
+  # @Ryan Do I even need this?
+  # Submit form
+  $('.navbar-nav').click((event) ->
+  	$('.btn').click((event)->
+  		$(this).submit()
+  	)
+  )
+  
+  # @Ryan Ignores the sign in form?
+  # Toggle .signedIn on .navbar-nav to change menu
+  $('.navbar-nav').click((event) ->
+  	$(this).toggleClass('signedIn')
+  )
+  
+  # @Ryan Is this meant to change when a user clicks on a Suggestion?
+  # @Ryan It currently toggles when u click on grey areas (the wrapper).
+  # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
+  # $('.wrapper').click((event) -> 
+  # 	$(this).toggleClass('suggestions')
+  # )
+  
+  # @Ryan All this does is show the div with "View all Suggestions by user..."
+  # @Ryan How I link to suggestions posted by a certain user?
+  # Toggle .allUsers on #suggestions to switch between suggestions from a single user and all users
+  $("#suggestions").click((event) ->
+  	$(this).toggleClass('allUsers')
+  )
+  */
 
-  $('.navbar-nav').click(function(event) {
-    return $(this).toggleClass('signedIn');
-  });
-
-  $("#suggestions").click(function(event) {
-    return $(this).toggleClass('allUsers');
-  });
 
 }).call(this);
