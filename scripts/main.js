@@ -160,7 +160,9 @@ Stores and manipulates user data.
     if (cookies != null) {
       return main(JSON.parse(cookies));
     } else {
-      return $.getJSON('init.json', main);
+      return $.getJSON('init.json').done(main).fail(function() {
+        return console.log('Failed to load init.json.');
+      });
     }
   })();
 
@@ -170,9 +172,9 @@ Stores and manipulates user data.
     var suggestions, users;
     suggestions = data.suggestions;
     users = data.users;
-    console.log(suggestions);
-    console.log(users);
-    console.log(data);
+    console.log(suggestions || 'no suggestions');
+    console.log(users || 'no users');
+    console.log(data || 'no data');
     users = users.map(function(user) {
       return new User(user.name, user.email);
     });
