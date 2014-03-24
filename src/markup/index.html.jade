@@ -30,10 +30,26 @@ body
 							b.caret
 						ul.dropdown-menu
 							li
-								form.navbar-form.navbar-left(role='search')
+								form#SignIn.navbar-form.navbar-left(role='search')
 									.form-group
 										| Email
 										input.form-control(type='text', placeholder='Email')
+										| Password
+										input.form-control(type='password', placeholder='Password')
+									button.btn.btn-default(type='submit') Submit
+					// Submit
+					li.dropdown
+						a.dropdown-toggle(data-toggle='dropdown')
+							| Sign Up
+							b.caret
+						ul.dropdown-menu
+							li
+								form#SignUp.navbar-form.navbar-left(role='search')
+									.form-group
+										| Email
+										input.form-control(type='text', placeholder='Email')
+										| Username
+										input.form-control(type='text', placeholder='Username')
 										| Password
 										input.form-control(type='password', placeholder='Password')
 									button.btn.btn-default(type='submit') Submit
