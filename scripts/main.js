@@ -170,9 +170,10 @@ Stores and manipulates user data.
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
-    return suggestions.forEach(function(suggestion) {
+    suggestions.forEach(function(suggestion) {
       return suggestionsElement.append(suggestion.toHTML());
     });
+    return suggestions.first('.suggestion').addClass('selected');
   };
 
   (function() {
