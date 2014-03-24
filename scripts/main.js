@@ -69,7 +69,7 @@
 
 
     Comment.prototype.toHTML = function() {
-      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (timeSince(this.date.toLocaleString())) + "</div>\n</div>";
+      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (timeSince(this.date)) + "</div>\n</div>";
     };
 
     return Comment;
@@ -157,7 +157,7 @@
     Suggestion.prototype.toHTML = (function() {
       var bin, user;
       user = function(author, date) {
-        return "<div class=\"author\">Posted by <a>" + author.name + "</a> " + (timeSince(date.toLocaleString())) + "</div>";
+        return "<div class=\"author\">Posted by <a>" + author.name + "</a> " + (timeSince(date)) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
