@@ -186,6 +186,9 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
           });
           return $('.wrapper').removeClass('suggestions');
         });
+        element.find('.reply').click(function() {
+          return element.click();
+        });
         element.find('.up').click(function(event) {
           event.stopPropagation();
           return $(this).toggleClass('selected');
