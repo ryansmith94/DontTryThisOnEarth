@@ -1,12 +1,14 @@
-/*
-@author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
-Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
-@param date {Date} the date that something was done.
-*/
-
-
 (function() {
   var Comment, Suggestion, User, currentSuggestion, currentUser, main, signIn, suggestions, timeSince, users;
+
+  currentSuggestion = null;
+
+  /*
+  @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
+  Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
+  @param date {Date} the date that something was done.
+  */
+
 
   timeSince = function(date) {
     var interval, seconds;
@@ -176,7 +178,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
         comments = this.comments;
         suggestion = this;
         element.click(function(event) {
-          var commentsElement, currentSuggestion;
+          var commentsElement;
           event.stopPropagation();
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
@@ -186,8 +188,6 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
             return commentsElement.append(comment.toHTML());
           });
           $('.wrapper').removeClass('suggestions');
-          console.log(currentSuggestion || 'No current suggestion');
-          console.log(suggestion || 'No suggestion');
           return currentSuggestion = suggestion;
         });
         element.find('.reply').click(function() {
@@ -216,8 +216,6 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
   })();
 
   currentUser = new User("User" + ((new Date()).valueOf()), null);
-
-  currentSuggestion = null;
 
   users = [currentUser];
 
