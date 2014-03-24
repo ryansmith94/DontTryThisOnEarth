@@ -166,6 +166,7 @@ class Suggestion
 				$('.wrapper').removeClass('suggestions')
 			)
 
+			# Reply handler.
 			element.find('.reply').click(() -> element.click())
 
 			# Vote up handler.
@@ -187,6 +188,12 @@ class Suggestion
 			# Share Handler
 			element.find('.share').click((event) ->
 				event.stopPropagation()
+			)
+
+			# Delete Handler
+			element.find('.delete').click((event) ->
+				event.stopPropagation()
+				# Code goes here.
 			)
 
 			element
