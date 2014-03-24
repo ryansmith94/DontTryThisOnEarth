@@ -207,6 +207,10 @@
         element.find('.delete').click(function(event) {
           return event.stopPropagation();
         });
+        element.find('.author a').click(function(event) {
+          event.stopPropagation();
+          return event.preventDefault();
+        });
         return element;
       };
     })();

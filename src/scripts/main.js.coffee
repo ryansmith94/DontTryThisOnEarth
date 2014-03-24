@@ -201,6 +201,13 @@ class Suggestion
 				# Code goes here.
 			)
 
+			# Author handler.
+			element.find('.author a').click((event) ->
+				event.stopPropagation()
+				event.preventDefault() # Stops the URL from changing - in the finished product this is not needed.
+				# Code goes here.
+			)
+
 			element
 	)()
 
@@ -280,7 +287,6 @@ $('#signUp').submit((event) ->
 	)[0]
 
 	if not (user?)
-		users.push(user)
 		currentUser.email = email
 		currentUser.name = username
 		signIn(currentUser)
@@ -300,6 +306,7 @@ $('.signOut').click((event) ->
 $('#postSuggestion').submit((event) ->
 	text = $(this).find('#text').val()
 	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
+	suggestions.splice(0, 0, suggestion)
 	$('#suggestionsContainer').prepend(suggestion.toHTML())
 )
 
