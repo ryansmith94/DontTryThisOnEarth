@@ -173,7 +173,7 @@ Stores and manipulates user data.
     suggestions.forEach(function(suggestion) {
       return suggestionsElement.append(suggestion.toHTML());
     });
-    return suggestions.first('.suggestion').addClass('selected');
+    return $('.suggestion').first().addClass('selected');
   };
 
   (function() {
