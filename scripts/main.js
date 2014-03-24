@@ -211,11 +211,20 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
   });
 
   main = function(data) {
-    var commentsElement, suggestions, suggestionsElement, users;
+    var commentsElement, dateSort, suggestions, suggestionsElement, users;
     suggestions = data.suggestions;
     users = data.users;
     suggestionsElement = $('#suggestionsContainer');
     commentsElement = $('#commentsContainer');
+    dateSort = function(a, b) {
+      if (a.date < b.date) {
+        return 1;
+      } else if (a.date > b.date) {
+        return -1;
+      } else {
+        return 0;
+      }
+    };
     users = users.map(function(user) {
       return new User(user.name, user.email);
     });
@@ -225,17 +234,10 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       suggestion.comments = suggestion.comments.map(function(comment) {
         return new Comment(comment.text, users[comment.author], new Date(comment.date));
       });
+      comments.sort(dateSort);
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
-    suggestions.sort(function(a, b) {
-      if (a.date < b.date) {
-        return 1;
-      } else if (a.date > b.date) {
-        return -1;
-      } else {
-        return 0;
-      }
-    });
+    suggestions.sort(dateSort);
     suggestions.forEach(function(suggestion, id) {
       return suggestionsElement.append(suggestion.toHTML(false, id));
     });
