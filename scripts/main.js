@@ -278,8 +278,6 @@
     user = users.filter(function(user) {
       return user.email === email;
     })[0];
-    console.log(users);
-    window.ryan = users;
     if (user != null) {
       return signIn(user);
     } else {
@@ -295,7 +293,7 @@
       return (user.email === email) || (user.name === username);
     })[0];
     if (!(user != null)) {
-      user = new User(email, username);
+      user = new User(username, email);
       users.push(user);
       return signIn(user);
     } else if (user.email === email) {
