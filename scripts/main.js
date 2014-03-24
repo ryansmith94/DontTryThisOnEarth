@@ -279,10 +279,11 @@
       return user.email === email;
     })[0];
     console.log(users);
+    window.ryan = users;
     if (user != null) {
       return signIn(user);
     } else {
-      return alert('You have entered incorrect credentials.');
+      return alert('That username does not exist. Please try a different username.');
     }
   });
 
