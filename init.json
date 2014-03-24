@@ -3,7 +3,13 @@
 		{
 			"text": "First person to eat a Mars bar on Mars",
 			"shares": 14,
-			"comments": [],
+			"comments": [
+				{
+					"text": "Some comment",
+					"author": 2,
+					"date": "Thu Mar 20 2014 11:29:15 GMT+0000 (GMT)"
+				}
+			],
 			"score": 11,
 			"author": 0,
 			"date": "Thu Mar 20 2014 10:23:15 GMT+0000 (GMT)"

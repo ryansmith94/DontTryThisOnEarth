@@ -165,7 +165,9 @@ Stores and manipulates user data.
     });
     suggestions = suggestions.map(function(suggestion) {
       suggestion.author = users[suggestion.author];
+      suggestion.date = new Date(suggestion.date);
       suggestion.comments = suggestion.comments.map(function(comment) {
+        comment.date = new Date(comment.date);
         return new Comment(comment.text, users[comment.author], comment.date);
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
@@ -173,7 +175,10 @@ Stores and manipulates user data.
     suggestions.forEach(function(suggestion) {
       return suggestionsElement.append(suggestion.toHTML());
     });
-    return $('.suggestion').first().addClass('selected');
+    $('.suggestion').first().addClass('selected');
+    return suggestions[0].comments.forEach(function(comment) {
+      return commentsElement.append(comment.toHTML());
+    });
   };
 
   (function() {
