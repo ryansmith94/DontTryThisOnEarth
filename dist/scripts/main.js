@@ -160,4 +160,30 @@ Stores and manipulates user data.
     return $(this).addClass('selected');
   });
 
+  $('.votes').click(function(event) {
+    event.stopPropagation();
+    $('.down').click(function(event) {
+      $(this).addClass('selected');
+      return $('.up').removeClass('selected');
+    });
+    return $('.up').click(function(event) {
+      $(this).addClass('selected');
+      return $('.down').removeClass('selected');
+    });
+  });
+
+  $('.navbar-nav').click(function(event) {
+    return $('.btn').click(function(event) {
+      return $(this).submit();
+    });
+  });
+
+  $('.navbar-nav').click(function(event) {
+    return $(this).toggleClass('signedIn');
+  });
+
+  $('.wrapper').click(function(event) {
+    return $(this).toggleClass('suggestions');
+  });
+
 }).call(this);

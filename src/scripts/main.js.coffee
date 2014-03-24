@@ -130,9 +130,43 @@ $('.suggestion').click((event) ->
 	$(this).addClass('selected')
 )
 
+# Toggle .selected on .votes.down or votes.up to vote down/up
+$('.votes').click((event) ->
+	event.stopPropagation()
+	$('.down').click((event) ->
+		$(this).addClass('selected')
+		$('.up').removeClass('selected')
+		# decrease score by 1 using function "voteDown" defined in Suggestion class.
+	)
+	$('.up').click((event) ->
+		$(this).addClass('selected')
+		$('.down').removeClass('selected')
+		# increase score by 1 using function "voteUp" defined in Suggestion class.
+	)
+)
+
+# @Ryan Do I even need this?
+# Submit form
+$('.navbar-nav').click((event) ->
+	$('.btn').click((event)->
+		$(this).submit()
+	)
+)
+
 # Toggle .signedIn on .navbar-nav to change menu
+$('.navbar-nav').click((event) ->
+	$(this).toggleClass('signedIn')
+)
+
+# @Ryan Is this meant to change when a user clicks on a Suggestion?
+# @Ryan It currently toggles when u click on grey areas (the wrapper).
 # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
+$('.wrapper').click((event) -> 
+	$(this).toggleClass('suggestions')
+)
+
 # Toggle .allUsers on #suggestions to switch between suggestions from a single user and all users
+
 # @Tim you do not need to add any classes and you shouldn't really need to add any IDs to Jade
 # @Tim use data-attributes (http://ejohn.org/blog/html-5-data-attributes/) where possible
 # @Tim data-attributes can be used to reference array indexes such as suggestions[arrayIndex] - we'll do this later
