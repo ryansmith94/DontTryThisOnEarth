@@ -283,7 +283,7 @@
     }
   });
 
-  $('#signIn').submit(function(event) {
+  $('#signUp').submit(function(event) {
     var email, username;
     email = $(this).find('#email').val();
     username = $(this).find('#username').val();
