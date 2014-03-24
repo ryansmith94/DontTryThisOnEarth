@@ -278,6 +278,7 @@
     user = users.filter(function(user) {
       return user.email === email;
     })[0];
+    console.log(users);
     if (user != null) {
       return signIn(user);
     } else {
