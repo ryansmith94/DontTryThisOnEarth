@@ -176,12 +176,13 @@ class Suggestion
 			# Vote up handler.
 			element.find('.up').click((event) ->
 				event.stopPropagation()
-				$(this).toggleClass('selected')
-				element.find('.down').removeClass('selected')
 				
-				curVal = parseInt($(this).parent().find('.score').text())
-				$('.up.selected').closest('.score').text(curVal+1)
-				# Increase score by 1 using function "voteUp" defined in Suggestion class.
+
+				if not $(this).hasClass('selected') then suggestion.voteUp() 
+				else suggestion.voteDown()
+				$(this).toggleClass('selected')
+				$(this).parent().find('.score').text(suggestion.score)
+				element.find('.down').removeClass('selected')
 			)
 
 			# Vote down handler.

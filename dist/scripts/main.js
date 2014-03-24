@@ -194,12 +194,15 @@
           return element.click();
         });
         element.find('.up').click(function(event) {
-          var curVal;
           event.stopPropagation();
+          if (!$(this).hasClass('selected')) {
+            suggestion.voteUp();
+          } else {
+            suggestion.voteDown();
+          }
           $(this).toggleClass('selected');
-          element.find('.down').removeClass('selected');
-          curVal = parseInt($(this).parent().find('.score').text());
-          return $('.up.selected').closest('.score').alert("KJ");
+          $(this).parent().find('.score').text(suggestion.score);
+          return element.find('.down').removeClass('selected');
         });
         element.find('.down').click(function(event) {
           event.stopPropagation();
