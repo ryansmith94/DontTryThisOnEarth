@@ -50,7 +50,7 @@ Stores and manipulates user data.
 
 
     Comment.prototype.toHTML = function() {
-      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + user.name + "</a> " + this.date + "</div>\n</div>";
+      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (this.date.toLocaleString()) + "</div>\n</div>";
     };
 
     return Comment;
@@ -138,7 +138,7 @@ Stores and manipulates user data.
     Suggestion.prototype.toHTML = (function() {
       var author, bin;
       author = function() {
-        return "<div class=\"author\">Posted by <a>" + this.author + "</a> " + this.time + "</div>";
+        return "<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (this.time.toLocaleString()) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
