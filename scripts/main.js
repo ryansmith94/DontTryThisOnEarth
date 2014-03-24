@@ -208,7 +208,8 @@
           return event.stopPropagation();
         });
         element.find('.author a').click(function(event) {
-          return event.stopPropagation();
+          event.stopPropagation();
+          return event.preventDefault();
         });
         return element;
       };
