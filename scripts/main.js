@@ -202,6 +202,8 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
 
   })();
 
+  $('.comments .back').click($('.wrapper').addClass('suggestions'));
+
   main = function(data) {
     var commentsElement, suggestions, suggestionsElement, users;
     suggestions = data.suggestions;
@@ -222,7 +224,8 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     suggestions.forEach(function(suggestion, id) {
       return suggestionsElement.append(suggestion.toHTML(false, id));
     });
-    return $('.suggestion').first().click();
+    $('.suggestion').first().click();
+    return $('.comments .back').click();
   };
 
   (function() {
