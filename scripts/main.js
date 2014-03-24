@@ -200,6 +200,9 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
         element.find('.share').click(function(event) {
           return event.stopPropagation();
         });
+        element.find('.delete').click(function(event) {
+          return event.stopPropagation();
+        });
         return element;
       };
     })();
