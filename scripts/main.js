@@ -294,6 +294,11 @@
     }
   });
 
+  $('.signOut').click(function(event) {
+    currentUser = null;
+    return $('.navbar-nav').removeClass('signedIn');
+  });
+
   /*
   # @Ryan Is this meant to change when a user clicks on a Suggestion?
   # @Ryan It currently toggles when u click on grey areas (the wrapper).
