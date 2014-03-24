@@ -170,13 +170,17 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
       return function(currentUser) {
-        var authorHTML;
+        var authorHTML, element;
         authorHTML = currentUser ? bin : user;
-        return $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>").click(function(event) {
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        element.click(function(event) {
           event.stopPropagation();
           $('.suggestion.selected').removeClass('selected');
           return $(this).addClass('selected');
         });
+        element.find('.up').click(event.stopPropagation(), $(this).toggleClass('selected'));
+        element.find('.down').click(event.stopPropagation(), $(this).toggleClass('selected'));
+        return element;
       };
     })();
 
@@ -219,16 +223,6 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       return $.getJSON('init.json').done(main);
     }
   })();
-
-  $('.down').click(function(event) {
-    event.stopPropagation();
-    return $(this).toggleClass('selected');
-  });
-
-  $('.up').click(function(event) {
-    event.stopPropagation();
-    return $(this).toggleClass('selected');
-  });
 
   /*
   # @Ryan Do I even need this?
