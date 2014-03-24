@@ -280,6 +280,8 @@
     })[0];
     if (user != null) {
       return signIn(user);
+    } else {
+      return alert('You have entered incorrect credentials.');
     }
   });
 
@@ -294,6 +296,10 @@
       user = new User(email, username);
       users.push(user);
       return signIn(user);
+    } else if (user.email === email) {
+      return alert('A user with that email address already exists. Please try a different email.');
+    } else {
+      return alert('A user with that username already exists. Please try a different username.');
     }
   });
 
