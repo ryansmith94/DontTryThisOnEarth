@@ -139,7 +139,7 @@ class Suggestion
 							<div class="icon"></div>#{@comments.length} Replies
 						</div>
 						<div class="share">
-							<div class="icon"></div>#{@shares} Shares
+							<div class="icon"></div><span class="number">#{@shares}</span> Shares
 							<div class="shareDropDown">
 								<a>Facebook</a>
 								<a>Twitter</a>
@@ -159,7 +159,7 @@ class Suggestion
 				event.stopPropagation() # Stops the event bubbling up to parent handlers.
 				$('.suggestion.selected').removeClass('selected')
 				$(this).addClass('selected')
-
+				
 				commentsElement = $('#commentsContainer')
 				commentsElement.children('.comment').remove()
 				comments.forEach((comment) ->
@@ -205,11 +205,14 @@ class Suggestion
 			# Share Handler.
 			element.find('.share').click((event) ->
 				event.stopPropagation()
+				suggestion.shares += 1
+				$('.number').text(suggestion.shares)
 			)
 
 			# Delete Handler.
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
+				
 				# Code goes here.
 			)
 
