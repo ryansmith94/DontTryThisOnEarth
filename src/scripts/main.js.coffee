@@ -1,4 +1,5 @@
 currentSuggestion = null
+currentSuggestionElement = null
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
@@ -64,6 +65,7 @@ class Comment
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
+@author Timon Wan <12038068@brookes.ac.uk>
 Stores and manipulates suggestion data.
 ###
 class Suggestion
@@ -136,7 +138,7 @@ class Suggestion
 					<h1 class="text">"#{@text}"</h1>
 					<div class="info">
 						<div class="reply clickable">
-							<div class="icon"></div>#{@comments.length} Replies
+							<div class="icon"></div><span class="number">#{@comments.length}</span> Replies
 						</div>
 						<div class="share">
 							<div class="icon"></div><span class="number">#{@shares}</span> Shares
@@ -168,6 +170,7 @@ class Suggestion
 
 				$('.wrapper').removeClass('suggestions')
 				currentSuggestion = suggestion
+				currentSuggestionElement = element
 			)
 
 			# Reply handler.
@@ -212,6 +215,7 @@ class Suggestion
 			# Delete Handler.
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
+				
 				$(this).remove()
 				# Code goes here.
 			)
@@ -322,6 +326,7 @@ $('#postSuggestion').submit((event) ->
 )
 
 # Post comment handler.
+# Need to reset text area
 $('#postComment').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -329,6 +334,8 @@ $('#postComment').submit((event) ->
 	comment = new Comment(text, currentUser, new Date())
 	currentSuggestion.addComment(comment)
 	$('#commentsContainer').prepend(comment.toHTML())
+	$(this).parent().children('#text').val("")
+	currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length)
 )
 
 # Cancel handler
