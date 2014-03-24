@@ -1,5 +1,5 @@
 (function() {
-  var Comment, Suggestion, User, currentUser, main, suggestions, timeSince, users;
+  var Comment, Suggestion, User, currentUser, main, signIn, suggestions, timeSince, users;
 
   currentUser = null;
 
@@ -267,33 +267,34 @@
     }
   })();
 
+  signIn = function(user) {
+    currentUser = user;
+    return $('.navbar-nav').addClass('signedIn');
+  };
+
   $('#signIn').submit(function(event) {
-    var email, password;
+    var email, user;
     email = $(this).find('#email').val();
-    password = $(this).find('#password').val();
-    currentUser = users.filter(function(user) {
+    user = users.filter(function(user) {
       return user.email === email;
-    })[0] || null;
-    if (currentUser != null) {
-      return $('.navbar-nav').addClass('signedIn');
+    })[0];
+    if (user != null) {
+      return signIn(user);
+    }
+  });
+
+  $('#signIn').submit(function(event) {
+    var email, username;
+    email = $(this).find('#email').val();
+    username = $(this).find('#username').val();
+    if (!(users.filter(function(user) {
+      return (user.email === email) || (user.name === username);
+    })[0] != null)) {
+      return signIn(users.push(new User(email, username)));
     }
   });
 
   /*
-  # @Ryan Do I even need this?
-  # Submit form
-  $('.navbar-nav').click((event) ->
-  	$('.btn').click((event)->
-  		$(this).submit()
-  	)
-  )
-  
-  # @Ryan Ignores the sign in form?
-  # Toggle .signedIn on .navbar-nav to change menu
-  $('.navbar-nav').click((event) ->
-  	$(this).toggleClass('signedIn')
-  )
-  
   # @Ryan Is this meant to change when a user clicks on a Suggestion?
   # @Ryan It currently toggles when u click on grey areas (the wrapper).
   # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
