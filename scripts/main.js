@@ -74,6 +74,8 @@ Stores and manipulates user data.
     	@param date {Date} when the suggestion was made.
     */
 
+    var _this = this;
+
     function Suggestion(text, score, comments, shares, author, date) {
       this.text = text != null ? text : '';
       this.score = score != null ? score : 0;
@@ -153,7 +155,7 @@ Stores and manipulates user data.
 
     return Suggestion;
 
-  })();
+  }).call(this);
 
   main = function(data) {
     var commentsElement, suggestions, suggestionsElement, users;
