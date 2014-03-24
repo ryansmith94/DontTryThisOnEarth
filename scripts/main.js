@@ -1,11 +1,11 @@
 (function() {
   var Comment, Suggestion, User, currentSuggestion, currentUser, main, signIn, suggestions, timeSince, users;
 
-  currentUser = null;
+  currentUser = new User("User" + ((new Date()).valueOf()), null);
 
   currentSuggestion = null;
 
-  users = [];
+  users = [currentUser];
 
   suggestions = [];
 
@@ -228,8 +228,6 @@
 
   main = function(data) {
     var commentsElement, dateSort, suggestionsElement;
-    suggestions = data.suggestions;
-    users = data.users;
     suggestionsElement = $('#suggestionsContainer');
     commentsElement = $('#commentsContainer');
     dateSort = function(a, b) {
@@ -241,10 +239,10 @@
         return 0;
       }
     };
-    users = users.map(function(user) {
+    users = data.users.map(function(user) {
       return new User(user.name, user.email);
-    });
-    suggestions = suggestions.map(function(suggestion) {
+    }).concat(users);
+    suggestions = data.suggestions.map(function(suggestion) {
       suggestion.author = users[suggestion.author];
       suggestion.date = new Date(suggestion.date);
       suggestion.comments = suggestion.comments.map(function(comment) {
@@ -297,9 +295,9 @@
       return (user.email === email) || (user.name === username);
     })[0];
     if (!(user != null)) {
-      user = new User(username, email);
-      users.push(user);
-      return signIn(user);
+      currentUser.email = email;
+      currentUser.name = name;
+      return signIn(currentUser);
     } else if (user.email === email) {
       return alert('A user with that email address already exists. Please try a different email.');
     } else {
