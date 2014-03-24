@@ -7,7 +7,7 @@
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         sass: {
-            build: {
+            source: {
                 files: [{
                     expand: true,
                     cwd: cwd,
@@ -21,7 +21,7 @@
             options: {
                 pretty: true
             },
-            build: {
+            source: {
                 files: [{
                     expand: true,
                     flatten: true,
@@ -33,32 +33,36 @@
             }
         },
         coffee: {
-            build: {
+            source: {
                 expand: true,
                 cwd: cwd,
                 src: ['**/*.js.coffee'],
                 dest: buildDir,
                 ext: '.js'
+            },
+            server: {
+                src: 'server.coffee',
+                dest: 'server.js'
             }
         },
         watch: {
             sass: {
                 files: [cwd + '/**/*.scss'],
-                tasks: ['sass:build'],
+                tasks: ['sass:source'],
                 options: {
                     spawn: false
                 }
             },
             jade: {
                 files: [cwd + '/**/*.jade'],
-                tasks: ['jade:build'],
+                tasks: ['jade:source'],
                 options: {
                     spawn: false
                 }
             },
             coffee: {
                 files: [cwd + '/**/*.coffee'],
-                tasks: ['coffee:build'],
+                tasks: ['coffee:source'],
                 options: {
                     spawn: false
                 }
@@ -80,6 +84,7 @@
     grunt.loadNpmTasks('grunt-gh-pages');
 
     // Tasks.
-    grunt.registerTask('default', ['sass', 'jade', 'coffee']);
+    grunt.registerTask('default', ['sass', 'jade', 'coffee:source']);
     grunt.registerTask('dist', ['default', 'gh-pages']);
+    grunt.registerTask('server', ['coffee:server']);
 };
