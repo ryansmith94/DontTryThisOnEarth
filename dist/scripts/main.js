@@ -259,6 +259,8 @@
 
   $('#signIn').submit(function(event) {
     var email, user;
+    event.stopPropagation();
+    event.preventDefault();
     email = $(this).find('#email').val();
     user = users.filter(function(user) {
       return user.email === email;
@@ -272,6 +274,8 @@
 
   $('#signUp').submit(function(event) {
     var email, user, username;
+    event.stopPropagation();
+    event.preventDefault();
     email = $(this).find('#email').val();
     username = $(this).find('#username').val();
     user = users.filter(function(user) {
@@ -289,12 +293,16 @@
   });
 
   $('.signOut').click(function(event) {
+    event.stopPropagation();
+    event.preventDefault();
     currentUser = null;
     return $('.navbar-nav').removeClass('signedIn');
   });
 
   $('#postSuggestion').submit(function(event) {
     var suggestion, text;
+    event.stopPropagation();
+    event.preventDefault();
     text = $(this).find('#text').val();
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
@@ -303,6 +311,8 @@
 
   $('#postComment').submit(function(event) {
     var comment, text;
+    event.stopPropagation();
+    event.preventDefault();
     text = $(this).find('#text').val();
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);

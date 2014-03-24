@@ -255,6 +255,8 @@ signIn = (user) ->
 
 # Sign in handler.
 $('#signIn').submit((event) ->
+	event.stopPropagation()
+	event.preventDefault()
 	email = $(this).find('#email').val()
 
 	user = users.filter((user) ->
@@ -266,6 +268,8 @@ $('#signIn').submit((event) ->
 
 # Sign up handler.
 $('#signUp').submit((event) ->
+	event.stopPropagation()
+	event.preventDefault()
 	email = $(this).find('#email').val()
 	username = $(this).find('#username').val()
 
@@ -285,12 +289,16 @@ $('#signUp').submit((event) ->
 
 # Sign out handler.
 $('.signOut').click((event) ->
+	event.stopPropagation()
+	event.preventDefault()
 	currentUser = null
 	$('.navbar-nav').removeClass('signedIn')
 )
 
 # Post suggestion handler.
 $('#postSuggestion').submit((event) ->
+	event.stopPropagation()
+	event.preventDefault()
 	text = $(this).find('#text').val()
 	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
 	suggestions.splice(0, 0, suggestion)
@@ -299,6 +307,8 @@ $('#postSuggestion').submit((event) ->
 
 # Post comment handler.
 $('#postComment').submit((event) ->
+	event.stopPropagation()
+	event.preventDefault()
 	text = $(this).find('#text').val()
 	comment = new Comment(text, currentUser, new Date())
 	currentSuggestion.addComment(comment)
