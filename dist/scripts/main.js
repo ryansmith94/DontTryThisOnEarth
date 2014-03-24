@@ -194,12 +194,17 @@
           return element.click();
         });
         element.find('.up').click(function(event) {
+          var curVal;
           event.stopPropagation();
-          return $(this).toggleClass('selected');
+          $(this).toggleClass('selected');
+          element.find('.down').removeClass('selected');
+          curVal = parseInt($(this).parent().find('.score').text());
+          return $('.up.selected').closest('.score').alert("KJ");
         });
         element.find('.down').click(function(event) {
           event.stopPropagation();
-          return $(this).toggleClass('selected');
+          $(this).toggleClass('selected');
+          return element.find('.up').removeClass('selected');
         });
         element.find('.share').click(function(event) {
           return event.stopPropagation();

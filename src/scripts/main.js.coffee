@@ -177,7 +177,10 @@ class Suggestion
 			element.find('.up').click((event) ->
 				event.stopPropagation()
 				$(this).toggleClass('selected')
-				# Need to remove 'selected' on .down
+				element.find('.down').removeClass('selected')
+				
+				curVal = parseInt($(this).parent().find('.score').text())
+				$('.up.selected').closest('.score').text(curVal+1)
 				# Increase score by 1 using function "voteUp" defined in Suggestion class.
 			)
 
@@ -185,7 +188,7 @@ class Suggestion
 			element.find('.down').click((event) ->
 				event.stopPropagation()
 				$(this).toggleClass('selected')
-				# Need to remove 'selected' on .down
+				element.find('.up').removeClass('selected')
 				# Increase score by 1 using function "voteUp" defined in Suggestion class.
 			)
 
