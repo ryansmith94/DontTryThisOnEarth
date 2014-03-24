@@ -181,9 +181,10 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
           $(this).addClass('selected');
           commentsElement = $('#comments');
           commentsElement.children('.comment').remove();
-          return comments.forEach(function(comment) {
+          comments.forEach(function(comment) {
             return commentsElement.append(comment.toHTML());
           });
+          return $('.wrapper').removeClass('suggestions');
         });
         element.find('.up').click(function(event) {
           event.stopPropagation();
