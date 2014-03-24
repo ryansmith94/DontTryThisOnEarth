@@ -1,20 +1,12 @@
+/*
+@author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
+Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
+@param date {Date} the date that something was done.
+*/
+
+
 (function() {
   var Comment, Suggestion, User, currentSuggestion, currentUser, main, signIn, suggestions, timeSince, users;
-
-  currentUser = new User("User" + ((new Date()).valueOf()), null);
-
-  currentSuggestion = null;
-
-  users = [currentUser];
-
-  suggestions = [];
-
-  /*
-  @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
-  Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
-  @param date {Date} the date that something was done.
-  */
-
 
   timeSince = function(date) {
     var interval, seconds;
@@ -184,7 +176,7 @@
         comments = this.comments;
         suggestion = this;
         element.click(function(event) {
-          var commentsElement;
+          var commentsElement, currentSuggestion;
           event.stopPropagation();
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
@@ -220,6 +212,14 @@
     return Suggestion;
 
   })();
+
+  currentUser = new User("User" + ((new Date()).valueOf()), null);
+
+  currentSuggestion = null;
+
+  users = [currentUser];
+
+  suggestions = [];
 
   $('#comments .back').click(function(event) {
     event.stopPropagation();
