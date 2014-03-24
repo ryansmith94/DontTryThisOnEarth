@@ -167,10 +167,19 @@ $('.navbar-nav').click((event) ->
 # 	$(this).toggleClass('suggestions')
 # )
 
+# @Ryan All this does is show the div with "View all Suggestions by user..."
+# @Ryan How I link to suggestions posted by a certain user?
 # Toggle .allUsers on #suggestions to switch between suggestions from a single user and all users
 $("#suggestions").click((event) ->
 	$(this).toggleClass('allUsers')
 )
+
+
+# Cancel Suggestion
+# Post Suggestion
+# Delete Suggestions
+# Add a comment
+# Share a Suggestion 
 
 # @Tim you do not need to add any classes and you shouldn't really need to add any IDs to Jade
 # @Tim use data-attributes (http://ejohn.org/blog/html-5-data-attributes/) where possible
