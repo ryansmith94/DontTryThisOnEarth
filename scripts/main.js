@@ -284,13 +284,16 @@
   });
 
   $('#signUp').submit(function(event) {
-    var email, username;
+    var email, user, username;
     email = $(this).find('#email').val();
     username = $(this).find('#username').val();
-    if (!(users.filter(function(user) {
+    user = users.filter(function(user) {
       return (user.email === email) || (user.name === username);
-    })[0] != null)) {
-      return signIn(users.push(new User(email, username)));
+    })[0];
+    if (!(user != null)) {
+      user = new User(email, username);
+      users.push(user);
+      return signIn(user);
     }
   });
 
