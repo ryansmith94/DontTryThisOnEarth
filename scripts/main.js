@@ -146,7 +146,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     /*
     	Increase reply counter by one for a new reply.
     	@param comment {Comment} the comment to be added.
-    	@return {Array<Comment>} the array of comments about the suggestion.
+    	@return {Array<Comment>} empty array.
     */
 
 
@@ -186,6 +186,8 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
             return commentsElement.append(comment.toHTML());
           });
           $('.wrapper').removeClass('suggestions');
+          console.log(currentSuggestion || 'No current suggestion');
+          console.log(suggestion || 'No suggestion');
           return currentSuggestion = suggestion;
         });
         element.find('.reply').click(function() {
