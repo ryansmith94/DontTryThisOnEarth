@@ -234,11 +234,11 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       suggestion.comments = suggestion.comments.map(function(comment) {
         return new Comment(comment.text, users[comment.author], new Date(comment.date));
       });
-      suggestion.comments.sort(dateSort);
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
     suggestions.sort(dateSort);
     suggestions.forEach(function(suggestion, id) {
+      suggestion.comments.sort(dateSort);
       return suggestionsElement.append(suggestion.toHTML(false, id));
     });
     $('.suggestion').first().click();
