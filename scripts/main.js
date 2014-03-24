@@ -234,7 +234,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       suggestion.comments = suggestion.comments.map(function(comment) {
         return new Comment(comment.text, users[comment.author], new Date(comment.date));
       });
-      suggestions.comments.sort(dateSort);
+      suggestion.comments.sort(dateSort);
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
     suggestions.sort(dateSort);
