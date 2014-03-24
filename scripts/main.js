@@ -154,24 +154,24 @@ Stores and manipulates user data.
 
   })();
 
-  console.log('yolo');
-
   main = function(data) {
-    var suggestions, users;
+    var commentsElement, suggestions, suggestionsElement, users;
     suggestions = data.suggestions;
     users = data.users;
-    console.log(suggestions || 'no suggestions');
-    console.log(users || 'no users');
-    console.log(data || 'no data');
+    suggestionsElement = $('#suggestions');
+    commentsElement = $('#comments');
     users = users.map(function(user) {
       return new User(user.name, user.email);
     });
-    return suggestions = suggestions.map(function(suggestion) {
+    suggestions = suggestions.map(function(suggestion) {
       suggestion.author = users[suggestion.author];
       suggestion.comments = suggestion.comments.map(function(comment) {
         return new Comment(comment.text, users[comment.author], comment.date);
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
+    });
+    return suggestions.forEach(function(suggestion) {
+      return suggestionsElement.append(suggestion.toHTML());
     });
   };
 
@@ -181,9 +181,7 @@ Stores and manipulates user data.
     if (cookies != null) {
       return main(JSON.parse(cookies));
     } else {
-      return $.getJSON('init.json').done(main).fail(function() {
-        return console.log('Failed to load init.json.');
-      });
+      return $.getJSON('init.json').done(main);
     }
   })();
 
