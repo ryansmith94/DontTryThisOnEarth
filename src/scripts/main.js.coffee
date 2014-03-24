@@ -150,6 +150,8 @@ class Suggestion
 			""")
 
 			comments = @comments
+
+			# Select handler.
 			element.click((event) ->
 				event.stopPropagation() # Stops the event bubbling up to parent handlers.
 				$('.suggestion.selected').removeClass('selected')
@@ -164,6 +166,7 @@ class Suggestion
 				$('.wrapper').removeClass('suggestions')
 			)
 
+			# Vote up handler.
 			element.find('.up').click((event) ->
 				event.stopPropagation()
 				$(this).toggleClass('selected')
@@ -171,6 +174,7 @@ class Suggestion
 				# Increase score by 1 using function "voteUp" defined in Suggestion class.
 			)
 
+			# Vote down handler.
 			element.find('.down').click((event) ->
 				event.stopPropagation()
 				$(this).toggleClass('selected')
@@ -178,11 +182,17 @@ class Suggestion
 				# Increase score by 1 using function "voteUp" defined in Suggestion class.
 			)
 
+			# Share Handler
+			element.find('.share').click((event) ->
+				event.stopPropagation()
+			)
+
 			element
 	)()
 
 # Start code.
 $('#comments .back').click((event) ->
+	event.stopPropagation()
 	$('.wrapper').addClass('suggestions')
 )
 
