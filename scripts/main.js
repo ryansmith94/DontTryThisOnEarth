@@ -211,8 +211,8 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
-    suggestions.forEach(function(suggestion) {
-      return suggestionsElement.append(suggestion.toHTML());
+    suggestions.forEach(function(suggestion, id) {
+      return suggestionsElement.append(suggestion.toHTML(false, id));
     });
     $('.suggestion').first().addClass('selected');
     return suggestions[0].comments.forEach(function(comment) {
