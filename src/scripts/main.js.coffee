@@ -221,7 +221,8 @@ $('#comments .back').click((event) ->
 	$('.wrapper').addClass('suggestions')
 )
 
-main = (data) ->
+# Load test data.
+$.getJSON('init.json').done((data) ->
 	suggestionsElement = $('#suggestionsContainer')
 	commentsElement = $('#commentsContainer')
 	dateSort = (a, b) ->
@@ -253,14 +254,7 @@ main = (data) ->
 	)
 	$('.suggestion').first().click()
 	$('#comments .back').click()
-
-(() ->
-	cookies = Cookies('demo')
-	if cookies?
-		main(JSON.parse(cookies))
-	else
-		$.getJSON('init.json').done(main)
-)()
+)
 
 signIn = (user) ->
 	currentUser = user
