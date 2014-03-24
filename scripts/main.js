@@ -296,7 +296,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     })[0];
     if (!(user != null)) {
       currentUser.email = email;
-      currentUser.name = name;
+      currentUser.name = username;
       return signIn(currentUser);
     } else if (user.email === email) {
       return alert('A user with that email address already exists. Please try a different email.');
