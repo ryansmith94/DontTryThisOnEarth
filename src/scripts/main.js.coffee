@@ -130,19 +130,20 @@ $('.suggestion').click((event) ->
 	$(this).addClass('selected')
 )
 
-# Toggle .selected on .votes.down or votes.up to vote down/up
-$('.votes').click((event) ->
+# Toggle .selected on .votes .down
+$('.down').click((event) ->
 	event.stopPropagation()
-	$('.down').click((event) ->
-		$(this).addClass('selected')
-		$('.up').removeClass('selected')
-		# decrease score by 1 using function "voteDown" defined in Suggestion class.
-	)
-	$('.up').click((event) ->
-		$(this).addClass('selected')
-		$('.down').removeClass('selected')
-		# increase score by 1 using function "voteUp" defined in Suggestion class.
-	)
+	$(this).toggleClass('selected')
+	# Need to remove 'selected' in .up
+	# Decrease score by 1 using function "voteDown" defined in Suggestion class.
+)
+
+# Toggle .selected on .votes .up
+$('.up').click((event) ->
+	event.stopPropagation()
+	$(this).toggleClass('selected')
+	# Need to remove 'selected' on .down
+	# Increase score by 1 using function "voteUp" defined in Suggestion class.
 )
 
 # @Ryan Do I even need this?
@@ -153,6 +154,7 @@ $('.navbar-nav').click((event) ->
 	)
 )
 
+# @Ryan Ignores the sign in form?
 # Toggle .signedIn on .navbar-nav to change menu
 $('.navbar-nav').click((event) ->
 	$(this).toggleClass('signedIn')
@@ -161,11 +163,14 @@ $('.navbar-nav').click((event) ->
 # @Ryan Is this meant to change when a user clicks on a Suggestion?
 # @Ryan It currently toggles when u click on grey areas (the wrapper).
 # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
-$('.wrapper').click((event) -> 
-	$(this).toggleClass('suggestions')
-)
+# $('.wrapper').click((event) -> 
+# 	$(this).toggleClass('suggestions')
+# )
 
 # Toggle .allUsers on #suggestions to switch between suggestions from a single user and all users
+$("#suggestions").click((event) ->
+	$(this).toggleClass('allUsers')
+)
 
 # @Tim you do not need to add any classes and you shouldn't really need to add any IDs to Jade
 # @Tim use data-attributes (http://ejohn.org/blog/html-5-data-attributes/) where possible

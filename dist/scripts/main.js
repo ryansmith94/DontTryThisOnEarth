@@ -160,16 +160,15 @@ Stores and manipulates user data.
     return $(this).addClass('selected');
   });
 
-  $('.votes').click(function(event) {
+  $('.down').click(function(event) {
     event.stopPropagation();
-    $('.down').click(function(event) {
-      $(this).addClass('selected');
-      return $('.up').removeClass('selected');
-    });
-    return $('.up').click(function(event) {
-      $(this).addClass('selected');
-      return $('.down').removeClass('selected');
-    });
+    return $(this).toggleClass('selected');
+  });
+
+  $('.up').click(function(event) {
+    event.stopPropagation();
+    $(this).toggleClass('selected');
+    return $('.selected.votes.down').removeClass('selected');
   });
 
   $('.navbar-nav').click(function(event) {
@@ -182,8 +181,8 @@ Stores and manipulates user data.
     return $(this).toggleClass('signedIn');
   });
 
-  $('.wrapper').click(function(event) {
-    return $(this).toggleClass('suggestions');
+  $("#suggestions").click(function(event) {
+    return $(this).toggleClass('allUsers');
   });
 
 }).call(this);
