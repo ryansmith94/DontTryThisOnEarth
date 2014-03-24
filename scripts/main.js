@@ -194,6 +194,9 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
           event.stopPropagation();
           return $(this).toggleClass('selected');
         });
+        element.find('.share').click(function(event) {
+          return event.stopPropagation();
+        });
         return element;
       };
     })();
@@ -203,6 +206,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
   })();
 
   $('#comments .back').click(function(event) {
+    event.stopPropagation();
     return $('.wrapper').addClass('suggestions');
   });
 
