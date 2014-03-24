@@ -221,10 +221,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     suggestions.forEach(function(suggestion, id) {
       return suggestionsElement.append(suggestion.toHTML(false, id));
     });
-    $('.suggestion').first().click();
-    return suggestions[0].comments.forEach(function(comment) {
-      return commentsElement.append(comment.toHTML());
-    });
+    return $('.suggestion').first().click();
   };
 
   (function() {
