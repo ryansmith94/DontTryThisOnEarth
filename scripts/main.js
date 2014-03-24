@@ -166,7 +166,7 @@
     Suggestion.prototype.toHTML = (function() {
       var bin, user;
       user = function(author, date) {
-        return "<div class=\"author\">Posted by <a href=\"/" + author.name + "\">" + author.name + "</a> " + (timeSince(date)) + "</div>";
+        return "<div class=\"author\">Posted by <a href=\"?" + author.name + "\">" + author.name + "</a> " + (timeSince(date)) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
