@@ -1,6 +1,7 @@
 head
 	link(href='vendor/bootstrap.min.css', rel='stylesheet')
 	link(href='styles/main.css', rel='stylesheet')
+	script(src='vendor/cookies.min.js')
 body
 	// Header.
 	.navbar.navbar-default.navbar-fixed-top(role='navigation')
@@ -55,41 +56,7 @@ body
 				= 'All suggestions for '
 				a user222567
 
-			mixin suggestion(currentUser, selected)
-				.suggestion(class=selected ? ['selected'] : [])
-					.votes
-						.up
-						h2.score 10
-						.down
-					.content
-						h1.text "First person to moonwalk on Mars"
-						.info
-							.clickable.reply
-								.icon
-								| 0 Replies
-							.clickable.share
-								.icon
-								| 2 Shares
-								.shareDropDown
-									a Facebook
-									a Twitter
-							if currentUser
-								.clickable.delete
-									.icon
-									| Delete
-							else
-								.author 
-									| Posted by 
-									a Alan
-									|  3hrs ago
-
-			// Suggestions go here.
-			+suggestion(false, true)
-			+suggestion(false, false)
-			+suggestion(true, false)
-			+suggestion(false, false)
-			+suggestion(false, false)
-			+suggestion(true, false)
+			#suggestionsContainer
 		
 		// Section containing comments.					
 		section#comments
@@ -103,19 +70,7 @@ body
 					.icon
 					| Post comment
 
-			mixin comment
-				.comment
-					h2.text This is a comment.
-					.author 
-						| Posted by 
-						a Alan
-						|  3hrs ago
-
-			// Comments go here.
-			+comment()
-			+comment()
-			+comment()
-			+comment()
+			#commentsContainer
 
 			h2.clickable.back
 				| Return to suggestions

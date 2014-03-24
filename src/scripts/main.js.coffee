@@ -1,4 +1,27 @@
 ###
+@author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
+Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
+@param date {Date} the date that something was done.
+###
+timeSince = (date) ->
+	seconds = Math.floor((new Date() - date) / 1000)
+	interval = Math.floor(seconds / 31536000)
+
+	if interval > 1 
+		"#{interval} years ago"
+	else if (interval = Math.floor(seconds / 2592000)) > 1
+		"#{interval} months ago"
+	else if (interval = Math.floor(seconds / 86400)) > 1
+		"#{interval} days ago"
+	else if (interval = Math.floor(seconds / 3600)) > 1 
+		"#{interval} hours ago"
+	else if (interval = Math.floor(seconds / 60)) > 1
+		"#{interval} minutes ago"
+	else
+		"#{Math.floor(seconds)} seconds ago"
+
+
+###
 @author Ryan Smith <12034191@brookes.ac.uk>
 Stores and manipulates user data.
 ###
@@ -32,7 +55,7 @@ class Comment
 		"""
 		<div class="comment">
 			<h2 class="text">#{@text}</h2>
-			<div class="author">Posted by <a>#{user.name}</a> #{@date}</div>
+			<div class="author">Posted by <a>#{@author.name}</a> #{timeSince(@date)}</div>
 		</div>
 		"""
 
@@ -86,9 +109,9 @@ class Suggestion
 	@return {String} string of HTML representing the suggestion.
 	###
 	toHTML: (() ->
-		author = () ->
+		user = (author, date) ->
 			"""
-			<div class="author">Posted by <a>#{@author}</a> #{@time}</div>
+			<div class="author">Posted by <a>#{author.name}</a> #{timeSince(date)}</div>
 			"""
 
 		bin = () ->
@@ -98,10 +121,10 @@ class Suggestion
 			</div>
 			"""
 
-		(currentUser) ->
-			authorHTML = if currentUser then bin else author
-			"""
-			<div class="suggestion">
+		(currentUser, id) ->
+			authorHTML = if currentUser then bin else user
+			element = $("""
+			<div class="suggestion" data-suggestion="#{id}">
 				<div class="votes">
 					<div class="up"></div>
 					<h2 class="score">#{@score}</h2>
@@ -111,41 +134,94 @@ class Suggestion
 					<h1 class="text">"#{@text}"</h1>
 					<div class="info">
 						<div class="reply">
-							<div class="icon"></div>#{@replies} Replies
+							<div class="icon"></div>#{@comments.length} Replies
 						</div>
 						<div class="share">
 							<div class="icon"></div>#{@shares} Shares
+							<div class="shareDropDown">
+								<a>Facebook</a>
+								<a>Twitter</a>
+							</div>
 						</div>
-						#{authorHTML()}
+						#{authorHTML(@author, @date)}
 					</div>
 				</div>
 			</div>
-			"""
+			""")
+
+			comments = @comments
+			element.click((event) ->
+				event.stopPropagation() # Stops the event bubbling up to parent handlers.
+				$('.suggestion.selected').removeClass('selected')
+				$(this).addClass('selected')
+
+				commentsElement = $('#commentsContainer')
+				commentsElement.children('.comment').remove()
+				comments.forEach((comment) ->
+					commentsElement.append(comment.toHTML())
+				)
+
+				$('.wrapper').removeClass('suggestions')
+			)
+
+			element.find('.up').click((event) ->
+				event.stopPropagation()
+				$(this).toggleClass('selected')
+				# Need to remove 'selected' on .down
+				# Increase score by 1 using function "voteUp" defined in Suggestion class.
+			)
+
+			element.find('.down').click((event) ->
+				event.stopPropagation()
+				$(this).toggleClass('selected')
+				# Need to remove 'selected' on .down
+				# Increase score by 1 using function "voteUp" defined in Suggestion class.
+			)
+
+			element
 	)()
 
-# Selects suggestions.
-$('.suggestion').click((event) ->
-	event.stopPropagation() # Stops the event bubbling up to parent handlers.
-	$('.suggestion.selected').removeClass('selected')
-	$(this).addClass('selected')
+# Start code.
+$('#comments .back').click((event) ->
+	$('.wrapper').addClass('suggestions')
 )
 
-# Toggle .selected on .votes .down
-$('.down').click((event) ->
-	event.stopPropagation()
-	$(this).toggleClass('selected')
-	# Need to remove 'selected' in .up
-	# Decrease score by 1 using function "voteDown" defined in Suggestion class.
-)
+main = (data) ->
+	suggestions = data.suggestions
+	users = data.users
+	suggestionsElement = $('#suggestionsContainer')
+	commentsElement = $('#commentsContainer')
 
-# Toggle .selected on .votes .up
-$('.up').click((event) ->
-	event.stopPropagation()
-	$(this).toggleClass('selected')
-	# Need to remove 'selected' on .down
-	# Increase score by 1 using function "voteUp" defined in Suggestion class.
-)
+	users = users.map((user) ->
+		new User(user.name, user.email)
+	)
 
+	suggestions = suggestions.map((suggestion) ->
+		suggestion.author = users[suggestion.author]
+		suggestion.date = new Date(suggestion.date)
+		suggestion.comments = suggestion.comments.map((comment) ->
+			new Comment(comment.text, users[comment.author], new Date(comment.date))
+		)
+		new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date)
+	)
+
+	suggestions.forEach((suggestion, id) ->
+		suggestionsElement.append(suggestion.toHTML(false, id))
+	)
+	$('.suggestion').first().click()
+	$('#comments .back').click()
+
+(() ->
+	cookies = Cookies('demo')
+	if cookies?
+		main(JSON.parse(cookies))
+	else
+		$.getJSON('init.json').done(main)
+)()
+
+
+
+###
 # @Ryan Do I even need this?
 # Submit form
 $('.navbar-nav').click((event) ->
@@ -173,7 +249,7 @@ $('.navbar-nav').click((event) ->
 $("#suggestions").click((event) ->
 	$(this).toggleClass('allUsers')
 )
-
+###
 
 # Cancel Suggestion
 # Post Suggestion
