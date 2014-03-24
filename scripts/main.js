@@ -262,7 +262,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
   })();
 
   $('#signIn').submit(function(event) {
-    return window.ryan = event;
+    return console.log(event);
   });
 
   /*
