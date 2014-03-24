@@ -164,6 +164,8 @@ Stores and manipulates user data.
     }
   })();
 
+  console.log('yolo');
+
   main = function(data) {
     var suggestions, users;
     suggestions = data.suggestions;
