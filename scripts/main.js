@@ -227,6 +227,15 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
+    suggestions.sort(function(a, b) {
+      if (a.date < b.date) {
+        return 1;
+      } else if (a.date > b.date) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
     suggestions.forEach(function(suggestion, id) {
       return suggestionsElement.append(suggestion.toHTML(false, id));
     });
