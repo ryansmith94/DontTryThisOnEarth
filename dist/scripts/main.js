@@ -1,5 +1,5 @@
 (function() {
-  var Comment, Suggestion, User, currentSuggestion, currentUser, main, signIn, suggestions, timeSince, users;
+  var Comment, Suggestion, User, currentSuggestion, currentUser, signIn, suggestions, timeSince, users;
 
   currentSuggestion = null;
 
@@ -230,19 +230,10 @@
     return $('.wrapper').addClass('suggestions');
   });
 
-  main = function(data) {
-    var commentsElement, dateSort, suggestionsElement;
+  $.getJSON('init.json').done(function(data) {
+    var commentsElement, suggestionsElement;
     suggestionsElement = $('#suggestionsContainer');
     commentsElement = $('#commentsContainer');
-    dateSort = function(a, b) {
-      if (a.date < b.date) {
-        return 1;
-      } else if (a.date > b.date) {
-        return -1;
-      } else {
-        return 0;
-      }
-    };
     users = data.users.map(function(user) {
       return new User(user.name, user.email);
     }).concat(users);
@@ -254,24 +245,12 @@
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
-    suggestions.sort(dateSort);
     suggestions.forEach(function(suggestion, id) {
-      suggestion.comments.sort(dateSort);
       return suggestionsElement.append(suggestion.toHTML(false, id));
     });
     $('.suggestion').first().click();
     return $('#comments .back').click();
-  };
-
-  (function() {
-    var cookies;
-    cookies = Cookies('demo');
-    if (cookies != null) {
-      return main(JSON.parse(cookies));
-    } else {
-      return $.getJSON('init.json').done(main);
-    }
-  })();
+  });
 
   signIn = function(user) {
     currentUser = user;
@@ -329,22 +308,5 @@
     currentSuggestion.addComment(comment);
     return $('#commentsContainer').prepend(comment.toHTML());
   });
-
-  /*
-  # @Ryan Is this meant to change when a user clicks on a Suggestion?
-  # @Ryan It currently toggles when u click on grey areas (the wrapper).
-  # Toggle .suggestions on .wrapper to switch between comments and suggestions on mobile
-  # $('.wrapper').click((event) -> 
-  # 	$(this).toggleClass('suggestions')
-  # )
-  
-  # @Ryan All this does is show the div with "View all Suggestions by user..."
-  # @Ryan How I link to suggestions posted by a certain user?
-  # Toggle .allUsers on #suggestions to switch between suggestions from a single user and all users
-  $("#suggestions").click((event) ->
-  	$(this).toggleClass('allUsers')
-  )
-  */
-
 
 }).call(this);
