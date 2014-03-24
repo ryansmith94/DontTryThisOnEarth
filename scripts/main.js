@@ -172,7 +172,11 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       return function(currentUser) {
         var authorHTML;
         authorHTML = currentUser ? bin : user;
-        return "<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>";
+        return $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>").click(function(event) {
+          event.stopPropagation();
+          $('.suggestion.selected').removeClass('selected');
+          return $(this).addClass('selected');
+        });
       };
     })();
 
@@ -215,12 +219,6 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
       return $.getJSON('init.json').done(main);
     }
   })();
-
-  $('.suggestion').click(function(event) {
-    event.stopPropagation();
-    $('.suggestion.selected').removeClass('selected');
-    return $(this).addClass('selected');
-  });
 
   $('.down').click(function(event) {
     event.stopPropagation();
