@@ -136,12 +136,9 @@ Stores and manipulates user data.
 
 
     Suggestion.prototype.toHTML = (function() {
-      var bin, user,
-        _this = this;
-      user = function() {
-        console.log(_this);
-        console.log(_this.author);
-        return "<div class=\"author\">Posted by <a>" + _this.author.name + "</a> " + (_this.time.toLocaleString()) + "</div>";
+      var bin, user;
+      user = function(author, date) {
+        return "<div class=\"author\">Posted by <a>" + author.name + "</a> " + (date.toLocaleString()) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
@@ -149,7 +146,7 @@ Stores and manipulates user data.
       return function(currentUser) {
         var authorHTML;
         authorHTML = currentUser ? bin : user;
-        return "<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML()) + "\n		</div>\n	</div>\n</div>";
+        return "<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>";
       };
     })();
 
