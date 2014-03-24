@@ -179,7 +179,7 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
           event.stopPropagation();
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
-          commentsElement = $('#comments');
+          commentsElement = $('#commentsContainer');
           commentsElement.children('.comment').remove();
           comments.forEach(function(comment) {
             return commentsElement.append(comment.toHTML());
@@ -206,8 +206,8 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
     var commentsElement, suggestions, suggestionsElement, users;
     suggestions = data.suggestions;
     users = data.users;
-    suggestionsElement = $('#suggestions');
-    commentsElement = $('#comments');
+    suggestionsElement = $('#suggestionsContainer');
+    commentsElement = $('#commentsContainer');
     users = users.map(function(user) {
       return new User(user.name, user.email);
     });
