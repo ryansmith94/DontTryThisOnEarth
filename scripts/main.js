@@ -138,7 +138,7 @@ Stores and manipulates user data.
     Suggestion.prototype.toHTML = (function() {
       var bin, user;
       user = function() {
-        console.log(author);
+        console.log(this.author);
         return "<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (this.time.toLocaleString()) + "</div>";
       };
       bin = function() {
