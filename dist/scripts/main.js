@@ -224,10 +224,11 @@
         element.find('.share').click(function(event) {
           event.stopPropagation();
           suggestion.shares += 1;
-          return $('.number').text(suggestion.shares);
+          return $(this).children('.number').text(suggestion.shares);
         });
         element.find('.delete').click(function(event) {
-          return event.stopPropagation();
+          event.stopPropagation();
+          return $(this).remove();
         });
         element.find('.author a').click(function(event) {
           event.stopPropagation();
@@ -339,6 +340,16 @@
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);
     return $('#commentsContainer').prepend(comment.toHTML());
+  });
+
+  $('form .cancel').click(function(event) {
+    event.stopPropagation();
+    return $(this).parent().children('#text').val("");
+  });
+
+  $('form .submit').click(function(event) {
+    event.stopPropagation();
+    return $(this).submit();
   });
 
 }).call(this);

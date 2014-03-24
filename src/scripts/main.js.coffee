@@ -206,13 +206,13 @@ class Suggestion
 			element.find('.share').click((event) ->
 				event.stopPropagation()
 				suggestion.shares += 1
-				$('.number').text(suggestion.shares)
+				$(this).children('.number').text(suggestion.shares)
 			)
 
 			# Delete Handler.
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
-				
+				$(this).remove()
 				# Code goes here.
 			)
 
@@ -222,7 +222,7 @@ class Suggestion
 				event.preventDefault() # Stops the URL from changing - in the finished product this is not needed.
 				# Code goes here.
 			)
-
+			
 			element
 	)()
 
@@ -330,3 +330,17 @@ $('#postComment').submit((event) ->
 	currentSuggestion.addComment(comment)
 	$('#commentsContainer').prepend(comment.toHTML())
 )
+
+# Cancel handler
+$('form .cancel').click((event) ->
+	event.stopPropagation()
+	$(this).parent().children('#text').val("")
+)
+
+# Submit handler
+$('form .submit').click((event) ->
+	event.stopPropagation()
+	$(this).submit()
+)
+
+
