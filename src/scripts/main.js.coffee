@@ -201,6 +201,13 @@ main = (data) ->
 	users = data.users
 	suggestionsElement = $('#suggestionsContainer')
 	commentsElement = $('#commentsContainer')
+	dateSort = (a, b) ->
+		if a.date < b.date
+			1
+		else if a.date > b.date
+			-1
+		else
+			0
 
 	users = users.map((user) ->
 		new User(user.name, user.email)
@@ -215,7 +222,10 @@ main = (data) ->
 		new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date)
 	)
 
+	suggestions.sort(dateSort)
+
 	suggestions.forEach((suggestion, id) ->
+		suggestion.comments.sort(dateSort)
 		suggestionsElement.append(suggestion.toHTML(false, id))
 	)
 	$('.suggestion').first().click()
