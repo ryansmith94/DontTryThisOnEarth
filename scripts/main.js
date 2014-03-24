@@ -74,8 +74,6 @@ Stores and manipulates user data.
     	@param date {Date} when the suggestion was made.
     */
 
-    var _this = this;
-
     function Suggestion(text, score, comments, shares, author, date) {
       this.text = text != null ? text : '';
       this.score = score != null ? score : 0;
@@ -138,10 +136,12 @@ Stores and manipulates user data.
 
 
     Suggestion.prototype.toHTML = (function() {
-      var bin, user;
+      var bin, user,
+        _this = this;
       user = function() {
-        console.log(this.author);
-        return "<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (this.time.toLocaleString()) + "</div>";
+        console.log(_this);
+        console.log(_this.author);
+        return "<div class=\"author\">Posted by <a>" + _this.author.name + "</a> " + (_this.time.toLocaleString()) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
@@ -155,7 +155,7 @@ Stores and manipulates user data.
 
     return Suggestion;
 
-  }).call(this);
+  })();
 
   main = function(data) {
     var commentsElement, suggestions, suggestionsElement, users;
