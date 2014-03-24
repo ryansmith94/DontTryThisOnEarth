@@ -2,6 +2,7 @@
 <head>
   <link href="vendor/bootstrap.min.css" rel="stylesheet"/>
   <link href="styles/main.css" rel="stylesheet"/>
+  <script src="vendor/cookies.min.js"></script>
 </head>
 <body>
   <!-- Header.-->
@@ -19,6 +20,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="account"><a href="#">View Suggestions</a></li>
           <li class="account"><a href="#">Sign Out</a></li>
+          <!-- Sign in drop down.-->
           <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle">Sign In<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li>
@@ -38,7 +40,9 @@
   </div>
   <!-- Content (suggestions and comments).-->
   <div class="container wrapper suggestions">
+    <!-- Section containing suggestions.-->
     <section id="suggestions" class="allUsers">
+      <!-- Form for posting a new suggestion.-->
       <form id="postSuggestion">
         <input type="paragraph" placeholder="Please write your suggestion here..."/>
         <div class="clickable cancel">
@@ -50,6 +54,7 @@
       </form>
       <div class="user">All suggestions for <a>user222567</a>
       </div>
+      <!-- Suggestions go here.-->
             <div class="suggestion selected">
               <div class="votes">
                 <div class="up"></div>
@@ -175,7 +180,9 @@
               </div>
             </div>
     </section>
+    <!-- Section containing comments.					-->
     <section id="comments">
+      <!-- Form for posting a new comment.-->
       <form id="PostComment">
         <input type="paragraph" placeholder="Please write your comment here..."/>
         <div class="clickable cancel">
@@ -185,6 +192,7 @@
           <div class="icon"></div>Post comment
         </div>
       </form>
+      <!-- Comments go here.-->
             <div class="comment">
               <h2 class="text">This is a comment.</h2>
               <div class="author">Posted by <a>Alan</a> 3hrs ago</div>

@@ -5,7 +5,7 @@ Stores and manipulates user data.
 
 
 (function() {
-  var Comment, Suggestion, User;
+  var Comment, Suggestion, User, main;
 
   User = (function() {
     /*
@@ -154,10 +154,60 @@ Stores and manipulates user data.
 
   })();
 
+  (function() {
+    var cookies;
+    cookies = Cookies('demo');
+    if (cookies != null) {
+      return main(JSON.parse(cookies));
+    } else {
+      return $.getJSON('init.json', main);
+    }
+  })();
+
+  main = function(data) {
+    var suggestions, users;
+    suggestions = data.suggestions;
+    users = data.users;
+    users = users.map(function(user) {
+      return new User(user.name, user.email);
+    });
+    return suggestions = suggestions.map(function(suggestion) {
+      suggestion.author = users[suggestion.author];
+      suggestion.comments = suggestion.comments.map(function(comment) {
+        return new Comment(comment.text, users[comment.author], comment.date);
+      });
+      return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
+    });
+  };
+
   $('.suggestion').click(function(event) {
     event.stopPropagation();
     $('.suggestion.selected').removeClass('selected');
     return $(this).addClass('selected');
+  });
+
+  $('.down').click(function(event) {
+    event.stopPropagation();
+    return $(this).toggleClass('selected');
+  });
+
+  $('.up').click(function(event) {
+    event.stopPropagation();
+    return $(this).toggleClass('selected');
+  });
+
+  $('.navbar-nav').click(function(event) {
+    return $('.btn').click(function(event) {
+      return $(this).submit();
+    });
+  });
+
+  $('.navbar-nav').click(function(event) {
+    return $(this).toggleClass('signedIn');
+  });
+
+  $("#suggestions").click(function(event) {
+    return $(this).toggleClass('allUsers');
   });
 
 }).call(this);
