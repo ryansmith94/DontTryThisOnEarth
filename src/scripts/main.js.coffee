@@ -1,6 +1,5 @@
 currentSuggestion = null
 
-
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
 Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-format-time-since-xxx-e-g-4-minutes-ago-similar-to-stack-exchange-site).
@@ -216,6 +215,7 @@ currentUser = new User("User#{(new Date()).valueOf()}", null)
 users = [currentUser]
 suggestions = []
 
+# Handler to go back to suggestions (useful on mobile).
 $('#comments .back').click((event) ->
 	event.stopPropagation()
 	$('.wrapper').addClass('suggestions')
@@ -226,10 +226,12 @@ $.getJSON('init.json').done((data) ->
 	suggestionsElement = $('#suggestionsContainer')
 	commentsElement = $('#commentsContainer')
 
+	# Constructs the users (from test data) and adds these to any users made before loading test data.
 	users = data.users.map((user) ->
 		new User(user.name, user.email)
 	).concat(users)
 
+	# Constructs the suggestions and comments (from test data).
 	suggestions = data.suggestions.map((suggestion) ->
 		suggestion.author = users[suggestion.author]
 		suggestion.date = new Date(suggestion.date)
@@ -246,6 +248,7 @@ $.getJSON('init.json').done((data) ->
 	$('#comments .back').click()
 )
 
+# Sign in helper function.
 signIn = (user) ->
 	currentUser = user
 	$('.navbar-nav').addClass('signedIn')
