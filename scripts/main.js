@@ -1,11 +1,30 @@
-/*
-@author Ryan Smith <12034191@brookes.ac.uk>
-Stores and manipulates user data.
-*/
-
-
 (function() {
-  var Comment, Suggestion, User, main;
+  var Comment, Suggestion, User, main, timeSince;
+
+  timeSince = function(date) {
+    var interval, seconds;
+    seconds = Math.floor((new Date() - date) / 1000);
+    interval = Math.floor(seconds / 31536000);
+    if (interval > 1) {
+      return "" + interval + " years";
+    } else if ((interval = Math.floor(seconds / 2592000)) > 1) {
+      return "" + interval + " months";
+    } else if ((interval = Math.floor(seconds / 86400)) > 1) {
+      return "" + interval + " days";
+    } else if ((interval = Math.floor(seconds / 3600)) > 1) {
+      return "" + interval + " hours";
+    } else if ((interval = Math.floor(seconds / 60)) > 1) {
+      return "" + interval + " minutes";
+    } else {
+      return "" + (Math.floor(seconds)) + " seconds";
+    }
+  };
+
+  /*
+  @author Ryan Smith <12034191@brookes.ac.uk>
+  Stores and manipulates user data.
+  */
+
 
   User = (function() {
     /*
@@ -50,7 +69,7 @@ Stores and manipulates user data.
 
 
     Comment.prototype.toHTML = function() {
-      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (this.date.toLocaleString()) + "</div>\n</div>";
+      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (timeSince(this.date.toLocaleString())) + "</div>\n</div>";
     };
 
     return Comment;
@@ -138,7 +157,7 @@ Stores and manipulates user data.
     Suggestion.prototype.toHTML = (function() {
       var bin, user;
       user = function(author, date) {
-        return "<div class=\"author\">Posted by <a>" + author.name + "</a> " + (date.toLocaleString()) + "</div>";
+        return "<div class=\"author\">Posted by <a>" + author.name + "</a> " + (timeSince(date.toLocaleString())) + "</div>";
       };
       bin = function() {
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
