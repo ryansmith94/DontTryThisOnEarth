@@ -225,13 +225,6 @@ $('#comments .back').click((event) ->
 $.getJSON('init.json').done((data) ->
 	suggestionsElement = $('#suggestionsContainer')
 	commentsElement = $('#commentsContainer')
-	dateSort = (a, b) ->
-		if a.date < b.date
-			1
-		else if a.date > b.date
-			-1
-		else
-			0
 
 	users = data.users.map((user) ->
 		new User(user.name, user.email)
@@ -246,10 +239,7 @@ $.getJSON('init.json').done((data) ->
 		new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date)
 	)
 
-	suggestions.sort(dateSort)
-
 	suggestions.forEach((suggestion, id) ->
-		suggestion.comments.sort(dateSort)
 		suggestionsElement.append(suggestion.toHTML(false, id))
 	)
 	$('.suggestion').first().click()
