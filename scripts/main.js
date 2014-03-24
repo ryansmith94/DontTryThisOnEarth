@@ -202,7 +202,9 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
 
   })();
 
-  $('#comments .back').click($('.wrapper').addClass('suggestions'));
+  $('#comments .back').click(function(event) {
+    return $('.wrapper').addClass('suggestions');
+  });
 
   main = function(data) {
     var commentsElement, suggestions, suggestionsElement, users;
