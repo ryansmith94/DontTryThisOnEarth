@@ -178,22 +178,14 @@ Adapted from [Stack Overflow](http://stackoverflow.com/questions/3177836/how-to-
           $('.suggestion.selected').removeClass('selected');
           return $(this).addClass('selected');
         });
-        /*
-        			element.find('.up').click((event) ->
-        				event.stopPropagation()
-        				$(this).toggleClass('selected')
-        				# Need to remove 'selected' on .down
-        				# Increase score by 1 using function "voteUp" defined in Suggestion class.
-        			)
-        
-        			element.find('.down').click((event) ->
-        				event.stopPropagation()
-        				$(this).toggleClass('selected')
-        				# Need to remove 'selected' on .down
-        				# Increase score by 1 using function "voteUp" defined in Suggestion class.
-        			)
-        */
-
+        element.find('.up').click(function(event) {
+          event.stopPropagation();
+          return $(this).toggleClass('selected');
+        });
+        element.find('.down').click(function(event) {
+          event.stopPropagation();
+          return $(this).toggleClass('selected');
+        });
         return element;
       };
     })();
