@@ -268,12 +268,11 @@
   })();
 
   $('#signIn').submit(function(event) {
-    var email, password, username;
+    var email, password;
     email = $(this).find('#email').val();
-    username = $(this).find('#username').val();
     password = $(this).find('#password').val();
     currentUser = users.filter(function(user) {
-      return (user.email === email) && (user.name === username);
+      return user.email === email;
     })[0] || null;
     if (currentUser != null) {
       return $('.navbar-nav').addClass('signedIn');
