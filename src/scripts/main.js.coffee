@@ -133,7 +133,7 @@ class Suggestion
 				<div class="content">
 					<h1 class="text">"#{@text}"</h1>
 					<div class="info">
-						<div class="reply">
+						<div class="reply clickable">
 							<div class="icon"></div>#{@comments.length} Replies
 						</div>
 						<div class="share">
@@ -165,6 +165,8 @@ class Suggestion
 
 				$('.wrapper').removeClass('suggestions')
 			)
+
+			element.find('.reply').click(() -> element.click())
 
 			# Vote up handler.
 			element.find('.up').click((event) ->
