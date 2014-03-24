@@ -154,18 +154,6 @@ Stores and manipulates user data.
 
   })();
 
-  (function() {
-    var cookies;
-    cookies = Cookies('demo');
-    if (cookies != null) {
-      return main(JSON.parse(cookies));
-    } else {
-      return $.getJSON('init.json').done(main).fail(function() {
-        return console.log('Failed to load init.json.');
-      });
-    }
-  })();
-
   console.log('yolo');
 
   main = function(data) {
@@ -186,6 +174,18 @@ Stores and manipulates user data.
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
   };
+
+  (function() {
+    var cookies;
+    cookies = Cookies('demo');
+    if (cookies != null) {
+      return main(JSON.parse(cookies));
+    } else {
+      return $.getJSON('init.json').done(main).fail(function() {
+        return console.log('Failed to load init.json.');
+      });
+    }
+  })();
 
   $('.suggestion').click(function(event) {
     event.stopPropagation();
