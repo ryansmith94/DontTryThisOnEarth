@@ -1,7 +1,9 @@
 (function() {
-  var Comment, Suggestion, User, currentUser, main, signIn, suggestions, timeSince, users;
+  var Comment, Suggestion, User, currentSuggestion, currentUser, main, signIn, suggestions, timeSince, users;
 
   currentUser = null;
+
+  currentSuggestion = null;
 
   users = [];
 
@@ -157,7 +159,7 @@
 
 
     Suggestion.prototype.addComment = function(comment) {
-      return this.comments.push(comment);
+      return this.comments.splice(0, 0, comment);
     };
 
     /*
@@ -176,10 +178,11 @@
         return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
       return function(currentUser, id) {
-        var authorHTML, comments, element;
+        var authorHTML, comments, element, suggestion;
         authorHTML = currentUser ? bin : user;
         element = $("<div class=\"suggestion\" data-suggestion=\"" + id + "\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div>" + this.comments.length + " Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div>" + this.shares + " Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         comments = this.comments;
+        suggestion = this;
         element.click(function(event) {
           var commentsElement;
           event.stopPropagation();
@@ -190,7 +193,8 @@
           comments.forEach(function(comment) {
             return commentsElement.append(comment.toHTML());
           });
-          return $('.wrapper').removeClass('suggestions');
+          $('.wrapper').removeClass('suggestions');
+          return currentSuggestion = suggestion;
         });
         element.find('.reply').click(function() {
           return element.click();
@@ -306,6 +310,22 @@
   $('.signOut').click(function(event) {
     currentUser = null;
     return $('.navbar-nav').removeClass('signedIn');
+  });
+
+  $('#postSuggestion').submit(function(event) {
+    var suggestion, text;
+    text = $(this).find('#email').val();
+    suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
+    suggestions.splice(0, 0, suggestion);
+    return $('#suggestionsContainer').prepend(suggestion.toHTML());
+  });
+
+  $('#postComment').submit(function(event) {
+    var comment, text;
+    text = $(this).find('#email').val();
+    comment = new Comment(text, currentUser, new Date());
+    currentSuggestion.addComment(comment);
+    return $('#commentsContainer').prepend(comment.toHTML());
   });
 
   /*
