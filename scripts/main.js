@@ -314,7 +314,7 @@
 
   $('#postSuggestion').submit(function(event) {
     var suggestion, text;
-    text = $(this).find('#email').val();
+    text = $(this).find('#text').val();
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
     return $('#suggestionsContainer').prepend(suggestion.toHTML());
@@ -322,7 +322,7 @@
 
   $('#postComment').submit(function(event) {
     var comment, text;
-    text = $(this).find('#email').val();
+    text = $(this).find('#text').val();
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);
     return $('#commentsContainer').prepend(comment.toHTML());
