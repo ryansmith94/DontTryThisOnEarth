@@ -177,9 +177,12 @@ class Suggestion
 			element.find('.up').click((event) ->
 				event.stopPropagation()
 				
-
-				if not $(this).hasClass('selected') then suggestion.voteUp() 
+				if not $(this).hasClass('selected')
+					if element.find('.down').hasClass('selected')
+						suggestion.voteUp()
+					suggestion.voteUp()	
 				else suggestion.voteDown()
+				
 				$(this).toggleClass('selected')
 				$(this).parent().find('.score').text(suggestion.score)
 				element.find('.down').removeClass('selected')
@@ -188,10 +191,16 @@ class Suggestion
 			# Vote down handler.
 			element.find('.down').click((event) ->
 				event.stopPropagation()
+				
+				if not $(this).hasClass('selected')
+					if element.find('.up').hasClass('selected')
+						suggestion.voteDown()
+					suggestion.voteDown()	
+				else suggestion.voteUp()
+				
 				$(this).toggleClass('selected')
-				element.find('.up').removeClass('selected')
-				# Increase score by 1 using function "voteUp" defined in Suggestion class.
-			)
+				$(this).parent().find('.score').text(suggestion.score)
+				element.find('.up').removeClass('selected'))
 
 			# Share Handler.
 			element.find('.share').click((event) ->

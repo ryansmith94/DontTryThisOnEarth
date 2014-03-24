@@ -196,6 +196,9 @@
         element.find('.up').click(function(event) {
           event.stopPropagation();
           if (!$(this).hasClass('selected')) {
+            if (element.find('.down').hasClass('selected')) {
+              suggestion.voteUp();
+            }
             suggestion.voteUp();
           } else {
             suggestion.voteDown();
@@ -206,7 +209,16 @@
         });
         element.find('.down').click(function(event) {
           event.stopPropagation();
+          if (!$(this).hasClass('selected')) {
+            if (element.find('.up').hasClass('selected')) {
+              suggestion.voteDown();
+            }
+            suggestion.voteDown();
+          } else {
+            suggestion.voteUp();
+          }
           $(this).toggleClass('selected');
+          $(this).parent().find('.score').text(suggestion.score);
           return element.find('.up').removeClass('selected');
         });
         element.find('.share').click(function(event) {
