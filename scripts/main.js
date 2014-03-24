@@ -166,8 +166,11 @@ Stores and manipulates user data.
 
   main = function(data) {
     var suggestions, users;
-    window.suggestions = window.ryan = data.suggestions;
-    window.users = window.ryan2 = data.users;
+    suggestions = data.suggestions;
+    users = data.users;
+    console.log(suggestions);
+    console.log(users);
+    console.log(data);
     users = users.map(function(user) {
       return new User(user.name, user.email);
     });
