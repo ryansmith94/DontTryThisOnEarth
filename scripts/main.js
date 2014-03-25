@@ -219,8 +219,9 @@
         suggestion = this;
         // Select handler.;
         element.click(function(event) {
+          // Stops the event bubbling up to parent handlers.;
           var commentsElement;
-          event.stopPropagation()(// Stops the event bubbling up to parent handlers.);
+          event.stopPropagation();
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
           commentsElement = $('#commentsContainer');
@@ -283,7 +284,8 @@
         // Author handler.;
         element.find('.author a').click(function(event) {
           event.stopPropagation();
-          event.preventDefault()(// Stops the URL from changing - in the finished product this is not needed.);
+          // Stops the URL from changing - in the finished product this is not needed.;
+          event.preventDefault();
           return showSuggestions(suggestion.author);
         });
         return element;
