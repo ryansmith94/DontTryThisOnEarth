@@ -293,16 +293,18 @@
 
         element.find('.delete').click(function(event) {
           event.stopPropagation();
-          $(this).parent().parent().parent().remove();
-          if (suggestion === currentSuggestion) {
-            $('.suggestion').first().click();
-          }
-          suggestions.splice(suggestions.indexOf(suggestion), 1);
-          if ($('.suggestion').length = 0) {
-            $('#suggestions .empty').show();
-            $('#postComment').hide();
-            $('#comments .noSuggestion').show();
-            return $('#comments .empty').hide();
+          if (confirm('Are you sure want to delete?') === true) {
+            $(this).parent().parent().parent().remove();
+            if (suggestion === currentSuggestion) {
+              $('.suggestion').first().click();
+            }
+            suggestions.splice(suggestions.indexOf(suggestion), 1);
+            if ($('.suggestion').length = 0) {
+              $('#suggestions .empty').show();
+              $('#postComment').hide();
+              $('#comments .noSuggestion').show();
+              return $('#comments .empty').hide();
+            }
           }
         });
         /* Author handler.*/

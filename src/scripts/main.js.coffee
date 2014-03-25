@@ -261,15 +261,16 @@ class Suggestion
 			### Delete Handler. ### 
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
-				$(this).parent().parent().parent().remove()
-				if suggestion is currentSuggestion
-					$('.suggestion').first().click()
-				suggestions.splice(suggestions.indexOf(suggestion), 1)
-				if $('.suggestion').length = 0
-					$('#suggestions .empty').show()
-					$('#postComment').hide()
-					$('#comments .noSuggestion').show()
-					$('#comments .empty').hide()
+				if confirm('Are you sure want to delete?') is true 
+					$(this).parent().parent().parent().remove()
+					if suggestion is currentSuggestion
+						$('.suggestion').first().click()
+					suggestions.splice(suggestions.indexOf(suggestion), 1)
+					if $('.suggestion').length = 0
+						$('#suggestions .empty').show()
+						$('#postComment').hide()
+						$('#comments .noSuggestion').show()
+						$('#comments .empty').hide()
 			)
 
 			### Author handler. ### 
