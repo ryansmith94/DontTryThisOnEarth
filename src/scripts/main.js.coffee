@@ -57,12 +57,24 @@ class Comment
 	@return {String} string of HTML representing the comment.
 	###
 	toHTML: () ->
-		"""
+		element = $("""
 		<div class="comment">
 			<h2 class="text">#{@text}</h2>
 			<div class="author">Posted by <a>#{@author.name}</a> #{timeSince(@date)}</div>
 		</div>
-		"""
+		""")
+
+		comment = this;
+
+		element.find('.author a').click((event) ->
+			event.stopPropagation()
+			### Stops the URL from changing - in the finished product this is not needed. ### 
+			event.preventDefault()
+			
+			showSuggestions(comment.author)
+		)
+
+		element
 
 
 ###
@@ -184,7 +196,6 @@ class Suggestion
 			</div>
 			""")
 
-			comments = @comments
 			suggestion = this
 
 			### Select handler. ### 
@@ -197,8 +208,8 @@ class Suggestion
 				
 				commentsElement = $('#commentsContainer')
 				commentsElement.children('.comment').remove()
-				if comments.length > 0
-					comments.forEach((comment) ->
+				if suggestion.comments.length > 0
+					suggestion.comments.forEach((comment) ->
 						commentsElement.append(comment.toHTML())
 					)
 					$('#comments .empty').hide()
