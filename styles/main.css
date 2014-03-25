@@ -1,28 +1,18 @@
 /* Font styles. */
-html {
+h1, h2, h3, h4, p, html {
+  margin: 0px;
   color: #191919;
-  font-size: 16px;
-  line-height: 1.62857143; }
+  font-size: 14px;
+  line-height: 14px; }
 
 h1 {
-  margin: 0;
-  font-size: 20px; }
+  font-size: 1.5rem;
+  line-height: 1.5rem; }
 
 h2 {
-  margin: 0;
-  font-size: 18px; }
+  font-size: 1.2rem;
+  line-height: 1.0rem; }
 
-@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 800px) {
-  html {
-    color: #191919;
-    font-size: 14px;
-    line-height: 1.42857143; }
-
-  h1 {
-    font-size: 18px; }
-
-  h2 {
-    font-size: 16px; } }
 /* Layout of the main elements (such as body, wrapper, etc). */
 body {
   overflow-x: hidden;
@@ -52,13 +42,13 @@ body {
         margin-right: 1rem; }
 
 /* Elements that should use a pointer. */
-.clickable, a, .suggestion .content .text, .votes .up, .votes .down {
+.clickable, a, .suggestion .content .text, .votes div {
   cursor: pointer; }
 
 /* Switching between suggestions and comments on mobile. */
 .wrapper.suggestions #comments {
   position: absolute;
-  right: 100%; }
+  left: 100%; }
 
 .wrapper:not(.suggestions) #suggestions {
   position: absolute;
@@ -67,7 +57,16 @@ body {
 /* Back to suggestions. */
 .back {
   text-align: center;
-  margin: 1rem; }
+  margin: 1rem;
+  color: #b7b7b7; }
+  .back .icon {
+    font-family: 'Comic-Sans';
+    margin-top: 0.6rem;
+    font-size: 2.5rem;
+    font-weight: bold; }
+
+.back:hover {
+  color: #191919; }
 
 #suggestions.allUsers .back {
   display: none; }
@@ -79,7 +78,17 @@ body {
 .empty, .noSuggestion {
   text-align: center; }
 
-@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 800px) {
+@media (min-width: 768px) {
+  body {
+    overflow-y: hidden; }
+
+  #suggestionsContainer, #commentsContainer {
+    overflow-y: scroll;
+    max-height: 80%; }
+
+  #suggestionsContainer {
+    margin-right: 1px; }
+
   .container {
     width: 98%;
     padding: 0 5px; }
@@ -96,10 +105,10 @@ body {
 
   #comments .back {
     display: none; } }
-@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 1300px) {
+@media (min-width: 1300px) {
   .container {
     width: 80%; } }
-@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 1500px) {
+@media (min-width: 1500px) {
   .container {
     width: 70%; } }
 .navbar-default {
@@ -170,7 +179,6 @@ body {
   /* Suggestion voting and score. */
   /* Content of the suggestion (text and info). */ }
   .suggestion .votes {
-    margin-top: 0.5rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -228,8 +236,8 @@ body {
 
 /* Icons. */
 .icon {
-  width: 1rem;
-  height: 1rem;
+  width: 14px;
+  height: 14px;
   background-size: 100%;
   display: inline-block;
   margin-right: 3px; }
@@ -256,15 +264,12 @@ body {
   background-image: url("../images/reply_active.png"); }
 
 /* Voting. */
-.votes .up, .votes .down {
-  width: 26px;
-  height: 26px;
-  background-size: 100%;
-  margin: 0.1rem auto; }
-
-@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 800px) {
+.votes div {
   width: 20px;
-  height: 20px; }
+  height: 20px;
+  background-size: 100%;
+  margin: 0.5rem auto; }
+
 /* Vote up icon. */
 .votes .up {
   background-image: url("../images/like.png"); }

@@ -226,7 +226,7 @@
       return function() {
         var authorHTML, element, suggestion;
         authorHTML = currentUser === this.author ? bin : user;
-        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<div class=\"score\">" + this.score + "</div>\n		<div class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         suggestion = this;
         /* Select handler.*/
 
@@ -238,7 +238,7 @@
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
           commentsElement = $('#commentsContainer');
-          commentsElement.children('.comment').remove();
+          commentsElement.empty();
           if (suggestion.comments.length > 0) {
             suggestion.comments.forEach(function(comment) {
               return commentsElement.append(comment.toHTML());
@@ -297,7 +297,13 @@
           if (suggestion === currentSuggestion) {
             $('.suggestion').first().click();
           }
-          return suggestions.splice(suggestions.indexOf(suggestion), 1);
+          suggestions.splice(suggestions.indexOf(suggestion), 1);
+          if ($('.suggestion').length = 0) {
+            $('#suggestions .empty').show();
+            $('#postComment').hide();
+            $('#comments .noSuggestion').show();
+            return $('#comments .empty').hide();
+          }
         });
         /* Author handler.*/
 
@@ -347,6 +353,7 @@
     var suggestionsElement;
     suggestionsElement = $('#suggestionsContainer');
     suggestionsElement.empty();
+    $('#commentsContainer').empty();
     suggestions.forEach(function(suggestion) {
       if ((user == null) || suggestion.author === user) {
         return suggestionsElement.append(suggestion.toHTML());
@@ -474,7 +481,9 @@
     text = $(this).find('#text').val();
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
-    return $('#suggestionsContainer').prepend(suggestion.toHTML(true));
+    $(this).find('.cancel').click();
+    $('#suggestionsContainer').prepend(suggestion.toHTML(true));
+    return $('#suggestions .empty').hide();
   });
 
   /* Post comment handler.*/
@@ -491,8 +500,9 @@
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);
     $('#commentsContainer').prepend(comment.toHTML());
-    $(this).parent().children('#text').val("");
-    return currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
+    $(this).find('.cancel').click();
+    currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
+    return $('#comments .empty').hide();
   });
 
   /* Cancel handler.*/
