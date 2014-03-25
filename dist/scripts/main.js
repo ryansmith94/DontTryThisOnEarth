@@ -1,5 +1,5 @@
 (function() {
-  var Comment, Suggestion, User, currentSuggestion, currentSuggestionElement, currentUser, signIn, suggestions, timeSince, users;
+  var Comment, Suggestion, User, anonymousUser, currentSuggestion, currentSuggestionElement, currentUser, showSuggestions, signIn, suggestions, timeSince, users;
 
   currentSuggestion = null;
 
@@ -172,12 +172,12 @@
         return "<div class=\"author\">Posted by <a href=\"?user=" + author.name + "\">" + author.name + "</a> " + (timeSince(date)) + "</div>";
       };
       bin = function() {
-        return "<div class=\"delete\">\n  <div class=\"icon\"></div>Delete\n</div>";
+        return "<div class=\"delete clickable\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
-      return function(currentUser, id) {
+      return function(currentUser) {
         var authorHTML, comments, element, suggestion;
         authorHTML = currentUser ? bin : user;
-        element = $("<div class=\"suggestion\" data-suggestion=\"" + id + "\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         comments = this.comments;
         suggestion = this;
         element.click(function(event) {
@@ -246,7 +246,9 @@
 
   })();
 
-  currentUser = new User("User" + ((new Date()).valueOf()), null);
+  anonymousUser = new User("User" + ((new Date()).valueOf()), null);
+
+  currentUser = anonymousUser;
 
   users = [currentUser];
 
@@ -257,10 +259,18 @@
     return $('.wrapper').addClass('suggestions');
   });
 
-  $.getJSON('init.json').done(function(data) {
-    var commentsElement, suggestionsElement;
+  showSuggestions = function() {
+    var suggestionsElement;
     suggestionsElement = $('#suggestionsContainer');
-    commentsElement = $('#commentsContainer');
+    suggestionsElement.empty();
+    suggestions.forEach(function(suggestion) {
+      return suggestionsElement.append(suggestion.toHTML((currentUser != null) && suggestion.author.name === currentUser.name));
+    });
+    $('.suggestion').first().click();
+    return $('#comments .back').click();
+  };
+
+  $.getJSON('init.json').done(function(data) {
     users = data.users.map(function(user) {
       return new User(user.name, user.email);
     }).concat(users);
@@ -272,16 +282,13 @@
       });
       return new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date);
     });
-    suggestions.forEach(function(suggestion, id) {
-      return suggestionsElement.append(suggestion.toHTML(false, id));
-    });
-    $('.suggestion').first().click();
-    return $('#comments .back').click();
+    return showSuggestions();
   });
 
   signIn = function(user) {
     currentUser = user;
-    return $('.navbar-nav').addClass('signedIn');
+    $('.navbar-nav').addClass('signedIn');
+    return showSuggestions();
   };
 
   $('#signIn').submit(function(event) {
@@ -322,8 +329,9 @@
   $('.signOut').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
-    currentUser = null;
-    return $('.navbar-nav').removeClass('signedIn');
+    currentUser = anonymousUser;
+    $('.navbar-nav').removeClass('signedIn');
+    return showSuggestions();
   });
 
   $('#postSuggestion').submit(function(event) {
@@ -333,7 +341,7 @@
     text = $(this).find('#text').val();
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
-    return $('#suggestionsContainer').prepend(suggestion.toHTML());
+    return $('#suggestionsContainer').prepend(suggestion.toHTML(true));
   });
 
   $('#postComment').submit(function(event) {
@@ -344,6 +352,7 @@
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);
     $('#commentsContainer').prepend(comment.toHTML());
+    $(this).parent().children('#text').val("");
     return currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
   });
 

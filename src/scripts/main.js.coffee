@@ -120,15 +120,15 @@ class Suggestion
 
 		bin = () ->
 			"""
-			<div class="delete">
+			<div class="delete clickable">
 			  <div class="icon"></div>Delete
 			</div>
 			"""
 
-		(currentUser, id) ->
+		(currentUser) ->
 			authorHTML = if currentUser then bin else user
 			element = $("""
-			<div class="suggestion" data-suggestion="#{id}">
+			<div class="suggestion">
 				<div class="votes">
 					<div class="up"></div>
 					<h2 class="score">#{@score}</h2>
@@ -231,7 +231,8 @@ class Suggestion
 	)()
 
 # Start code.
-currentUser = new User("User#{(new Date()).valueOf()}", null)
+anonymousUser = new User("User#{(new Date()).valueOf()}", null)
+currentUser = anonymousUser
 users = [currentUser]
 suggestions = []
 
@@ -241,11 +242,19 @@ $('#comments .back').click((event) ->
 	$('.wrapper').addClass('suggestions')
 )
 
+showSuggestions = () ->
+	suggestionsElement = $('#suggestionsContainer');
+	suggestionsElement.empty()
+
+	suggestions.forEach((suggestion) ->
+		suggestionsElement.append(suggestion.toHTML(currentUser? and suggestion.author.name is currentUser.name))
+	)
+
+	$('.suggestion').first().click()
+	$('#comments .back').click()
+
 # Load test data.
 $.getJSON('init.json').done((data) ->
-	suggestionsElement = $('#suggestionsContainer')
-	commentsElement = $('#commentsContainer')
-
 	# Constructs the users (from test data) and adds these to any users made before loading test data.
 	users = data.users.map((user) ->
 		new User(user.name, user.email)
@@ -261,17 +270,14 @@ $.getJSON('init.json').done((data) ->
 		new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date)
 	)
 
-	suggestions.forEach((suggestion, id) ->
-		suggestionsElement.append(suggestion.toHTML(false, id))
-	)
-	$('.suggestion').first().click()
-	$('#comments .back').click()
+	showSuggestions()
 )
 
 # Sign in helper function.
 signIn = (user) ->
 	currentUser = user
 	$('.navbar-nav').addClass('signedIn')
+	showSuggestions()
 
 # Sign in handler.
 $('#signIn').submit((event) ->
@@ -311,8 +317,9 @@ $('#signUp').submit((event) ->
 $('.signOut').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
-	currentUser = null
+	currentUser = anonymousUser
 	$('.navbar-nav').removeClass('signedIn')
+	showSuggestions()
 )
 
 # Post suggestion handler.
@@ -322,7 +329,7 @@ $('#postSuggestion').submit((event) ->
 	text = $(this).find('#text').val()
 	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
 	suggestions.splice(0, 0, suggestion)
-	$('#suggestionsContainer').prepend(suggestion.toHTML())
+	$('#suggestionsContainer').prepend(suggestion.toHTML(true))
 )
 
 # Post comment handler.
