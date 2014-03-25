@@ -170,12 +170,16 @@
 
 
     Suggestion.prototype.unVote = function() {
+      /* Remove down vote.*/
+
       var index;
       index = currentUser.downs.indexOf(this);
       if (index !== -1) {
         currentUser.downs.splice(index, 1);
         this.score += 1;
       }
+      /* Remove up vote.*/
+
       index = currentUser.ups.indexOf(this);
       if (index !== -1) {
         currentUser.ups.splice(index, 1);
@@ -215,7 +219,11 @@
         element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         comments = this.comments;
         suggestion = this;
+        /* Select handler.*/
+
         element.click(function(event) {
+          /* Stops the event bubbling up to parent handlers.*/
+
           var commentsElement;
           event.stopPropagation();
           $('.suggestion.selected').removeClass('selected');
@@ -234,9 +242,13 @@
           currentSuggestion = suggestion;
           return currentSuggestionElement = element;
         });
+        /* Reply handler.*/
+
         element.find('.reply').click(function() {
           return element.click();
         });
+        /* Vote up handler.*/
+
         element.find('.up').click(function(event) {
           event.stopPropagation();
           if (!$(this).hasClass('selected')) {
@@ -248,6 +260,8 @@
           $(this).parent().find('.score').text(suggestion.score);
           return element.find('.down').removeClass('selected');
         });
+        /* Vote down handler.*/
+
         element.find('.down').click(function(event) {
           event.stopPropagation();
           if (!$(this).hasClass('selected')) {
@@ -259,11 +273,15 @@
           $(this).parent().find('.score').text(suggestion.score);
           return element.find('.up').removeClass('selected');
         });
+        /* Share Handler.*/
+
         element.find('.share').click(function(event) {
           event.stopPropagation();
           suggestion.shares += 1;
           return $(this).children('.number').text(suggestion.shares);
         });
+        /* Delete Handler.*/
+
         element.find('.delete').click(function(event) {
           event.stopPropagation();
           $(this).parent().parent().parent().remove();
@@ -272,8 +290,12 @@
           }
           return suggestions.splice(suggestions.indexOf(suggestion), 1);
         });
+        /* Author handler.*/
+
         element.find('.author a').click(function(event) {
           event.stopPropagation();
+          /* Stops the URL from changing - in the finished product this is not needed.*/
+
           event.preventDefault();
           return showSuggestions(suggestion.author);
         });
@@ -285,6 +307,9 @@
 
   })();
 
+  /* Start code.*/
+
+
   anonymousUser = new User("User" + ((new Date()).valueOf()), null);
 
   currentUser = anonymousUser;
@@ -293,10 +318,16 @@
 
   suggestions = [];
 
+  /* Handler to go back to suggestions from comments (useful on mobile).*/
+
+
   $('#comments .back').click(function(event) {
     event.stopPropagation();
     return $('.wrapper').addClass('suggestions');
   });
+
+  /* Handler to go back to suggestions from user's suggestions.*/
+
 
   $('#suggestions .back').click(function(event) {
     event.stopPropagation();
@@ -332,10 +363,17 @@
     }
   };
 
+  /* Load test data.*/
+
+
   $.getJSON('init.json').done(function(data) {
+    /* Constructs the users (from test data) and adds these to any users made before loading test data.*/
+
     users = data.users.map(function(user) {
       return new User(user.name, user.email);
     }).concat(users);
+    /* Constructs the suggestions and comments (from test data).*/
+
     suggestions = data.suggestions.map(function(suggestion) {
       suggestion.author = users[suggestion.author];
       suggestion.date = new Date(suggestion.date);
@@ -347,11 +385,17 @@
     return showSuggestions();
   });
 
+  /* Sign in helper function.*/
+
+
   signIn = function(user) {
     currentUser = user;
     $('.navbar-nav').addClass('signedIn');
     return showSuggestions();
   };
+
+  /* Sign in handler.*/
+
 
   $('#signIn').submit(function(event) {
     var email, user;
@@ -367,6 +411,9 @@
       return alert('That username does not exist. Please try a different username.');
     }
   });
+
+  /* Sign up handler.*/
+
 
   $('#signUp').submit(function(event) {
     var email, user, username;
@@ -388,6 +435,9 @@
     }
   });
 
+  /* Sign out handler.*/
+
+
   $('.signOut').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
@@ -396,11 +446,17 @@
     return showSuggestions();
   });
 
+  /* View user's suggestions handler.*/
+
+
   $('.viewSuggestions').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
     return showSuggestions(currentUser);
   });
+
+  /* Post suggestion handler.*/
+
 
   $('#postSuggestion').submit(function(event) {
     var suggestion, text;
@@ -411,6 +467,12 @@
     suggestions.splice(0, 0, suggestion);
     return $('#suggestionsContainer').prepend(suggestion.toHTML(true));
   });
+
+  /* Post comment handler.*/
+
+
+  /* Need to reset text area.*/
+
 
   $('#postComment').submit(function(event) {
     var comment, text;
@@ -424,10 +486,16 @@
     return currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
   });
 
+  /* Cancel handler.*/
+
+
   $('form .cancel').click(function(event) {
     event.stopPropagation();
     return $(this).parent().children('#text').val("");
   });
+
+  /* Submit handler.*/
+
 
   $('form .submit').click(function(event) {
     event.stopPropagation();

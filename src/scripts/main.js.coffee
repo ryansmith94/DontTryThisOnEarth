@@ -118,13 +118,13 @@ class Suggestion
 	Remove previous vote.
 	###
 	unVote: () ->
-		# Remove down vote.
+		### Remove down vote. ### 
 		index = currentUser.downs.indexOf(this)
 		if index isnt -1
 			currentUser.downs.splice(index, 1)
 			@score += 1
 
-		# Remove up vote.
+		### Remove up vote. ### 
 		index = currentUser.ups.indexOf(this)
 		if index isnt -1
 			currentUser.ups.splice(index, 1)
@@ -187,9 +187,11 @@ class Suggestion
 			comments = @comments
 			suggestion = this
 
-			# Select handler.
+			### Select handler. ### 
 			element.click((event) ->
-				event.stopPropagation() # Stops the event bubbling up to parent handlers.
+				### Stops the event bubbling up to parent handlers. ### 
+				event.stopPropagation()
+
 				$('.suggestion.selected').removeClass('selected')
 				$(this).addClass('selected')
 				
@@ -208,10 +210,10 @@ class Suggestion
 				currentSuggestionElement = element
 			)
 
-			# Reply handler.
+			### Reply handler. ### 
 			element.find('.reply').click(() -> element.click())
 
-			# Vote up handler.
+			### Vote up handler. ### 
 			element.find('.up').click((event) ->
 				event.stopPropagation()
 				
@@ -225,7 +227,7 @@ class Suggestion
 				element.find('.down').removeClass('selected')
 			)
 
-			# Vote down handler.
+			### Vote down handler. ### 
 			element.find('.down').click((event) ->
 				event.stopPropagation()
 				
@@ -238,14 +240,14 @@ class Suggestion
 				$(this).parent().find('.score').text(suggestion.score)
 				element.find('.up').removeClass('selected'))
 
-			# Share Handler.
+			### Share Handler. ### 
 			element.find('.share').click((event) ->
 				event.stopPropagation()
 				suggestion.shares += 1
 				$(this).children('.number').text(suggestion.shares)
 			)
 
-			# Delete Handler.
+			### Delete Handler. ### 
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
 				$(this).parent().parent().parent().remove()
@@ -254,29 +256,31 @@ class Suggestion
 				suggestions.splice(suggestions.indexOf(suggestion), 1)
 			)
 
-			# Author handler.
+			### Author handler. ### 
 			element.find('.author a').click((event) ->
 				event.stopPropagation()
-				event.preventDefault() # Stops the URL from changing - in the finished product this is not needed.
+				### Stops the URL from changing - in the finished product this is not needed. ### 
+				event.preventDefault()
+				
 				showSuggestions(suggestion.author)
 			)
 			
 			element
 	)()
 
-# Start code.
+### Start code. ### 
 anonymousUser = new User("User#{(new Date()).valueOf()}", null)
 currentUser = anonymousUser
 users = [currentUser]
 suggestions = []
 
-# Handler to go back to suggestions from comments (useful on mobile).
+### Handler to go back to suggestions from comments (useful on mobile). ### 
 $('#comments .back').click((event) ->
 	event.stopPropagation()
 	$('.wrapper').addClass('suggestions')
 )
 
-# Handler to go back to suggestions from user's suggestions.
+### Handler to go back to suggestions from user's suggestions. ### 
 $('#suggestions .back').click((event) ->
 	event.stopPropagation()
 	showSuggestions()
@@ -309,14 +313,14 @@ showSuggestions = (user) ->
 		$('#comments .noSuggestion').show()
 		$('#comments .empty').hide()
 
-# Load test data.
+### Load test data. ### 
 $.getJSON('init.json').done((data) ->
-	# Constructs the users (from test data) and adds these to any users made before loading test data.
+	### Constructs the users (from test data) and adds these to any users made before loading test data. ### 
 	users = data.users.map((user) ->
 		new User(user.name, user.email)
 	).concat(users)
 
-	# Constructs the suggestions and comments (from test data).
+	### Constructs the suggestions and comments (from test data). ### 
 	suggestions = data.suggestions.map((suggestion) ->
 		suggestion.author = users[suggestion.author]
 		suggestion.date = new Date(suggestion.date)
@@ -329,13 +333,13 @@ $.getJSON('init.json').done((data) ->
 	showSuggestions()
 )
 
-# Sign in helper function.
+### Sign in helper function. ### 
 signIn = (user) ->
 	currentUser = user
 	$('.navbar-nav').addClass('signedIn')
 	showSuggestions()
 
-# Sign in handler.
+### Sign in handler. ### 
 $('#signIn').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -348,7 +352,7 @@ $('#signIn').submit((event) ->
 	if user? then signIn(user) else alert('That username does not exist. Please try a different username.')
 )
 
-# Sign up handler.
+### Sign up handler. ### 
 $('#signUp').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -369,7 +373,7 @@ $('#signUp').submit((event) ->
 		alert('A user with that username already exists. Please try a different username.')
 )
 
-# Sign out handler.
+### Sign out handler. ### 
 $('.signOut').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -378,14 +382,14 @@ $('.signOut').click((event) ->
 	showSuggestions()
 )
 
-# View user's suggestions handler.
+### View user's suggestions handler. ### 
 $('.viewSuggestions').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
 	showSuggestions(currentUser)
 )
 
-# Post suggestion handler.
+### Post suggestion handler. ### 
 $('#postSuggestion').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -395,8 +399,8 @@ $('#postSuggestion').submit((event) ->
 	$('#suggestionsContainer').prepend(suggestion.toHTML(true))
 )
 
-# Post comment handler.
-# Need to reset text area
+### Post comment handler. ### 
+### Need to reset text area. ### 
 $('#postComment').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -408,13 +412,13 @@ $('#postComment').submit((event) ->
 	currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length)
 )
 
-# Cancel handler
+### Cancel handler. ### 
 $('form .cancel').click((event) ->
 	event.stopPropagation()
 	$(this).parent().children('#text').val("")
 )
 
-# Submit handler
+### Submit handler. ### 
 $('form .submit').click((event) ->
 	event.stopPropagation()
 	$(this).submit()
