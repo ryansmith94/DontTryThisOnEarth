@@ -59,6 +59,9 @@ body {
 #suggestions:not(.allUsers) .back {
   display: block; }
 
+.empty, .noSuggestion {
+  text-align: center; }
+
 @media (min-width: 768px) {
   .container {
     width: 98%;
@@ -66,7 +69,7 @@ body {
 
   #suggestions, #comments {
     position: static !important;
-    width: 49%;
+    width: 50%;
     display: inline-block;
     vertical-align: top;
     min-height: 90%; }
