@@ -221,12 +221,12 @@
         return "<div class=\"author\">Posted by <a href=\"?user=" + author.name + "\">" + author.name + "</a> " + (timeSince(date)) + "</div>";
       };
       bin = function() {
-        return "<div class=\"delete clickable\">\n  <div class=\"icon\"></div>Delete\n</div>";
+        return "<div title=\"Delete the suggestion\" class=\"delete clickable\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
       return function() {
         var authorHTML, element, suggestion;
         authorHTML = currentUser === this.author ? bin : user;
-        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div title=\"Vote up\" class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 title=\"Score ('up votes' subtracted by 'down votes')\" class=\"score\">" + this.score + "</h2>\n		<div title=\"Vote down\" class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div title=\"View the replies\" class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div title=\"Share the suggestion\" class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a title=\"Share to Facebook\">Facebook</a>\n					<a title=\"Share to Twitter\">Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         suggestion = this;
         /* Select handler.*/
 

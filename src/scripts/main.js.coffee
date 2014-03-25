@@ -163,7 +163,7 @@ class Suggestion
 
 		bin = () ->
 			"""
-			<div class="delete clickable">
+			<div title="Delete the suggestion" class="delete clickable">
 			  <div class="icon"></div>Delete
 			</div>
 			"""
@@ -173,21 +173,21 @@ class Suggestion
 			element = $("""
 			<div class="suggestion">
 				<div class="votes">
-					<div class="up #{if currentUser.ups.indexOf(this) isnt -1 then 'selected' else ''}"></div>
-					<h2 class="score">#{@score}</h2>
-					<div class="down #{if currentUser.downs.indexOf(this) isnt -1 then 'selected' else ''}"></div>
+					<div title="Vote up" class="up #{if currentUser.ups.indexOf(this) isnt -1 then 'selected' else ''}"></div>
+					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score">#{@score}</h2>
+					<div title="Vote down" class="down #{if currentUser.downs.indexOf(this) isnt -1 then 'selected' else ''}"></div>
 				</div>
 				<div class="content">
 					<h1 class="text">"#{@text}"</h1>
 					<div class="info">
-						<div class="reply clickable">
+						<div title="View the replies" class="reply clickable">
 							<div class="icon"></div><span class="number">#{@comments.length}</span> Replies
 						</div>
 						<div class="share">
-							<div class="icon"></div><span class="number">#{@shares}</span> Shares
+							<div title="Share the suggestion" class="icon"></div><span class="number">#{@shares}</span> Shares
 							<div class="shareDropDown">
-								<a>Facebook</a>
-								<a>Twitter</a>
+								<a title="Share to Facebook">Facebook</a>
+								<a title="Share to Twitter">Twitter</a>
 							</div>
 						</div>
 						#{authorHTML(@author, @date)}

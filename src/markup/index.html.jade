@@ -60,10 +60,10 @@ body
 			// Form for posting a new suggestion.
 			form#postSuggestion
 				input#text(type='paragraph', placeholder='Please write your suggestion here...')
-				.clickable.cancel
+				.clickable.cancel(title='Don\'t create the suggestion')
 					.icon
 					| Cancel
-				.clickable.submit
+				.clickable.submit(title='Create the suggestion')
 					.icon
 					| Post suggestion
 
@@ -73,7 +73,7 @@ body
 
 			#suggestionsContainer
 			.empty There are no suggestions.
-			h2.clickable.back
+			h2.clickable.back(title='Go back to viewing all user\'s suggestions')
 				.text Return to suggestions
 				.icon= '<'
 		
@@ -82,17 +82,17 @@ body
 			// Form for posting a new comment.
 			form#postComment
 				input#text(type='paragraph', placeholder='Please write your comment here...')
-				.clickable.cancel
+				.clickable.cancel(title='Don\'t create the comment')
 					.icon
 					| Cancel
-				.clickable.submit
+				.clickable.submit(title='Create the comment')
 					.icon
 					| Post comment
 
 			#commentsContainer
 			.empty Be the first to comment!
 			.noSuggestion No suggestion has been selected.
-			h2.clickable.back
+			h2.clickable.back(title='Return to viewing suggestions')
 				.text Return to suggestions
 				.icon= '<'
 	script(src='vendor/jquery-1.11.0.min.js')
