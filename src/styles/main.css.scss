@@ -95,6 +95,11 @@ a {
 	display: block;
 }
 
+// No suggestions/comments
+.empty, .noSuggestion {
+	text-align: center
+}
+
 @media (min-width: 768px) {
 	.container {
 		width: 98%;
@@ -103,7 +108,7 @@ a {
 
 	#suggestions, #comments {
 		position: static !important;
-		width: 49%;
+		width: 50%;
 		display: inline-block;
 		vertical-align: top;
 		min-height: 90%;

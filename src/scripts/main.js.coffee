@@ -35,6 +35,8 @@ class User
 	@param email {String} user's email address.
 	###
 	constructor: (@name, @email) ->
+		@ups = []
+		@downs = []
 
 
 ###
@@ -92,13 +94,42 @@ class Suggestion
 	Increase the score by one due to up-vote.
 	@return {Number} the new score (score + 1).
 	###
-	voteUp: () -> @score += 1
+	voteUp: () ->
+		currentUser.ups.push(this)
+		index = currentUser.downs.indexOf(this)
+		if index isnt -1
+			currentUser.downs.splice(index, 1)
+			@score += 1
+		@score += 1
 	
 	###
 	Decreases the score by one due to down-vote.
 	@return {Number} the new score (score - 1).
 	###
-	voteDown: () -> @score -= 1
+	voteDown: () ->
+		currentUser.downs.push(this)
+		index = currentUser.ups.indexOf(this)
+		if index isnt -1
+			currentUser.ups.splice(index, 1)
+			@score -= 1
+		@score -= 1
+
+	###
+	Remove previous vote.
+	###
+	unVote: () ->
+		# Remove down vote.
+		index = currentUser.downs.indexOf(this)
+		if index isnt -1
+			currentUser.downs.splice(index, 1)
+			@score += 1
+
+		# Remove up vote.
+		index = currentUser.ups.indexOf(this)
+		if index isnt -1
+			currentUser.ups.splice(index, 1)
+			@score -= 1
+
 
 	###
 	Increase reply counter by one for a new reply.
@@ -125,14 +156,14 @@ class Suggestion
 			</div>
 			"""
 
-		(currentUser) ->
-			authorHTML = if currentUser then bin else user
+		() ->
+			authorHTML = if currentUser is @author then bin else user
 			element = $("""
 			<div class="suggestion">
 				<div class="votes">
-					<div class="up"></div>
+					<div class="up #{if currentUser.ups.indexOf(this) isnt -1 then 'selected' else ''}"></div>
 					<h2 class="score">#{@score}</h2>
-					<div class="down"></div>
+					<div class="down #{if currentUser.downs.indexOf(this) isnt -1 then 'selected' else ''}"></div>
 				</div>
 				<div class="content">
 					<h1 class="text">"#{@text}"</h1>
@@ -164,9 +195,13 @@ class Suggestion
 				
 				commentsElement = $('#commentsContainer')
 				commentsElement.children('.comment').remove()
-				comments.forEach((comment) ->
-					commentsElement.append(comment.toHTML())
-				)
+				if comments.length > 0
+					comments.forEach((comment) ->
+						commentsElement.append(comment.toHTML())
+					)
+					$('#comments .empty').hide()
+				else
+					$('#comments .empty').show()
 
 				$('.wrapper').removeClass('suggestions')
 				currentSuggestion = suggestion
@@ -181,10 +216,9 @@ class Suggestion
 				event.stopPropagation()
 				
 				if not $(this).hasClass('selected')
-					if element.find('.down').hasClass('selected')
-						suggestion.voteUp()
 					suggestion.voteUp()	
-				else suggestion.voteDown()
+				else
+					suggestion.unVote()
 				
 				$(this).toggleClass('selected')
 				$(this).parent().find('.score').text(suggestion.score)
@@ -196,10 +230,9 @@ class Suggestion
 				event.stopPropagation()
 				
 				if not $(this).hasClass('selected')
-					if element.find('.up').hasClass('selected')
-						suggestion.voteDown()
 					suggestion.voteDown()	
-				else suggestion.voteUp()
+				else
+					suggestion.unVote()
 				
 				$(this).toggleClass('selected')
 				$(this).parent().find('.score').text(suggestion.score)
@@ -255,7 +288,7 @@ showSuggestions = (user) ->
 
 	suggestions.forEach((suggestion) ->
 		if (not user?) or suggestion.author is user
-			suggestionsElement.append(suggestion.toHTML(currentUser? and suggestion.author is currentUser))
+			suggestionsElement.append(suggestion.toHTML())
 	)
 
 	if user?
@@ -264,8 +297,17 @@ showSuggestions = (user) ->
 	else
 		$('#suggestions').addClass('allUsers')
 
-	$('.suggestion').first().click()
-	$('#comments .back').click()
+	if $('.suggestion').length > 0
+		$('.suggestion').first().click()
+		$('#comments .back').click()
+		$('#suggestions .empty').hide()
+		$('#comments .noSuggestion').hide()
+		$('#postComment').show()
+	else
+		$('#suggestions .empty').show()
+		$('#postComment').hide()
+		$('#comments .noSuggestion').show()
+		$('#comments .empty').hide()
 
 # Load test data.
 $.getJSON('init.json').done((data) ->

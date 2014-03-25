@@ -47,6 +47,8 @@
     function User(name, email) {
       this.name = name;
       this.email = email;
+      this.ups = [];
+      this.downs = [];
     }
 
     return User;
@@ -135,6 +137,13 @@
 
 
     Suggestion.prototype.voteUp = function() {
+      var index;
+      currentUser.ups.push(this);
+      index = currentUser.downs.indexOf(this);
+      if (index !== -1) {
+        currentUser.downs.splice(index, 1);
+        this.score += 1;
+      }
       return this.score += 1;
     };
 
@@ -145,7 +154,33 @@
 
 
     Suggestion.prototype.voteDown = function() {
+      var index;
+      currentUser.downs.push(this);
+      index = currentUser.ups.indexOf(this);
+      if (index !== -1) {
+        currentUser.ups.splice(index, 1);
+        this.score -= 1;
+      }
       return this.score -= 1;
+    };
+
+    /*
+    	Remove previous vote.
+    */
+
+
+    Suggestion.prototype.unVote = function() {
+      var index;
+      index = currentUser.downs.indexOf(this);
+      if (index !== -1) {
+        currentUser.downs.splice(index, 1);
+        this.score += 1;
+      }
+      index = currentUser.ups.indexOf(this);
+      if (index !== -1) {
+        currentUser.ups.splice(index, 1);
+        return this.score -= 1;
+      }
     };
 
     /*
@@ -174,10 +209,10 @@
       bin = function() {
         return "<div class=\"delete clickable\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
-      return function(currentUser) {
+      return function() {
         var authorHTML, comments, element, suggestion;
-        authorHTML = currentUser ? bin : user;
-        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        authorHTML = currentUser === this.author ? bin : user;
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         comments = this.comments;
         suggestion = this;
         element.click(function(event) {
@@ -187,9 +222,14 @@
           $(this).addClass('selected');
           commentsElement = $('#commentsContainer');
           commentsElement.children('.comment').remove();
-          comments.forEach(function(comment) {
-            return commentsElement.append(comment.toHTML());
-          });
+          if (comments.length > 0) {
+            comments.forEach(function(comment) {
+              return commentsElement.append(comment.toHTML());
+            });
+            $('#comments .empty').hide();
+          } else {
+            $('#comments .empty').show();
+          }
           $('.wrapper').removeClass('suggestions');
           currentSuggestion = suggestion;
           return currentSuggestionElement = element;
@@ -200,12 +240,9 @@
         element.find('.up').click(function(event) {
           event.stopPropagation();
           if (!$(this).hasClass('selected')) {
-            if (element.find('.down').hasClass('selected')) {
-              suggestion.voteUp();
-            }
             suggestion.voteUp();
           } else {
-            suggestion.voteDown();
+            suggestion.unVote();
           }
           $(this).toggleClass('selected');
           $(this).parent().find('.score').text(suggestion.score);
@@ -214,12 +251,9 @@
         element.find('.down').click(function(event) {
           event.stopPropagation();
           if (!$(this).hasClass('selected')) {
-            if (element.find('.up').hasClass('selected')) {
-              suggestion.voteDown();
-            }
             suggestion.voteDown();
           } else {
-            suggestion.voteUp();
+            suggestion.unVote();
           }
           $(this).toggleClass('selected');
           $(this).parent().find('.score').text(suggestion.score);
@@ -275,7 +309,7 @@
     suggestionsElement.empty();
     suggestions.forEach(function(suggestion) {
       if ((user == null) || suggestion.author === user) {
-        return suggestionsElement.append(suggestion.toHTML((currentUser != null) && suggestion.author === currentUser));
+        return suggestionsElement.append(suggestion.toHTML());
       }
     });
     if (user != null) {
@@ -284,8 +318,18 @@
     } else {
       $('#suggestions').addClass('allUsers');
     }
-    $('.suggestion').first().click();
-    return $('#comments .back').click();
+    if ($('.suggestion').length > 0) {
+      $('.suggestion').first().click();
+      $('#comments .back').click();
+      $('#suggestions .empty').hide();
+      $('#comments .noSuggestion').hide();
+      return $('#postComment').show();
+    } else {
+      $('#suggestions .empty').show();
+      $('#postComment').hide();
+      $('#comments .noSuggestion').show();
+      return $('#comments .empty').hide();
+    }
   };
 
   $.getJSON('init.json').done(function(data) {
