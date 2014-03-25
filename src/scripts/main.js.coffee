@@ -416,6 +416,7 @@ $('#postSuggestion').submit((event) ->
 	$(this).find('.cancel').click()
 	$('#suggestionsContainer').prepend(suggestion.toHTML(true))
 	$('#suggestions .empty').hide()
+	$(this).find('#text').val('')
 )
 
 ### Post comment handler. ### 
@@ -430,6 +431,7 @@ $('#postComment').submit((event) ->
 	$(this).find('.cancel').click()
 	currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length)
 	$('#comments .empty').hide()
+	$(this).find('#text').val('')
 )
 
 ### Cancel handler. ### 
