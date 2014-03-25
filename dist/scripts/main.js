@@ -232,11 +232,16 @@
         });
         element.find('.delete').click(function(event) {
           event.stopPropagation();
-          return $(this).remove();
+          $(this).parent().parent().parent().remove();
+          if (suggestion === currentSuggestion) {
+            $('.suggestion').first().click();
+          }
+          return suggestions.splice(suggestions.indexOf(suggestion), 1);
         });
         element.find('.author a').click(function(event) {
           event.stopPropagation();
-          return event.preventDefault();
+          event.preventDefault();
+          return showSuggestions(suggestion.author);
         });
         return element;
       };
@@ -259,13 +264,26 @@
     return $('.wrapper').addClass('suggestions');
   });
 
-  showSuggestions = function() {
+  $('#suggestions .back').click(function(event) {
+    event.stopPropagation();
+    return showSuggestions();
+  });
+
+  showSuggestions = function(user) {
     var suggestionsElement;
     suggestionsElement = $('#suggestionsContainer');
     suggestionsElement.empty();
     suggestions.forEach(function(suggestion) {
-      return suggestionsElement.append(suggestion.toHTML((currentUser != null) && suggestion.author.name === currentUser.name));
+      if ((user == null) || suggestion.author === user) {
+        return suggestionsElement.append(suggestion.toHTML((currentUser != null) && suggestion.author === currentUser));
+      }
     });
+    if (user != null) {
+      $('#suggestions').removeClass('allUsers');
+      $('#suggestions .user .name').text(user.name);
+    } else {
+      $('#suggestions').addClass('allUsers');
+    }
     $('.suggestion').first().click();
     return $('#comments .back').click();
   };
@@ -332,6 +350,12 @@
     currentUser = anonymousUser;
     $('.navbar-nav').removeClass('signedIn');
     return showSuggestions();
+  });
+
+  $('.viewSuggestions').click(function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    return showSuggestions(currentUser);
   });
 
   $('#postSuggestion').submit(function(event) {

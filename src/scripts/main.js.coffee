@@ -215,16 +215,17 @@ class Suggestion
 			# Delete Handler.
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
-				
-				$(this).remove()
-				# Code goes here.
+				$(this).parent().parent().parent().remove()
+				if suggestion is currentSuggestion
+					$('.suggestion').first().click()
+				suggestions.splice(suggestions.indexOf(suggestion), 1)
 			)
 
 			# Author handler.
 			element.find('.author a').click((event) ->
 				event.stopPropagation()
 				event.preventDefault() # Stops the URL from changing - in the finished product this is not needed.
-				# Code goes here.
+				showSuggestions(suggestion.author)
 			)
 			
 			element
@@ -236,19 +237,32 @@ currentUser = anonymousUser
 users = [currentUser]
 suggestions = []
 
-# Handler to go back to suggestions (useful on mobile).
+# Handler to go back to suggestions from comments (useful on mobile).
 $('#comments .back').click((event) ->
 	event.stopPropagation()
 	$('.wrapper').addClass('suggestions')
 )
 
-showSuggestions = () ->
+# Handler to go back to suggestions from user's suggestions.
+$('#suggestions .back').click((event) ->
+	event.stopPropagation()
+	showSuggestions()
+)
+
+showSuggestions = (user) ->
 	suggestionsElement = $('#suggestionsContainer');
 	suggestionsElement.empty()
 
 	suggestions.forEach((suggestion) ->
-		suggestionsElement.append(suggestion.toHTML(currentUser? and suggestion.author.name is currentUser.name))
+		if (not user?) or suggestion.author is user
+			suggestionsElement.append(suggestion.toHTML(currentUser? and suggestion.author is currentUser))
 	)
+
+	if user?
+		$('#suggestions').removeClass('allUsers')
+		$('#suggestions .user .name').text(user.name)
+	else
+		$('#suggestions').addClass('allUsers')
 
 	$('.suggestion').first().click()
 	$('#comments .back').click()
@@ -320,6 +334,13 @@ $('.signOut').click((event) ->
 	currentUser = anonymousUser
 	$('.navbar-nav').removeClass('signedIn')
 	showSuggestions()
+)
+
+# View user's suggestions handler.
+$('.viewSuggestions').click((event) ->
+	event.stopPropagation()
+	event.preventDefault()
+	showSuggestions(currentUser)
 )
 
 # Post suggestion handler.
