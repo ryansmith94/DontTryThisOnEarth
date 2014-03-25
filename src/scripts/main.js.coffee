@@ -1,4 +1,5 @@
 currentSuggestion = null
+currentSuggestionElement = null
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
@@ -64,6 +65,7 @@ class Comment
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>
+@author Timon Wan <12038068@brookes.ac.uk>
 Stores and manipulates suggestion data.
 ###
 class Suggestion
@@ -118,15 +120,15 @@ class Suggestion
 
 		bin = () ->
 			"""
-			<div class="delete">
+			<div class="delete clickable">
 			  <div class="icon"></div>Delete
 			</div>
 			"""
 
-		(currentUser, id) ->
+		(currentUser) ->
 			authorHTML = if currentUser then bin else user
 			element = $("""
-			<div class="suggestion" data-suggestion="#{id}">
+			<div class="suggestion">
 				<div class="votes">
 					<div class="up"></div>
 					<h2 class="score">#{@score}</h2>
@@ -136,7 +138,7 @@ class Suggestion
 					<h1 class="text">"#{@text}"</h1>
 					<div class="info">
 						<div class="reply clickable">
-							<div class="icon"></div>#{@comments.length} Replies
+							<div class="icon"></div><span class="number">#{@comments.length}</span> Replies
 						</div>
 						<div class="share">
 							<div class="icon"></div><span class="number">#{@shares}</span> Shares
@@ -168,6 +170,7 @@ class Suggestion
 
 				$('.wrapper').removeClass('suggestions')
 				currentSuggestion = suggestion
+				currentSuggestionElement = element
 			)
 
 			# Reply handler.
@@ -212,36 +215,60 @@ class Suggestion
 			# Delete Handler.
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
-				$(this).remove()
-				# Code goes here.
+				$(this).parent().parent().parent().remove()
+				if suggestion is currentSuggestion
+					$('.suggestion').first().click()
+				suggestions.splice(suggestions.indexOf(suggestion), 1)
 			)
 
 			# Author handler.
 			element.find('.author a').click((event) ->
 				event.stopPropagation()
 				event.preventDefault() # Stops the URL from changing - in the finished product this is not needed.
-				# Code goes here.
+				showSuggestions(suggestion.author)
 			)
 			
 			element
 	)()
 
 # Start code.
-currentUser = new User("User#{(new Date()).valueOf()}", null)
+anonymousUser = new User("User#{(new Date()).valueOf()}", null)
+currentUser = anonymousUser
 users = [currentUser]
 suggestions = []
 
-# Handler to go back to suggestions (useful on mobile).
+# Handler to go back to suggestions from comments (useful on mobile).
 $('#comments .back').click((event) ->
 	event.stopPropagation()
 	$('.wrapper').addClass('suggestions')
 )
 
+# Handler to go back to suggestions from user's suggestions.
+$('#suggestions .back').click((event) ->
+	event.stopPropagation()
+	showSuggestions()
+)
+
+showSuggestions = (user) ->
+	suggestionsElement = $('#suggestionsContainer');
+	suggestionsElement.empty()
+
+	suggestions.forEach((suggestion) ->
+		if (not user?) or suggestion.author is user
+			suggestionsElement.append(suggestion.toHTML(currentUser? and suggestion.author is currentUser))
+	)
+
+	if user?
+		$('#suggestions').removeClass('allUsers')
+		$('#suggestions .user .name').text(user.name)
+	else
+		$('#suggestions').addClass('allUsers')
+
+	$('.suggestion').first().click()
+	$('#comments .back').click()
+
 # Load test data.
 $.getJSON('init.json').done((data) ->
-	suggestionsElement = $('#suggestionsContainer')
-	commentsElement = $('#commentsContainer')
-
 	# Constructs the users (from test data) and adds these to any users made before loading test data.
 	users = data.users.map((user) ->
 		new User(user.name, user.email)
@@ -257,17 +284,14 @@ $.getJSON('init.json').done((data) ->
 		new Suggestion(suggestion.text, suggestion.score, suggestion.comments, suggestion.shares, suggestion.author, suggestion.date)
 	)
 
-	suggestions.forEach((suggestion, id) ->
-		suggestionsElement.append(suggestion.toHTML(false, id))
-	)
-	$('.suggestion').first().click()
-	$('#comments .back').click()
+	showSuggestions()
 )
 
 # Sign in helper function.
 signIn = (user) ->
 	currentUser = user
 	$('.navbar-nav').addClass('signedIn')
+	showSuggestions()
 
 # Sign in handler.
 $('#signIn').submit((event) ->
@@ -307,8 +331,16 @@ $('#signUp').submit((event) ->
 $('.signOut').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
-	currentUser = null
+	currentUser = anonymousUser
 	$('.navbar-nav').removeClass('signedIn')
+	showSuggestions()
+)
+
+# View user's suggestions handler.
+$('.viewSuggestions').click((event) ->
+	event.stopPropagation()
+	event.preventDefault()
+	showSuggestions(currentUser)
 )
 
 # Post suggestion handler.
@@ -318,10 +350,11 @@ $('#postSuggestion').submit((event) ->
 	text = $(this).find('#text').val()
 	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
 	suggestions.splice(0, 0, suggestion)
-	$('#suggestionsContainer').prepend(suggestion.toHTML())
+	$('#suggestionsContainer').prepend(suggestion.toHTML(true))
 )
 
 # Post comment handler.
+# Need to reset text area
 $('#postComment').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -329,6 +362,8 @@ $('#postComment').submit((event) ->
 	comment = new Comment(text, currentUser, new Date())
 	currentSuggestion.addComment(comment)
 	$('#commentsContainer').prepend(comment.toHTML())
+	$(this).parent().children('#text').val("")
+	currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length)
 )
 
 # Cancel handler
