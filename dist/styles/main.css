@@ -79,6 +79,16 @@ body {
   text-align: center; }
 
 @media (min-width: 768px) {
+  body {
+    overflow-y: hidden; }
+
+  #suggestionsContainer, #commentsContainer {
+    overflow-y: scroll;
+    max-height: 80%; }
+
+  #suggestionsContainer {
+    margin-right: 1px; }
+
   .container {
     width: 98%;
     padding: 0 5px; }

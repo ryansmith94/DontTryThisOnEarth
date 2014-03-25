@@ -238,7 +238,7 @@
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
           commentsElement = $('#commentsContainer');
-          commentsElement.children('.comment').remove();
+          commentsElement.empty();
           if (suggestion.comments.length > 0) {
             suggestion.comments.forEach(function(comment) {
               return commentsElement.append(comment.toHTML());
@@ -297,7 +297,13 @@
           if (suggestion === currentSuggestion) {
             $('.suggestion').first().click();
           }
-          return suggestions.splice(suggestions.indexOf(suggestion), 1);
+          suggestions.splice(suggestions.indexOf(suggestion), 1);
+          if ($('.suggestion').length = 0) {
+            $('#suggestions .empty').show();
+            $('#postComment').hide();
+            $('#comments .noSuggestion').show();
+            return $('#comments .empty').hide();
+          }
         });
         /* Author handler.*/
 
@@ -347,6 +353,7 @@
     var suggestionsElement;
     suggestionsElement = $('#suggestionsContainer');
     suggestionsElement.empty();
+    $('#commentsContainer').empty();
     suggestions.forEach(function(suggestion) {
       if ((user == null) || suggestion.author === user) {
         return suggestionsElement.append(suggestion.toHTML());
@@ -475,7 +482,8 @@
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
     $(this).find('.cancel').click();
-    return $('#suggestionsContainer').prepend(suggestion.toHTML(true));
+    $('#suggestionsContainer').prepend(suggestion.toHTML(true));
+    return $('#suggestions .empty').hide();
   });
 
   /* Post comment handler.*/
@@ -493,7 +501,8 @@
     currentSuggestion.addComment(comment);
     $('#commentsContainer').prepend(comment.toHTML());
     $(this).find('.cancel').click();
-    return currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
+    currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
+    return $('#comments .empty').hide();
   });
 
   /* Cancel handler.*/

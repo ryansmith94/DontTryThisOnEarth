@@ -207,7 +207,7 @@ class Suggestion
 				$(this).addClass('selected')
 				
 				commentsElement = $('#commentsContainer')
-				commentsElement.children('.comment').remove()
+				commentsElement.empty()
 				if suggestion.comments.length > 0
 					suggestion.comments.forEach((comment) ->
 						commentsElement.append(comment.toHTML())
@@ -265,6 +265,11 @@ class Suggestion
 				if suggestion is currentSuggestion
 					$('.suggestion').first().click()
 				suggestions.splice(suggestions.indexOf(suggestion), 1)
+				if $('.suggestion').length = 0
+					$('#suggestions .empty').show()
+					$('#postComment').hide()
+					$('#comments .noSuggestion').show()
+					$('#comments .empty').hide()
 			)
 
 			### Author handler. ### 
@@ -300,6 +305,7 @@ $('#suggestions .back').click((event) ->
 showSuggestions = (user) ->
 	suggestionsElement = $('#suggestionsContainer');
 	suggestionsElement.empty()
+	$('#commentsContainer').empty()
 
 	suggestions.forEach((suggestion) ->
 		if (not user?) or suggestion.author is user
@@ -409,6 +415,7 @@ $('#postSuggestion').submit((event) ->
 	suggestions.splice(0, 0, suggestion)
 	$(this).find('.cancel').click()
 	$('#suggestionsContainer').prepend(suggestion.toHTML(true))
+	$('#suggestions .empty').hide()
 )
 
 ### Post comment handler. ### 
@@ -422,6 +429,7 @@ $('#postComment').submit((event) ->
 	$('#commentsContainer').prepend(comment.toHTML())
 	$(this).find('.cancel').click()
 	currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length)
+	$('#comments .empty').hide()
 )
 
 ### Cancel handler. ### 
