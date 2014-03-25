@@ -82,7 +82,17 @@
 
 
     Comment.prototype.toHTML = function() {
-      return "<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (timeSince(this.date)) + "</div>\n</div>";
+      var comment, element;
+      element = $("<div class=\"comment\">\n	<h2 class=\"text\">" + this.text + "</h2>\n	<div class=\"author\">Posted by <a>" + this.author.name + "</a> " + (timeSince(this.date)) + "</div>\n</div>");
+      comment = this;
+      element.find('.author a').click(function(event) {
+        event.stopPropagation();
+        /* Stops the URL from changing - in the finished product this is not needed.*/
+
+        event.preventDefault();
+        return showSuggestions(comment.author);
+      });
+      return element;
     };
 
     return Comment;
@@ -214,10 +224,9 @@
         return "<div class=\"delete clickable\">\n  <div class=\"icon\"></div>Delete\n</div>";
       };
       return function() {
-        var authorHTML, comments, element, suggestion;
+        var authorHTML, element, suggestion;
         authorHTML = currentUser === this.author ? bin : user;
         element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 class=\"score\">" + this.score + "</h2>\n		<div class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a>Facebook</a>\n					<a>Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
-        comments = this.comments;
         suggestion = this;
         /* Select handler.*/
 
@@ -230,8 +239,8 @@
           $(this).addClass('selected');
           commentsElement = $('#commentsContainer');
           commentsElement.children('.comment').remove();
-          if (comments.length > 0) {
-            comments.forEach(function(comment) {
+          if (suggestion.comments.length > 0) {
+            suggestion.comments.forEach(function(comment) {
               return commentsElement.append(comment.toHTML());
             });
             $('#comments .empty').hide();
