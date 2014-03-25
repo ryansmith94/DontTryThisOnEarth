@@ -5,12 +5,12 @@ html {
   line-height: 1.62857143; }
 
 h1 {
-  font-size: 20px;
-  line-height: 2; }
+  margin: 0;
+  font-size: 20px; }
 
 h2 {
-  font-size: 18px;
-  line-height: 1.8; }
+  margin: 0;
+  font-size: 18px; }
 
 @media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 800px) {
   html {
@@ -19,12 +19,10 @@ h2 {
     line-height: 1.42857143; }
 
   h1 {
-    font-size: 18px;
-    line-height: 1.6; }
+    font-size: 18px; }
 
   h2 {
-    font-size: 16px;
-    line-height: 1.5; } }
+    font-size: 16px; } }
 /* Layout of the main elements (such as body, wrapper, etc). */
 body {
   overflow-x: hidden;
@@ -54,7 +52,7 @@ body {
         margin-right: 1rem; }
 
 /* Elements that should use a pointer. */
-.clickable, a, .suggestion .content .text, .votes div {
+.clickable, a, .suggestion .content .text, .votes .up, .votes .down {
   cursor: pointer; }
 
 /* Switching between suggestions and comments on mobile. */
@@ -172,6 +170,7 @@ body {
   /* Suggestion voting and score. */
   /* Content of the suggestion (text and info). */ }
   .suggestion .votes {
+    margin-top: 0.5rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -257,12 +256,15 @@ body {
   background-image: url("../images/reply_active.png"); }
 
 /* Voting. */
-.votes div {
-  width: 20px;
-  height: 20px;
+.votes .up, .votes .down {
+  width: 26px;
+  height: 26px;
   background-size: 100%;
-  margin: 0.5rem auto; }
+  margin: 0.1rem auto; }
 
+@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 800px) {
+  width: 20px;
+  height: 20px; }
 /* Vote up icon. */
 .votes .up {
   background-image: url("../images/like.png"); }
