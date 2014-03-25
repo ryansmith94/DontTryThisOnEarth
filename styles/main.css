@@ -69,7 +69,7 @@ body {
 .empty, .noSuggestion {
   text-align: center; }
 
-@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 900px) {
+@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 800px) {
   .container {
     width: 98%;
     padding: 0 5px; }
@@ -86,10 +86,10 @@ body {
 
   #comments .back {
     display: none; } }
-@media (min-width: 1300px) {
+@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 1300px) {
   .container {
     width: 80%; } }
-@media (min-width: 1500px) {
+@media screen and (min-device-width: 900px) and (min-device-height: 900px) and (min-width: 1500px) {
   .container {
     width: 70%; } }
 .navbar-default {
