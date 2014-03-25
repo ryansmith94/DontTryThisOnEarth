@@ -407,6 +407,7 @@ $('#postSuggestion').submit((event) ->
 	text = $(this).find('#text').val()
 	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
 	suggestions.splice(0, 0, suggestion)
+	$(this).find('.cancel').click()
 	$('#suggestionsContainer').prepend(suggestion.toHTML(true))
 )
 
@@ -419,7 +420,7 @@ $('#postComment').submit((event) ->
 	comment = new Comment(text, currentUser, new Date())
 	currentSuggestion.addComment(comment)
 	$('#commentsContainer').prepend(comment.toHTML())
-	$(this).parent().children('#text').val("")
+	$(this).find('.cancel').click()
 	currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length)
 )
 
