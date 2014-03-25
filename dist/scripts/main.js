@@ -474,6 +474,7 @@
     text = $(this).find('#text').val();
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
+    $(this).find('.cancel').click();
     return $('#suggestionsContainer').prepend(suggestion.toHTML(true));
   });
 
@@ -491,7 +492,7 @@
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);
     $('#commentsContainer').prepend(comment.toHTML());
-    $(this).parent().children('#text').val("");
+    $(this).find('.cancel').click();
     return currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
   });
 
