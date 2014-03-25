@@ -57,7 +57,16 @@ body {
 /* Back to suggestions. */
 .back {
   text-align: center;
-  margin: 1rem; }
+  margin: 1rem;
+  color: #b7b7b7; }
+  .back .icon {
+    font-family: 'Comic-Sans';
+    margin-top: 0.6rem;
+    font-size: 2.5rem;
+    font-weight: bold; }
+
+.back:hover {
+  color: #191919; }
 
 #suggestions.allUsers .back {
   display: none; }
