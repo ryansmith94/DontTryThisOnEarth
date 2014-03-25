@@ -1,3 +1,4 @@
+/* Font styles. */
 h1, h2, h3, h4, p, html {
   margin: 0px;
   color: #191919;
@@ -12,11 +13,13 @@ h2 {
   font-size: 1.2rem;
   line-height: 1.0rem; }
 
+/* Layout of the main elements (such as body, wrapper, etc). */
 body {
   overflow-x: hidden;
   background-color: whitesmoke; }
   body .wrapper {
     margin-top: 5.1rem;
+    /* Takes the fixed header into account. */
     font-size: 0; }
     body .wrapper #comments, body .wrapper #suggestions {
       font-size: 1rem; }
@@ -38,9 +41,11 @@ body {
       body .wrapper form .cancel {
         margin-right: 1rem; }
 
+/* Elements that should use a pointer. */
 .clickable, a, .suggestion .content .text, .votes div {
   cursor: pointer; }
 
+/* Switching between suggestions and comments on mobile. */
 .wrapper.suggestions #comments {
   position: absolute;
   left: 100%; }
@@ -49,6 +54,7 @@ body {
   position: absolute;
   right: 100%; }
 
+/* Back to suggestions. */
 .back {
   text-align: center;
   margin: 1rem; }
@@ -59,6 +65,7 @@ body {
 #suggestions:not(.allUsers) .back {
   display: block; }
 
+/* No suggestions/comments */
 .empty, .noSuggestion {
   text-align: center; }
 
@@ -87,14 +94,21 @@ body {
     width: 70%; } }
 .navbar-default {
   background-color: #a03619;
-  border-color: #a03619; }
+  border-color: #a03619;
+  /* Menu icon when it is not in use. */
+  /* Menu icon when it is hovered over or focused on. */
+  /* Brand including logo and name. */
+  /* Nav links. */
+  /* Forms. */ }
   .navbar-default .navbar-toggle {
-    border-color: #a03619; }
+    border-color: #a03619;
+    /* Three lines for the menu icon. */ }
     .navbar-default .navbar-toggle .icon-bar {
       background-color: whitesmoke; }
   .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
     background-color: #a03619;
-    border-color: #a03619; }
+    border-color: #a03619;
+    /* Three lines for the menu icon. */ }
     .navbar-default .navbar-toggle:hover .icon-bar, .navbar-default .navbar-toggle:focus .icon-bar {
       background-color: #b7b7b7; }
   .navbar-default .navbar-brand {
@@ -124,7 +138,8 @@ body {
   .navbar-default .navbar-nav.signedIn li:not(.account) {
     display: none; }
   .navbar-default .dropdown-menu {
-    color: whitesmoke; }
+    color: whitesmoke;
+    /* Removes some bootstrap styling. */ }
     .navbar-default .dropdown-menu .form-control {
       margin-bottom: 0.2rem; }
     .navbar-default .dropdown-menu .navbar-form {
@@ -141,7 +156,9 @@ body {
 .suggestion {
   position: relative;
   padding: 0.5rem;
-  border-bottom: #b7b7b7 1px solid; }
+  border-bottom: #b7b7b7 1px solid;
+  /* Suggestion voting and score. */
+  /* Content of the suggestion (text and info). */ }
   .suggestion .votes {
     position: absolute;
     top: 0;
@@ -151,33 +168,37 @@ body {
   .suggestion .content {
     margin-left: 5em;
     position: relative;
-    margin-right: 0.5rem; }
+    margin-right: 0.5rem;
+    /* The actual suggestion as text. */
+    /* Suggestion information (replies, shares, author, delete). */ }
     .suggestion .content .text {
       color: #a03619;
       margin: 1rem 0; }
-    .suggestion .content .info .reply, .suggestion .content .info .share, .suggestion .content .info .delete, .suggestion .content .info .author {
-      display: inline-block;
-      margin-right: 1rem; }
-    .suggestion .content .info .shareDropDown {
-      z-index: 1;
-      display: none;
-      background-color: white;
-      padding: 1rem;
-      position: absolute;
-      top: 100%;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      border-radius: 4px;
-      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-      background-clip: padding-box; }
-      .suggestion .content .info .shareDropDown a {
-        padding: 0.1rem 1rem;
-        margin: 0.9rem 0rem; }
-      .suggestion .content .info .shareDropDown a:not(:first-child) {
-        border-left: #191919 1px solid; }
-    .suggestion .content .info .share:hover .shareDropDown, .suggestion .content .info .share.selected .shareDropDown {
-      display: block; }
+    .suggestion .content .info {
+      /* Share drop down. */ }
+      .suggestion .content .info .reply, .suggestion .content .info .share, .suggestion .content .info .delete, .suggestion .content .info .author {
+        display: inline-block;
+        margin-right: 1rem; }
+      .suggestion .content .info .shareDropDown {
+        z-index: 1;
+        display: none;
+        background-color: white;
+        padding: 1rem;
+        position: absolute;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        background-clip: padding-box; }
+        .suggestion .content .info .shareDropDown a {
+          padding: 0.1rem 1rem;
+          margin: 0.9rem 0rem; }
+        .suggestion .content .info .shareDropDown a:not(:first-child) {
+          border-left: #191919 1px solid; }
+      .suggestion .content .info .share:hover .shareDropDown, .suggestion .content .info .share.selected .shareDropDown {
+        display: block; }
 
+/* Seleted suggestion. */
 .suggestion.selected {
   background-color: #a03619; }
   .suggestion.selected .content .text {
@@ -194,6 +215,7 @@ body {
   .comment .text {
     min-height: 1.5em; }
 
+/* Icons. */
 .icon {
   width: 14px;
   height: 14px;
@@ -201,36 +223,42 @@ body {
   display: inline-block;
   margin-right: 3px; }
 
+/* Cancel/Delete icon. */
 .cancel .icon, .delete .icon {
   background-image: url("../images/delete.png"); }
 
 .cancel:hover .icon, .delete:hover .icon {
   background-image: url("../images/delete_active.png"); }
 
+/* Share icon. */
 .share .icon {
   background-image: url("../images/share.png"); }
 
 .share:hover .icon {
   background-image: url("../images/share_active.png"); }
 
+/* Reply/Submit suggestion/comment icon. */
 .reply .icon, .submit .icon {
   background-image: url("../images/reply.png"); }
 
 .reply:hover .icon, .submit:hover .icon {
   background-image: url("../images/reply_active.png"); }
 
+/* Voting. */
 .votes div {
   width: 20px;
   height: 20px;
   background-size: 100%;
   margin: 0.5rem auto; }
 
+/* Vote up icon. */
 .votes .up {
   background-image: url("../images/like.png"); }
 
 .votes .up:hover, .votes .up.selected {
   background-image: url("../images/like_active.png"); }
 
+/* Vote down icon. */
 .votes .down {
   background-image: url("../images/dislike.png"); }
 
