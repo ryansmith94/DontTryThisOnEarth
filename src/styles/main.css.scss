@@ -88,6 +88,12 @@ a {
 	text-align: center;
 	margin: 1rem;
 }
+#suggestions.allUsers .back {
+	display: none;
+}
+#suggestions:not(.allUsers) .back {
+	display: block;
+}
 
 @media (min-width: 768px) {
 	.container {
@@ -107,7 +113,7 @@ a {
 		border-right: $quaternaryColour 1px solid;
 	}
 
-	.back {
+	#comments .back {
 		display: none;
 	}
 }
