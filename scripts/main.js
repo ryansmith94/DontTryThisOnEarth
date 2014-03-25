@@ -483,7 +483,8 @@
     suggestions.splice(0, 0, suggestion);
     $(this).find('.cancel').click();
     $('#suggestionsContainer').prepend(suggestion.toHTML(true));
-    return $('#suggestions .empty').hide();
+    $('#suggestions .empty').hide();
+    return $(this).find('#text').val('');
   });
 
   /* Post comment handler.*/
@@ -502,7 +503,8 @@
     $('#commentsContainer').prepend(comment.toHTML());
     $(this).find('.cancel').click();
     currentSuggestionElement.find('.reply .number').text(currentSuggestion.comments.length);
-    return $('#comments .empty').hide();
+    $('#comments .empty').hide();
+    return $(this).find('#text').val('');
   });
 
   /* Cancel handler.*/
