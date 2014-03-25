@@ -2,16 +2,13 @@
 html {
   color: #191919;
   font-size: 16px;
-  line-height: 1.62857143;
-  font-weight: 200; }
+  line-height: 1.62857143; }
 
 h1 {
-  font-weight: 200;
   font-size: 20px;
   line-height: 2; }
 
 h2 {
-  font-weight: 200;
   font-size: 18px;
   line-height: 1.8; }
 
@@ -19,16 +16,13 @@ h2 {
   html {
     color: #191919;
     font-size: 14px;
-    line-height: 1.42857143;
-    font-weight: 200; }
+    line-height: 1.42857143; }
 
   h1 {
-    font-weight: 200;
     font-size: 18px;
     line-height: 1.6; }
 
   h2 {
-    font-weight: 200;
     font-size: 16px;
     line-height: 1.5; } }
 /* Layout of the main elements (such as body, wrapper, etc). */
