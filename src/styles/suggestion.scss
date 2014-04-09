@@ -12,8 +12,11 @@ $votesWidth: 5em;
 		left: 0;
 		width: $votesWidth;
 		text-align: center;
-		span {
+		h2 {
 			font-size: 1rem;
+		}
+		span {
+			font-size: 1.2rem;
 			display: block;
 		}
 	}

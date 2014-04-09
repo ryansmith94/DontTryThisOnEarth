@@ -92,7 +92,7 @@ class Suggestion
 	@param author {User} who made the suggestion.
 	@param date {Date} when the suggestion was made.
 	###
-	constructor: (@text = '', @score = 0, @comments = [], @shares = 0, @author = null, @date = null) ->
+	constructor: (@text = '', @score = 0, @comments = [], @shares = 0, @author = {}, @date = null) ->
 
 	###
 	Replaces the text and time of a suggestion
@@ -174,7 +174,7 @@ class Suggestion
 			<div class="suggestion">
 				<div class="votes">
 					<div title="Vote up" class="up #{if currentUser.ups.indexOf(this) isnt -1 then 'selected' else ''}"></div>
-					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score">#{@score} <span>Votes</span></h2>
+					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score"><span id="score">#{@score}</span> Votes</h2>
 					<div title="Vote down" class="down #{if currentUser.downs.indexOf(this) isnt -1 then 'selected' else ''}"></div>
 				</div>
 				<div class="content">
@@ -234,7 +234,7 @@ class Suggestion
 					suggestion.unVote()
 
 				$(this).toggleClass('selected')
-				$(this).parent().find('.score').text(suggestion.score)
+				$(this).parent().find('#score').text(suggestion.score)
 				element.find('.down').removeClass('selected')
 			)
 
@@ -248,7 +248,7 @@ class Suggestion
 					suggestion.unVote()
 
 				$(this).toggleClass('selected')
-				$(this).parent().find('.score').text(suggestion.score)
+				$(this).parent().find('#score').text(suggestion.score)
 				element.find('.up').removeClass('selected'))
 
 			### Share Handler. ###
@@ -421,7 +421,6 @@ $('#postSuggestion').submit((event) ->
 )
 
 ### Post comment handler. ###
-### Need to reset text area. ###
 $('#postComment').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
@@ -445,4 +444,42 @@ $('form .cancel').click((event) ->
 $('form .submit').click((event) ->
 	event.stopPropagation()
 	$(this).submit()
+)
+
+### Help handler. ###
+$('#help').click((event) ->
+	event.stopPropagation()
+	$body = $('body')
+
+	$body.toggleClass('tutorialMode')
+
+	if ($('.suggestion').length < 2)
+		$('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'))
+		$('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'))
+		$('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'))
+
+	$suggestion = $('.suggestion').eq(1)
+
+	if $body.hasClass('tutorialMode')
+		# Add tutorial to a suggestion.
+
+		$suggestion.find('.up').html("""
+			<div class="tutorial top">Up arrow to toggle up vote</div>
+		""")
+		$suggestion.find('.down').html("""
+			<div class="tutorial bottom">Down arrow to toggle down vote</div>
+		""")
+		$suggestion.find('.text').append("""
+			<div class="tutorial bottom">Click suggestion text to select</div>
+		""")
+	else
+		$suggestion.find('.tutorial').remove()
+		$('.suggestion.dummy').remove()
+)
+
+### View all suggestions handler. ###
+$('.navbar .logo, .navbar .name').click((event) ->
+	event.stopPropagation()
+	event.preventDefault()
+	showSuggestions()
 )

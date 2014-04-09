@@ -122,7 +122,7 @@
       this.score = score != null ? score : 0;
       this.comments = comments != null ? comments : [];
       this.shares = shares != null ? shares : 0;
-      this.author = author != null ? author : null;
+      this.author = author != null ? author : {};
       this.date = date != null ? date : null;
     }
 
@@ -226,7 +226,7 @@
       return function() {
         var authorHTML, element, suggestion;
         authorHTML = currentUser === this.author ? bin : user;
-        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div title=\"Vote up\" class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 title=\"Score ('up votes' subtracted by 'down votes')\" class=\"score\">" + this.score + " <span>Votes</span></h2>\n		<div title=\"Vote down\" class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div title=\"View the replies\" class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div title=\"Share the suggestion\" class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a title=\"Share to Facebook\">Facebook</a>\n					<a title=\"Share to Twitter\">Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div title=\"Vote up\" class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 title=\"Score ('up votes' subtracted by 'down votes')\" class=\"score\"><span id=\"score\">" + this.score + "</span> Votes</h2>\n		<div title=\"Vote down\" class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div title=\"View the replies\" class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div title=\"Share the suggestion\" class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a title=\"Share to Facebook\">Facebook</a>\n					<a title=\"Share to Twitter\">Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         suggestion = this;
         /* Select handler.*/
 
@@ -266,7 +266,7 @@
             suggestion.unVote();
           }
           $(this).toggleClass('selected');
-          $(this).parent().find('.score').text(suggestion.score);
+          $(this).parent().find('#score').text(suggestion.score);
           return element.find('.down').removeClass('selected');
         });
         /* Vote down handler.*/
@@ -279,7 +279,7 @@
             suggestion.unVote();
           }
           $(this).toggleClass('selected');
-          $(this).parent().find('.score').text(suggestion.score);
+          $(this).parent().find('#score').text(suggestion.score);
           return element.find('.up').removeClass('selected');
         });
         /* Share Handler.*/
@@ -492,9 +492,6 @@
   /* Post comment handler.*/
 
 
-  /* Need to reset text area.*/
-
-
   $('#postComment').submit(function(event) {
     var comment, text;
     event.stopPropagation();
@@ -523,6 +520,39 @@
   $('form .submit').click(function(event) {
     event.stopPropagation();
     return $(this).submit();
+  });
+
+  /* Help handler.*/
+
+
+  $('#help').click(function(event) {
+    var $body, $suggestion;
+    event.stopPropagation();
+    $body = $('body');
+    $body.toggleClass('tutorialMode');
+    if ($('.suggestion').length < 2) {
+      $('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'));
+      $('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'));
+      $('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'));
+    }
+    $suggestion = $('.suggestion').eq(1);
+    if ($body.hasClass('tutorialMode')) {
+      $suggestion.find('.up').html("<div class=\"tutorial top\">Up arrow to toggle up vote</div>");
+      $suggestion.find('.down').html("<div class=\"tutorial bottom\">Down arrow to toggle down vote</div>");
+      return $suggestion.find('.text').append("<div class=\"tutorial bottom\">Click suggestion text to select</div>");
+    } else {
+      $suggestion.find('.tutorial').remove();
+      return $('.suggestion.dummy').remove();
+    }
+  });
+
+  /* View all suggestions handler.*/
+
+
+  $('.navbar .logo, .navbar .name').click(function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    return showSuggestions();
   });
 
 }).call(this);
