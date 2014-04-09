@@ -1,5 +1,10 @@
 currentSuggestion = null
 currentSuggestionElement = null
+trip = null
+stopTrip = () ->
+	console.log('trip')
+	window.trip = trip
+	trip.stop() if (trip? and trip.stop?)
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
@@ -70,8 +75,8 @@ class Comment
 			event.stopPropagation()
 			### Stops the URL from changing - in the finished product this is not needed. ###
 			event.preventDefault()
-
 			showSuggestions(comment.author)
+			stopTrip()
 		)
 
 		element
@@ -202,6 +207,7 @@ class Suggestion
 			element.click((event) ->
 				### Stops the event bubbling up to parent handlers. ###
 				event.stopPropagation()
+				stopTrip()
 
 				$('.suggestion.selected').removeClass('selected')
 				$(this).addClass('selected')
@@ -227,6 +233,7 @@ class Suggestion
 			### Vote up handler. ###
 			element.find('.up').click((event) ->
 				event.stopPropagation()
+				stopTrip()
 
 				if not $(this).hasClass('selected')
 					suggestion.voteUp()
@@ -241,6 +248,7 @@ class Suggestion
 			### Vote down handler. ###
 			element.find('.down').click((event) ->
 				event.stopPropagation()
+				stopTrip()
 
 				if not $(this).hasClass('selected')
 					suggestion.voteDown()
@@ -254,6 +262,7 @@ class Suggestion
 			### Share Handler. ###
 			element.find('.share').click((event) ->
 				event.stopPropagation()
+				stopTrip()
 				suggestion.shares += 1
 				$(this).children('.number').text(suggestion.shares)
 			)
@@ -261,6 +270,7 @@ class Suggestion
 			### Delete Handler. ###
 			element.find('.delete').click((event) ->
 				event.stopPropagation()
+				stopTrip()
 				if confirm('Are you sure want to delete?') is true
 					$(this).parent().parent().parent().remove()
 					if suggestion is currentSuggestion
@@ -278,7 +288,7 @@ class Suggestion
 				event.stopPropagation()
 				### Stops the URL from changing - in the finished product this is not needed. ###
 				event.preventDefault()
-
+				stopTrip()
 				showSuggestions(suggestion.author)
 			)
 
@@ -294,12 +304,14 @@ suggestions = []
 ### Handler to go back to suggestions from comments (useful on mobile). ###
 $('#comments .back').click((event) ->
 	event.stopPropagation()
+	stopTrip()
 	$('.wrapper').addClass('suggestions')
 )
 
 ### Handler to go back to suggestions from user's suggestions. ###
 $('#suggestions .back').click((event) ->
 	event.stopPropagation()
+	stopTrip()
 	showSuggestions()
 )
 
@@ -361,6 +373,7 @@ signIn = (user) ->
 $('#signIn').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	email = $(this).find('#email').val()
 
 	user = users.filter((user) ->
@@ -374,6 +387,7 @@ $('#signIn').submit((event) ->
 $('#signUp').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	email = $(this).find('#email').val()
 	username = $(this).find('#username').val()
 
@@ -395,6 +409,7 @@ $('#signUp').submit((event) ->
 $('.signOut').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	currentUser = anonymousUser
 	$('.navbar-nav').removeClass('signedIn')
 	showSuggestions()
@@ -404,6 +419,7 @@ $('.signOut').click((event) ->
 $('.viewSuggestions').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	showSuggestions(currentUser)
 )
 
@@ -411,6 +427,7 @@ $('.viewSuggestions').click((event) ->
 $('#postSuggestion').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	text = $(this).find('#text').val()
 	suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date())
 	suggestions.splice(0, 0, suggestion)
@@ -424,6 +441,7 @@ $('#postSuggestion').submit((event) ->
 $('#postComment').submit((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	text = $(this).find('#text').val()
 	comment = new Comment(text, currentUser, new Date())
 	currentSuggestion.addComment(comment)
@@ -437,49 +455,54 @@ $('#postComment').submit((event) ->
 ### Cancel handler. ###
 $('form .cancel').click((event) ->
 	event.stopPropagation()
+	stopTrip()
 	$(this).parent().children('#text').val("")
 )
 
 ### Submit handler. ###
 $('form .submit').click((event) ->
 	event.stopPropagation()
+	stopTrip()
 	$(this).submit()
 )
 
 ### Help handler. ###
 $('#help').click((event) ->
 	event.stopPropagation()
-	$body = $('body')
+	stopTrip()
+	content = (sel, content) ->
+		if sel? and sel.length > 0 then {
+			sel: sel
+			content: content
+			expose: true
+			position: 's'
+		} else null
 
-	$body.toggleClass('tutorialMode')
+	$suggestions = $('.suggestion')
 
-	if ($('.suggestion').length < 2)
-		$('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'))
-		$('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'))
-		$('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'))
-
-	$suggestion = $('.suggestion').eq(1)
-
-	if $body.hasClass('tutorialMode')
-		# Add tutorial to a suggestion.
-
-		$suggestion.find('.up').html("""
-			<div class="tutorial top">Up arrow to toggle up vote</div>
-		""")
-		$suggestion.find('.down').html("""
-			<div class="tutorial bottom">Down arrow to toggle down vote</div>
-		""")
-		$suggestion.find('.text').append("""
-			<div class="tutorial bottom">Click suggestion text to select</div>
-		""")
-	else
-		$suggestion.find('.tutorial').remove()
-		$('.suggestion.dummy').remove()
+	trip = new Trip(([
+		content($suggestions.find('.up'), 'Toggle up vote for suggestion')
+		content($suggestions.find('.down'), 'Toggle down vote for suggestion')
+		content($suggestions.find('.score'), 'Votes up subtracted by votes down')
+		content($suggestions.find('.reply'), 'Tap to comment on the suggestion')
+		content($suggestions.find('.share'), 'Tap to share suggestion to social networks')
+		content($suggestions.find('.delete'), 'Tap to delete the suggestion')
+		content($('.author a'), 'Tap to view suggestions from the author')
+		content($suggestions.find('.text'), 'Tap to view comments on the suggestion')
+		content($('.viewSuggestions'), 'Tap to view your suggestions')
+	]).filter((x) -> x?), {
+		showNavigation: true
+		delay: -1
+		overlayZindex: 2
+		animation: null
+	})
+	trip.start()
 )
 
 ### View all suggestions handler. ###
 $('.navbar .logo, .navbar .name').click((event) ->
 	event.stopPropagation()
 	event.preventDefault()
+	stopTrip()
 	showSuggestions()
 )

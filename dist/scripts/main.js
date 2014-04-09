@@ -1,9 +1,19 @@
 (function() {
-  var Comment, Suggestion, User, anonymousUser, currentSuggestion, currentSuggestionElement, currentUser, showSuggestions, signIn, suggestions, timeSince, users;
+  var Comment, Suggestion, User, anonymousUser, currentSuggestion, currentSuggestionElement, currentUser, showSuggestions, signIn, stopTrip, suggestions, timeSince, trip, users;
 
   currentSuggestion = null;
 
   currentSuggestionElement = null;
+
+  trip = null;
+
+  stopTrip = function() {
+    console.log('trip');
+    window.trip = trip;
+    if ((trip != null) && (trip.stop != null)) {
+      return trip.stop();
+    }
+  };
 
   /*
   @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>
@@ -90,7 +100,8 @@
         /* Stops the URL from changing - in the finished product this is not needed.*/
 
         event.preventDefault();
-        return showSuggestions(comment.author);
+        showSuggestions(comment.author);
+        return stopTrip();
       });
       return element;
     };
@@ -235,6 +246,7 @@
 
           var commentsElement;
           event.stopPropagation();
+          stopTrip();
           $('.suggestion.selected').removeClass('selected');
           $(this).addClass('selected');
           commentsElement = $('#commentsContainer');
@@ -260,6 +272,7 @@
 
         element.find('.up').click(function(event) {
           event.stopPropagation();
+          stopTrip();
           if (!$(this).hasClass('selected')) {
             suggestion.voteUp();
           } else {
@@ -273,6 +286,7 @@
 
         element.find('.down').click(function(event) {
           event.stopPropagation();
+          stopTrip();
           if (!$(this).hasClass('selected')) {
             suggestion.voteDown();
           } else {
@@ -286,6 +300,7 @@
 
         element.find('.share').click(function(event) {
           event.stopPropagation();
+          stopTrip();
           suggestion.shares += 1;
           return $(this).children('.number').text(suggestion.shares);
         });
@@ -293,6 +308,7 @@
 
         element.find('.delete').click(function(event) {
           event.stopPropagation();
+          stopTrip();
           if (confirm('Are you sure want to delete?') === true) {
             $(this).parent().parent().parent().remove();
             if (suggestion === currentSuggestion) {
@@ -314,6 +330,7 @@
           /* Stops the URL from changing - in the finished product this is not needed.*/
 
           event.preventDefault();
+          stopTrip();
           return showSuggestions(suggestion.author);
         });
         return element;
@@ -340,6 +357,7 @@
 
   $('#comments .back').click(function(event) {
     event.stopPropagation();
+    stopTrip();
     return $('.wrapper').addClass('suggestions');
   });
 
@@ -348,6 +366,7 @@
 
   $('#suggestions .back').click(function(event) {
     event.stopPropagation();
+    stopTrip();
     return showSuggestions();
   });
 
@@ -419,6 +438,7 @@
     var email, user;
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     email = $(this).find('#email').val();
     user = users.filter(function(user) {
       return user.email === email;
@@ -437,6 +457,7 @@
     var email, user, username;
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     email = $(this).find('#email').val();
     username = $(this).find('#username').val();
     user = users.filter(function(user) {
@@ -459,6 +480,7 @@
   $('.signOut').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     currentUser = anonymousUser;
     $('.navbar-nav').removeClass('signedIn');
     return showSuggestions();
@@ -470,6 +492,7 @@
   $('.viewSuggestions').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     return showSuggestions(currentUser);
   });
 
@@ -480,6 +503,7 @@
     var suggestion, text;
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     text = $(this).find('#text').val();
     suggestion = new Suggestion(text, 0, [], 0, currentUser, new Date());
     suggestions.splice(0, 0, suggestion);
@@ -496,6 +520,7 @@
     var comment, text;
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     text = $(this).find('#text').val();
     comment = new Comment(text, currentUser, new Date());
     currentSuggestion.addComment(comment);
@@ -511,6 +536,7 @@
 
   $('form .cancel').click(function(event) {
     event.stopPropagation();
+    stopTrip();
     return $(this).parent().children('#text').val("");
   });
 
@@ -519,6 +545,7 @@
 
   $('form .submit').click(function(event) {
     event.stopPropagation();
+    stopTrip();
     return $(this).submit();
   });
 
@@ -526,24 +553,31 @@
 
 
   $('#help').click(function(event) {
-    var $body, $suggestion;
+    var $suggestions, content;
     event.stopPropagation();
-    $body = $('body');
-    $body.toggleClass('tutorialMode');
-    if ($('.suggestion').length < 2) {
-      $('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'));
-      $('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'));
-      $('#suggestionsContainer').prepend((new Suggestion('Tutorial')).toHTML(false).addClass('dummy'));
-    }
-    $suggestion = $('.suggestion').eq(1);
-    if ($body.hasClass('tutorialMode')) {
-      $suggestion.find('.up').html("<div class=\"tutorial top\">Up arrow to toggle up vote</div>");
-      $suggestion.find('.down').html("<div class=\"tutorial bottom\">Down arrow to toggle down vote</div>");
-      return $suggestion.find('.text').append("<div class=\"tutorial bottom\">Click suggestion text to select</div>");
-    } else {
-      $suggestion.find('.tutorial').remove();
-      return $('.suggestion.dummy').remove();
-    }
+    stopTrip();
+    content = function(sel, content) {
+      if ((sel != null) && sel.length > 0) {
+        return {
+          sel: sel,
+          content: content,
+          expose: true,
+          position: 's'
+        };
+      } else {
+        return null;
+      }
+    };
+    $suggestions = $('.suggestion');
+    trip = new Trip([content($suggestions.find('.up'), 'Toggle up vote for suggestion'), content($suggestions.find('.down'), 'Toggle down vote for suggestion'), content($suggestions.find('.score'), 'Votes up subtracted by votes down'), content($suggestions.find('.reply'), 'Tap to comment on the suggestion'), content($suggestions.find('.share'), 'Tap to share suggestion to social networks'), content($suggestions.find('.delete'), 'Tap to delete the suggestion'), content($('.author a'), 'Tap to view suggestions from the author'), content($suggestions.find('.text'), 'Tap to view comments on the suggestion'), content($('.viewSuggestions'), 'Tap to view your suggestions')].filter(function(x) {
+      return x != null;
+    }), {
+      showNavigation: true,
+      delay: -1,
+      overlayZindex: 2,
+      animation: null
+    });
+    return trip.start();
   });
 
   /* View all suggestions handler.*/
@@ -552,6 +586,7 @@
   $('.navbar .logo, .navbar .name').click(function(event) {
     event.stopPropagation();
     event.preventDefault();
+    stopTrip();
     return showSuggestions();
   });
 
