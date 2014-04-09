@@ -105,43 +105,6 @@ body {
 
   #comments .back {
     display: none; } }
-#tutorialCover {
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #191919;
-  opacity: 0.3;
-  z-index: 2; }
-
-.tutorial {
-  display: none;
-  position: relative;
-  background-color: #191919;
-  padding: 0.2rem 0.5rem;
-  width: auto !important;
-  min-width: 10rem;
-  opacity: 0.8;
-  height: auto !important;
-  z-index: 3;
-  top: 0;
-  font-size: 1rem;
-  color: whitesmoke; }
-
-.tutorial.top {
-  top: -270%; }
-
-.tutorial.bottom {
-  top: 90%; }
-
-body.tutorialMode #tutorialCover {
-  display: block; }
-
-body.tutorialMode .tutorial {
-  display: inline-block; }
-
 @media (min-width: 1300px) {
   .container {
     width: 80%; } }
