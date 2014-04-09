@@ -176,7 +176,7 @@ class Suggestion
 			<div class="suggestion">
 				<div class="votes">
 					<div title="Vote up" class="up #{if currentUser.ups.indexOf(this) isnt -1 then 'selected' else ''}"></div>
-					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score"><span id="score">#{@score}</span> Votes</h2>
+					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score"><span id="score">#{@score}</span> Score</h2>
 					<div title="Vote down" class="down #{if currentUser.downs.indexOf(this) isnt -1 then 'selected' else ''}"></div>
 				</div>
 				<div class="content">
@@ -467,31 +467,32 @@ $('form .submit').click((event) ->
 $('#help').click((event) ->
 	event.stopPropagation()
 	stopTrip()
-	content = (sel, content) ->
+	content = (sel, content, position) ->
 		if sel? and sel.length > 0 then {
 			sel: sel
 			content: content
 			expose: true
-			position: 's'
+			position: position or 's'
 		} else null
 
 	$suggestions = $('.suggestion')
 
 	trip = new Trip(([
-		content($suggestions.find('.up'), 'Toggle up vote for suggestion')
-		content($suggestions.find('.down'), 'Toggle down vote for suggestion')
-		content($suggestions.find('.score'), 'Votes up subtracted by votes down')
+		content($suggestions.find('.up'), 'Toggle up vote for suggestion', 'e')
+		content($suggestions.find('.down'), 'Toggle down vote for suggestion', 'e')
+		content($suggestions.find('.score'), 'Votes up subtracted by votes down', 'e')
 		content($suggestions.find('.reply'), 'Tap to comment on the suggestion')
 		content($suggestions.find('.share'), 'Tap to share suggestion to social networks')
 		content($suggestions.find('.delete'), 'Tap to delete the suggestion')
 		content($('.author a'), 'Tap to view suggestions from the author')
 		content($suggestions.find('.text'), 'Tap to view comments on the suggestion')
-		content($('.viewSuggestions'), 'Tap to view your suggestions')
+		content((if $('.navbar-toggle').is(":visible") then null else $('.viewSuggestions')), 'Tap to view your suggestions')
 	]).filter((x) -> x?), {
 		showNavigation: true
 		delay: -1
 		overlayZindex: 2
 		animation: null
+		showCloseBox: true
 	})
 	trip.start()
 )

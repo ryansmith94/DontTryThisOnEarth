@@ -235,7 +235,7 @@
       return function() {
         var authorHTML, element, suggestion;
         authorHTML = currentUser === this.author ? bin : user;
-        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div title=\"Vote up\" class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 title=\"Score ('up votes' subtracted by 'down votes')\" class=\"score\"><span id=\"score\">" + this.score + "</span> Votes</h2>\n		<div title=\"Vote down\" class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div title=\"View the replies\" class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div title=\"Share the suggestion\" class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a title=\"Share to Facebook\">Facebook</a>\n					<a title=\"Share to Twitter\">Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
+        element = $("<div class=\"suggestion\">\n	<div class=\"votes\">\n		<div title=\"Vote up\" class=\"up " + (currentUser.ups.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n		<h2 title=\"Score ('up votes' subtracted by 'down votes')\" class=\"score\"><span id=\"score\">" + this.score + "</span> Score</h2>\n		<div title=\"Vote down\" class=\"down " + (currentUser.downs.indexOf(this) !== -1 ? 'selected' : '') + "\"></div>\n	</div>\n	<div class=\"content\">\n		<h1 class=\"text\">\"" + this.text + "\"</h1>\n		<div class=\"info\">\n			<div title=\"View the replies\" class=\"reply clickable\">\n				<div class=\"icon\"></div><span class=\"number\">" + this.comments.length + "</span> Replies\n			</div>\n			<div class=\"share\">\n				<div title=\"Share the suggestion\" class=\"icon\"></div><span class=\"number\">" + this.shares + "</span> Shares\n				<div class=\"shareDropDown\">\n					<a title=\"Share to Facebook\">Facebook</a>\n					<a title=\"Share to Twitter\">Twitter</a>\n				</div>\n			</div>\n			" + (authorHTML(this.author, this.date)) + "\n		</div>\n	</div>\n</div>");
         suggestion = this;
         /* Select handler.*/
 
@@ -554,26 +554,27 @@
     var $suggestions, content;
     event.stopPropagation();
     stopTrip();
-    content = function(sel, content) {
+    content = function(sel, content, position) {
       if ((sel != null) && sel.length > 0) {
         return {
           sel: sel,
           content: content,
           expose: true,
-          position: 's'
+          position: position || 's'
         };
       } else {
         return null;
       }
     };
     $suggestions = $('.suggestion');
-    trip = new Trip([content($suggestions.find('.up'), 'Toggle up vote for suggestion'), content($suggestions.find('.down'), 'Toggle down vote for suggestion'), content($suggestions.find('.score'), 'Votes up subtracted by votes down'), content($suggestions.find('.reply'), 'Tap to comment on the suggestion'), content($suggestions.find('.share'), 'Tap to share suggestion to social networks'), content($suggestions.find('.delete'), 'Tap to delete the suggestion'), content($('.author a'), 'Tap to view suggestions from the author'), content($suggestions.find('.text'), 'Tap to view comments on the suggestion'), content($('.viewSuggestions'), 'Tap to view your suggestions')].filter(function(x) {
+    trip = new Trip([content($suggestions.find('.up'), 'Toggle up vote for suggestion', 'e'), content($suggestions.find('.down'), 'Toggle down vote for suggestion', 'e'), content($suggestions.find('.score'), 'Votes up subtracted by votes down', 'e'), content($suggestions.find('.reply'), 'Tap to comment on the suggestion'), content($suggestions.find('.share'), 'Tap to share suggestion to social networks'), content($suggestions.find('.delete'), 'Tap to delete the suggestion'), content($('.author a'), 'Tap to view suggestions from the author'), content($suggestions.find('.text'), 'Tap to view comments on the suggestion'), content(($('.navbar-toggle').is(":visible") ? null : $('.viewSuggestions')), 'Tap to view your suggestions')].filter(function(x) {
       return x != null;
     }), {
       showNavigation: true,
       delay: -1,
       overlayZindex: 2,
-      animation: null
+      animation: null,
+      showCloseBox: true
     });
     return trip.start();
   });
