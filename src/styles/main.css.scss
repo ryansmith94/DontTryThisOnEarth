@@ -1,6 +1,6 @@
 @import 'colours';
 
-/* Font styles. */ 
+/* Font styles. */
 h1, h2, h3, h4, p, html {
 	margin: 0px;
 	color: $tertiaryColour;
@@ -18,12 +18,12 @@ h2 {
 	line-height: 1.0rem;
 }
 
-/* Layout of the main elements (such as body, wrapper, etc). */ 
+/* Layout of the main elements (such as body, wrapper, etc). */
 body {
 	overflow-x: hidden;
 	background-color: $secondaryColour;
 	.wrapper {
-		margin-top: 5.1rem; /* Takes the fixed header into account. */ 
+		margin-top: 5.1rem; /* Takes the fixed header into account. */
 		font-size: 0;
 		#comments, #suggestions {
 			font-size: 1rem;
@@ -59,7 +59,7 @@ body {
 	}
 }
 
-/* Elements that should use a pointer. */ 
+/* Elements that should use a pointer. */
 .clickable {
 	cursor: pointer;
 }
@@ -68,7 +68,7 @@ a {
 	@extend .clickable
 }
 
-/* Switching between suggestions and comments on mobile. */ 
+/* Switching between suggestions and comments on mobile. */
 .wrapper.suggestions {
 	#comments {
 		position: absolute;
@@ -83,7 +83,7 @@ a {
 	}
 }
 
-/* Back to suggestions. */ 
+/* Back to suggestions. */
 .back {
 	text-align: center;
 	margin: 1rem;
@@ -105,7 +105,7 @@ a {
 	display: block;
 }
 
-/* No suggestions/comments */ 
+/* No suggestions/comments */
 .empty, .noSuggestion {
 	text-align: center
 }
@@ -162,4 +162,3 @@ a {
 @import 'suggestion';
 @import 'comment';
 @import 'icons';
-

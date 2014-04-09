@@ -1,5 +1,6 @@
 head
 	link(href='vendor/bootstrap.min.css', rel='stylesheet')
+	link(href='vendor/trip.min.css', rel='stylesheet')
 	link(href='styles/main.css', rel='stylesheet')
 body
 	// Header.
@@ -20,10 +21,11 @@ body
 			.collapse.navbar-collapse#navbar
 				// Navigation links.
 				ul.nav.navbar-nav.navbar-right
-					li.account: a.viewSuggestions(href='#') View My Suggestions
+					li: a.viewSuggestions(href='#') View My Suggestions
+					li: a#help(href='#') Help
 					li.account: a.signOut(href='#') Sign Out
 					// Sign in drop down.
-					li.dropdown
+					li.noAccount.dropdown
 						a.dropdown-toggle(data-toggle='dropdown')
 							| Sign In
 							b.caret
@@ -37,7 +39,7 @@ body
 										input#password.form-control(type='password', placeholder='Password')
 									button.btn.btn-default(type='submit') Submit
 					// Submit
-					li.dropdown
+					li.noAccount.dropdown
 						a.dropdown-toggle(data-toggle='dropdown')
 							| Sign Up
 							b.caret
@@ -60,9 +62,10 @@ body
 			// Form for posting a new suggestion.
 			form#postSuggestion
 				input#text(type='paragraph', placeholder='Please write your suggestion here...')
-				.clickable.cancel(title='Don\'t create the suggestion')
+				.clickable.cancel(title="Don't create the suggestion")
 					.icon
 					| Cancel
+
 				.clickable.submit(title='Create the suggestion')
 					.icon
 					| Post suggestion
@@ -73,16 +76,16 @@ body
 
 			#suggestionsContainer
 			.empty There are no suggestions.
-			h2.clickable.back(title='Go back to viewing all user\'s suggestions')
+			h2.clickable.back(title="Go back to viewing all user's suggestions")
 				.text Return to suggestions
 				.icon= '<'
-		
-		// Section containing comments.					
+
+		// Section containing comments.
 		section#comments
 			// Form for posting a new comment.
 			form#postComment
 				input#text(type='paragraph', placeholder='Please write your comment here...')
-				.clickable.cancel(title='Don\'t create the comment')
+				.clickable.cancel(title="Don't create the comment")
 					.icon
 					| Cancel
 				.clickable.submit(title='Create the comment')
@@ -98,3 +101,4 @@ body
 	script(src='vendor/jquery-1.11.0.min.js')
 	script(src='vendor/bootstrap.min.js')
 	script(src='scripts/main.js')
+	script(src='vendor/trip.min.js')
