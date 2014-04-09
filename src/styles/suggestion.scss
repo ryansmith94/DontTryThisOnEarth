@@ -5,36 +5,41 @@ $votesWidth: 5em;
 	padding: 0.5rem;
 	border-bottom: $quaternaryColour 1px solid;
 
-	/* Suggestion voting and score. */ 
+	/* Suggestion voting and score. */
 	.votes {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: $votesWidth;
 		text-align: center;
+		span {
+			font-size: 1rem;
+			display: block;
+		}
 	}
 
-	/* Content of the suggestion (text and info). */ 
+	/* Content of the suggestion (text and info). */
 	.content {
 		margin-left: $votesWidth;
 		position: relative;
 		margin-right: 0.5rem;
 
-		/* The actual suggestion as text. */ 
+		/* The actual suggestion as text. */
 		.text {
 			@extend .clickable;
 			color: $primaryColour;
 			margin: 1rem 0;
+			min-height: 2.4rem;
 		}
 
-		/* Suggestion information (replies, shares, author, delete). */ 
+		/* Suggestion information (replies, shares, author, delete). */
 		.info {
 			.reply, .share, .delete, .author {
 				display: inline-block;
 				margin-right: 1rem;
 			}
 
-			/* Share drop down. */ 
+			/* Share drop down. */
 			.shareDropDown {
 				z-index: 1;
 				display: none;
@@ -62,7 +67,7 @@ $votesWidth: 5em;
 	}
 }
 
-/* Seleted suggestion. */ 
+/* Seleted suggestion. */
 .suggestion.selected {
 	background-color: $primaryColour;
 	.content .text {

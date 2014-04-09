@@ -174,7 +174,7 @@ class Suggestion
 			<div class="suggestion">
 				<div class="votes">
 					<div title="Vote up" class="up #{if currentUser.ups.indexOf(this) isnt -1 then 'selected' else ''}"></div>
-					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score">#{@score}</h2>
+					<h2 title="Score ('up votes' subtracted by 'down votes')" class="score">#{@score} <span>Votes</span></h2>
 					<div title="Vote down" class="down #{if currentUser.downs.indexOf(this) isnt -1 then 'selected' else ''}"></div>
 				</div>
 				<div class="content">
@@ -238,7 +238,7 @@ class Suggestion
 				element.find('.down').removeClass('selected')
 			)
 
-			### Vote down handler. ### 
+			### Vote down handler. ###
 			element.find('.down').click((event) ->
 				event.stopPropagation()
 
