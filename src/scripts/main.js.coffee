@@ -1,10 +1,7 @@
 currentSuggestion = null
 currentSuggestionElement = null
 trip = null
-stopTrip = () ->
-	console.log('trip')
-	window.trip = trip
-	trip.stop() if (trip? and trip.stop?)
+stopTrip = () -> trip.stop() if (trip? and trip.stop?)
 
 ###
 @author Ryan Smith <12034191@brookes.ac.uk>. Sky Sanders <http://stackoverflow.com/users/242897/sky-sanders>

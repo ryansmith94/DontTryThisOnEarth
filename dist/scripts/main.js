@@ -8,8 +8,6 @@
   trip = null;
 
   stopTrip = function() {
-    console.log('trip');
-    window.trip = trip;
     if ((trip != null) && (trip.stop != null)) {
       return trip.stop();
     }
