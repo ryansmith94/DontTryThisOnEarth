@@ -60,7 +60,7 @@
 		.account {
 			display: block;
 		}
-		li:not(.account) {
+		li.noAccount {
 			display: none;
 		}
 	}

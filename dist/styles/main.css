@@ -154,7 +154,7 @@ body {
     display: none; }
   .navbar-default .navbar-nav.signedIn .account {
     display: block; }
-  .navbar-default .navbar-nav.signedIn li:not(.account) {
+  .navbar-default .navbar-nav.signedIn li.noAccount {
     display: none; }
   .navbar-default .dropdown-menu {
     color: whitesmoke;
