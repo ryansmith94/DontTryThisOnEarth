@@ -146,6 +146,12 @@ a {
 	}
 }
 
+// Trip overrides.
+.trip-block.black {
+	background-color: $tertiaryColour;
+	color: $secondaryColour;
+}
+
 @media (min-width: 1300px) {
 	.container {
 		width: 80%;

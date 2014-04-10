@@ -105,6 +105,10 @@ body {
 
   #comments .back {
     display: none; } }
+.trip-block.black {
+  background-color: #191919;
+  color: whitesmoke; }
+
 @media (min-width: 1300px) {
   .container {
     width: 80%; } }
