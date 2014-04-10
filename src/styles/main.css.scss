@@ -151,7 +151,10 @@ a {
 	background-color: $tertiaryColour;
 	color: $secondaryColour;
 }
-.suggestion.selected .text.trip-exposed {
+.trip-exposed {
+	background-color: $secondaryColour;
+}
+.suggestion.selected .trip-exposed {
 	background-color: $primaryColour;
 }
 .viewSuggestions.trip-exposed {
