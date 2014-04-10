@@ -12,9 +12,9 @@ Website to suggest mankind’s “firsts” on Mars. Created for the coursework 
 	3. Type `npm install`
 
 ### Directory Structure
-- Markup written in [Jade](http://jade-lang.com/) or HTML should be put in the `src/markup` directory.
-- Scripts written in [CoffeeScript](http://coffeescript.org/) or JavaScript should be put in the `src/scripts` directory.
-- Styles written in [SCSS](http://sass-lang.com/) or CSS should be put in the `src/styles` directory.
+- Markup written in [Jade](http://jade-lang.com/) should be put in the `src/markup` directory.
+- Scripts written in [CoffeeScript](http://coffeescript.org/) should be put in the `src/scripts` directory.
+- Styles written in [SCSS](http://sass-lang.com/) should be put in the `src/styles` directory.
 
 ### Testing
 1. Open up the terminal/console
