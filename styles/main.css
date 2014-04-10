@@ -109,7 +109,10 @@ body {
   background-color: #191919;
   color: whitesmoke; }
 
-.suggestion.selected .text.trip-exposed {
+.trip-exposed {
+  background-color: whitesmoke; }
+
+.suggestion.selected .trip-exposed {
   background-color: #a03619; }
 
 .viewSuggestions.trip-exposed {
