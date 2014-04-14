@@ -478,15 +478,20 @@ $('#help').click((event) ->
 	$suggestions = $('.suggestion')
 
 	trip = new Trip(([
+		content($('#postSuggestion'), 'Enter a new suggestion here')
 		content($suggestions.find('.up'), 'Toggle up vote for suggestion', 'e')
 		content($suggestions.find('.down'), 'Toggle down vote for suggestion', 'e')
-		content($suggestions.find('.score'), 'Votes up subtracted by votes down', 'e')
+		content($suggestions.find('.score'), 'The current score', 'e')
 		content($suggestions.find('.reply'), 'Tap to comment on the suggestion')
 		content($suggestions.find('.share'), 'Tap to share suggestion to social networks')
 		content($suggestions.find('.delete'), 'Tap to delete the suggestion')
 		content($('.author a'), 'Tap to view suggestions from the author')
 		content($suggestions.find('.text'), 'Tap to view comments on the suggestion')
+		content((if $('.navbar-toggle').is(":visible") then null else $('#postComment')), 'Enter a new comment here') 
 		content((if $('.navbar-toggle').is(":visible") then null else $('.viewSuggestions')), 'Tap to view your suggestions')
+		content((if $('.navbar-toggle').is(":visible") then null else $('.noAccount#signIn')), 'Tap to sign in')
+		content((if $('.navbar-toggle').is(":visible") then null else $('.noAccount#signUp')), 'Tap to sign up')
+		
 	]).filter((x) -> x?), {
 		showNavigation: true
 		delay: -1

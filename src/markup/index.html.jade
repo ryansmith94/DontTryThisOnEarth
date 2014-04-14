@@ -25,7 +25,7 @@ body
 					li: a#help(href='#') Help
 					li.account: a.signOut(href='#') Sign Out
 					// Sign in drop down.
-					li.noAccount.dropdown
+					li.noAccount.dropdown#signIn 
 						a.dropdown-toggle(data-toggle='dropdown')
 							| Sign In
 							b.caret
@@ -39,7 +39,7 @@ body
 										input#password.form-control(type='password', placeholder='Password')
 									button.btn.btn-default(type='submit') Submit
 					// Submit
-					li.noAccount.dropdown
+					li.noAccount.dropdown#signUp 
 						a.dropdown-toggle(data-toggle='dropdown')
 							| Sign Up
 							b.caret
