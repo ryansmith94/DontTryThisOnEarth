@@ -70,8 +70,7 @@
         },
         'gh-pages': {
             options: {
-                base: buildDir,
-				repo: 'https://github.com/Brookes-HCI/DontTryThisOnEarth'
+                base: buildDir
             },
             src: '**/*'
         }
