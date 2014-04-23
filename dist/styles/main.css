@@ -118,12 +118,6 @@ body {
 .viewSuggestions.trip-exposed {
   background-color: #191919; }
 
-#signIn.trip-exposed {
-  background-color: #191919; }
-
-#signUp.trip-exposed {
-  background-color: #191919; }
-
 @media (min-width: 1300px) {
   .container {
     width: 80%; } }
@@ -175,8 +169,6 @@ body {
     display: block; }
   .navbar-default .navbar-nav.signedIn li.noAccount {
     display: none; }
-  .navbar-default #signIn:hover, .navbar-default #signUp:hover {
-    background-color: transparent; }
   .navbar-default .dropdown-menu {
     color: whitesmoke;
     /* Removes some bootstrap styling. */ }
